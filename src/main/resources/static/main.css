@@ -1,0 +1,36 @@
+body {
+    background: bisque;
+    display: flex;
+    font-family: "Comic Sans MS", sans-serif;
+    justify-content: center;
+    align-items: center;
+    vertical-align: center;
+}
+
+.sign-up {
+
+}
+
+.form {
+    text-align: center;
+    min-width: 400px;
+    padding: 10px;
+    background: aliceblue;
+}
+
+input {
+    transition: .2s ease;
+}
+
+input:hover {
+    transition: .2s ease-out;
+    transform: scale(1.1);
+}
+
+input::placeholder {
+    font-family: "Comic Sans MS", sans-serif;
+}
+
+.error {
+    color: red;
+}
