@@ -9,7 +9,11 @@
     <title>Profile</title>
 </head>
 <body>
-<p>PROFILE</p>
-<P>${user.username}</P>
+<div class="container">
+    <p>PROFILE</p>
+    <p>Hello, ${user.username}</p>
+    <p>This is your profile page. Well, it's quite отвратительная немножечко очень сильно, но команда это поправит.</p>
+    <p>Когда-нибудь...</p>
+</div>
 </body>
 </html>

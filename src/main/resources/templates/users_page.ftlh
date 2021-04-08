@@ -14,11 +14,26 @@
         <tr>
             <th>id</th>
             <th>username</th>
+            <th>role</th>
+            <th>state</th>
         </tr>
         <#list usersList as user>
             <tr>
-                <td>${user.id}</td>
-                <td>${user.username}</td>
+                <td><#if user.id??>${user.id}<#else>id</#if></td>
+                <td><#if user.username??>${user.username}<#else>username</#if></td>
+                <td><#if user.role??>${user.role}<#else>role</#if></td>
+                <td>
+                    <#if user.state??>
+                        <#if user.role == 'ADMIN'>
+                            UNBLOCKABLE
+                        <#else>
+                            <form method="post" action="/ban/${user.id}">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                <input type="submit" value="${user.state}">
+                            </form>
+                        </#if>
+                    </#if>
+                </td>
             </tr>
         </#list>
     </table>

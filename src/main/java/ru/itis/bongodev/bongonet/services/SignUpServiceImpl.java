@@ -40,13 +40,13 @@ public class SignUpServiceImpl implements SignUpService {
                 .email(userForm.getEmail())
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
                 .confirmCode(UUID.randomUUID().toString())
-                .role(User.Role.USER)
-                .state(User.State.NOT_CONFIRMED)
+                .role(User.Role.GUEST)
+                .state(User.State.ACTIVE)
                 .build();
 
         usersRepository.save(newUser);
 
-//        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, newUser.getConfirmCode());
-//        emailUtil.sendMail(newUser.getEmail(), "Registration", from, confirmMail);
+        String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, newUser.getConfirmCode());
+        emailUtil.sendMail(newUser.getEmail(), "Registration", from, confirmMail);
     }
 }

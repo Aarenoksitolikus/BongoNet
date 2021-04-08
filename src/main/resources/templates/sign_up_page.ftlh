@@ -13,7 +13,7 @@
 <div class="sign-up">
     <@spring.bind "userForm"/>
     <form class="sign-up form" method="post" action="/signup">
-        <h1>SIGN UP!</h1>
+        <h1>Sign Up</h1>
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
         <p><label for="username">Enter your nickname in BongoNet:</label></p>
         <p><input type="text" id="username" name="username" placeholder="Nickname"></p>

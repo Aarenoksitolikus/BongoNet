@@ -16,11 +16,15 @@ import java.util.stream.Collectors;
 public class UserDto {
     private Long id;
     private String username;
+    private User.Role role;
+    private User.State state;
 
     public static UserDto from(User user) {
         return UserDto.builder()
                 .id(user.getId())
                 .username(user.getUsername())
+                .role(user.getRole())
+                .state(user.getState())
                 .build();
     }
 

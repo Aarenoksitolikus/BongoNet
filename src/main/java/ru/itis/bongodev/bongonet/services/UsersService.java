@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface UsersService {
     List<UserDto> getAllUsers();
+
+    void ban(Long id);
 }
