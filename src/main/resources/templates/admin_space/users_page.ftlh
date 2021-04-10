@@ -6,10 +6,12 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="/users_page_style.css">
     <title>Users</title>
 </head>
 <body>
 <div class="users_view">
+    <a href="/profile" class="ui-button">GO TO PROFILE</a>
     <table>
         <tr>
             <th>id</th>

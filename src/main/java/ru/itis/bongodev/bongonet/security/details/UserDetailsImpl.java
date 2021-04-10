@@ -51,4 +51,8 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return user.isActive();
     }
+
+    public User.Role getRole() {
+        return user.getRole();
+    }
 }

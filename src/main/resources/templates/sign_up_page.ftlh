@@ -24,7 +24,8 @@
         <p><input type="password" id="password" name="password" placeholder="Password"></p>
 <#--        <p><label for="check_password">Enter your password once again:</label></p>-->
 <#--        <p><input type="password" id="check_password" name="check_password" placeholder="Password once again"></p>-->
-        <p><button type="submit">Sign up!</button></p>
+        <p><input type="submit" value="Sign up!" class="ui-button"/></p>
+        <p><a href="/auth">Already have account?</a></p>
     </form>
 </div>
 </body>

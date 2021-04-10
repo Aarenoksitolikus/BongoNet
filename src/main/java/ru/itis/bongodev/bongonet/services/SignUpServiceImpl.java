@@ -10,6 +10,7 @@ import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 import ru.itis.bongodev.bongonet.utils.EmailUtil;
 import ru.itis.bongodev.bongonet.utils.MailsGenerator;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -27,7 +28,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     private MailsGenerator mailsGenerator;
 
-    @Value("${server.address}")
+    @Value("server.address")
     private String serverUrl;
 
     @Value("${spring.mail.username}")
@@ -41,12 +42,31 @@ public class SignUpServiceImpl implements SignUpService {
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
                 .confirmCode(UUID.randomUUID().toString())
                 .role(User.Role.GUEST)
-                .state(User.State.ACTIVE)
+                .state(User.State.NOT_CONFIRMED)
                 .build();
 
         usersRepository.save(newUser);
 
         String confirmMail = mailsGenerator.getMailForConfirm(serverUrl, newUser.getConfirmCode());
         emailUtil.sendMail(newUser.getEmail(), "Registration", from, confirmMail);
+    }
+
+    @Override
+    public boolean confirm(String confirmCode) {
+        Optional<User> user = usersRepository.findByConfirmCode(confirmCode);
+
+        if (user.isPresent()) {
+            User confirmedUser = user.get();
+            if (confirmedUser.getState() == User.State.ACTIVE && confirmedUser.getRole() == User.Role.USER) {
+                return false;
+            }
+            confirmedUser.setState(User.State.ACTIVE);
+            confirmedUser.setRole(User.Role.USER);
+            usersRepository.save(confirmedUser);
+
+            return true;
+        }
+
+        return false;
     }
 }
