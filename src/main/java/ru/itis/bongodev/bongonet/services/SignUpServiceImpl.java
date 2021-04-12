@@ -28,7 +28,7 @@ public class SignUpServiceImpl implements SignUpService {
     @Autowired
     private MailsGenerator mailsGenerator;
 
-    @Value("server.address")
+    @Value("${server.url}")
     private String serverUrl;
 
     @Value("${spring.mail.username}")
