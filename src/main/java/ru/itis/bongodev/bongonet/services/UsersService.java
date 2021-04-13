@@ -12,4 +12,6 @@ public interface UsersService {
 
     Profile getProfile(Long id);
     void banUser(Long id);
+    void updateUser(User user);
+    void updateProfile(Profile profile);
 }

@@ -9,6 +9,8 @@
     <title>Error</title>
 </head>
 <body>
-Something went wrong!
+<div class="container">
+    Something went wrong!
+</div>
 </body>
 </html>

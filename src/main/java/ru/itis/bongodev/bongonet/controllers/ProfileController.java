@@ -6,6 +6,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
 import ru.itis.bongodev.bongonet.services.UsersService;
@@ -21,14 +23,24 @@ public class ProfileController {
     public String getProfilePage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         User user = usersService.getUser(userDetails.getUsername());
         model.addAttribute("user", user);
-        if (user.getProfile() == null) {
-            return "hello_page";
-        } else {
-            model.addAttribute("profile", user.getProfile());
-            if (user.getRole() == User.Role.ADMIN) {
-                return "admin_space/admin_page";
-            }
-            return "profile_page";
+        model.addAttribute("profile", user.getProfile());
+        if (user.getRole() == User.Role.ADMIN) {
+            return "admin_space/admin_page";
         }
+        return "profile_page";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile/settings")
+    public String getSettingsPage(Profile profile, Model model) {
+        model.addAttribute(profile);
+        return "settings_page";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile/settings")
+    public String changeProfile(Profile profile) {
+        usersService.updateProfile(profile);
+        return "redirect:/profile";
     }
 }

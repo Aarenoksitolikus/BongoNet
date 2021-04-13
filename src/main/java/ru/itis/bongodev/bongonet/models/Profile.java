@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.File;
+import java.sql.Date;
 
 @Data
 @AllArgsConstructor
@@ -15,24 +16,24 @@ import java.io.File;
 @Entity
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private Long id;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
-    private File avatar;
+    private String avatar;
     private String firstName;
     private String lastName;
     private String status;
     private String about;
-    private Integer age;
+    private Date birthday;
 
     @Enumerated(value = EnumType.STRING)
     private Sex sex;
 
-    private enum Sex {
+    public enum Sex {
         MALE, FEMALE, UNDEFINED
     }
 }

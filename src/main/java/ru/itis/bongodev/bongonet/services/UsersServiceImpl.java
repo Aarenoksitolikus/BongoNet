@@ -50,4 +50,20 @@ public class UsersServiceImpl implements UsersService {
             usersRepository.save(bannedUser);
         }
     }
+
+    @Override
+    public void updateUser(User user) {
+        Optional<User> current = usersRepository.findById(user.getId());
+        if (current.isPresent()) {
+            usersRepository.save(user);
+        }
+    }
+
+    @Override
+    public void updateProfile(Profile profile) {
+        Optional<Profile> current = profileRepository.findByUser(profile.getUser().getId());
+        if (current.isPresent()) {
+            profileRepository.save(profile);
+        }
+    }
 }

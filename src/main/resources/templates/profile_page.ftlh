@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="/main.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <title>Profile</title>
 </head>
 <body>
@@ -21,16 +22,14 @@
             </div>
             <div class="page-header-info">
                 <h3 class="m-t-10 m-b-5">${user.username}</h3>
-                <p class="m-b-10">${profile.firstName} ${profile.lastName}</p>
-                <p>ACTIVE: ${profile.status}</p>
+                <p class="m-b-10"><#if profile.firstName??>${profile.firstName}<#else>First name</#if> <#if profile.lastName??>${profile.lastName}<#else>Last name</#if></p>
+                <p>ACTIVE: <#if profile.status??>${profile.status}</#if></p>
             </div>
             <div class="page-header-utils">
-                <#--                    <button class="notifications">Notif</button>-->
-                <#--                    <button class="settings">Sett</button>-->
-                <#--                    <form action="/logout">-->
-                <#--                        <button class="logout" onclick="">Logout</button>-->
-                <#--                    </form>-->
-                <a href="/logout" class="ui-button">LOGOUT</a>
+
+                <a href="/profile/settings" class="btn btn-sm btn-info mb-2">Edit profile</a>
+                <a href="/logout" class="btn btn-sm btn-info mb-2">Logout</a>
+                <#--                <a href="/logout" class="ui-button">LOGOUT</a>-->
             </div>
         </div>
         <ul class="page-header-tab nav nav-tabs">

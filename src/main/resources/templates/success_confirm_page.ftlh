@@ -10,9 +10,11 @@
 </head>
 <body>
 <div class="container">
-    <p>Your account has been successfully verified.</p>
-    <p>To continue diving into our world, follow the link below:</p>
-    <p><a href="/profile">SIGN IN WITH YOUR NEW ACCOUNT</a></p>
+    <div class="form">
+        <p>Your account has been successfully verified.</p>
+        <p>To continue diving into our world, follow the link below:</p>
+        <p><a href="/profile">SIGN IN WITH YOUR NEW ACCOUNT</a></p>
+    </div>
 </div>
 </body>
 </html>
