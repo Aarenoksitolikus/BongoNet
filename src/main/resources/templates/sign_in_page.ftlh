@@ -11,16 +11,17 @@
 </head>
 <body>
 <div class="container">
-
-    <form class="sign-in form" method="post" action="/auth">
-        <h1>Sign In</h1>
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-        <p><label><input type="text" id="username" name="username" placeholder="nickname"/></label></p>
-        <p><label><input type="password" id="password" name="password" placeholder="password"/></label></p>
-        <p><label><input type="checkbox" id="remember_me" name="remember_me"/>remember me</label></p>
-        <input type="submit" value="Sign in!" class="ui-button">
-        <p><a href="/signup">Don't have account yet?</a></p>
-    </form>
+    <div class="sign-in form">
+        <form class="sign-in form" method="post" action="/auth">
+            <h1>Sign In</h1>
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+            <p><label><input type="text" id="username" name="username" placeholder="nickname"/></label></p>
+            <p><label><input type="password" id="password" name="password" placeholder="password"/></label></p>
+            <p><label><input type="checkbox" id="remember_me" name="remember_me"/>remember me</label></p>
+            <input type="submit" value="Sign in!" class="ui-button">
+            <p><a href="/signup">Don't have account yet?</a></p>
+        </form>
+    </div>
 </div>
 
 </body>

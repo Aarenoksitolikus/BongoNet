@@ -21,8 +21,8 @@
             </div>
             <div class="page-header-info">
                 <h3 class="m-t-10 m-b-5">${user.username}</h3>
-                <p class="m-b-10">FirstName LastName</p>
-                <p>ACTIVE: Status</p>
+                <p class="m-b-10">${profile.firstName} ${profile.lastName}</p>
+                <p>ACTIVE: ${profile.status}</p>
             </div>
             <div class="page-header-utils">
                 <#--                    <button class="notifications">Notif</button>-->

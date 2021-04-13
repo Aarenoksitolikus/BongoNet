@@ -1,16 +1,29 @@
 body {
     margin-top:20px;
-    background:#eee;
-    /*display: flex;*/
+    display: flex;
     font-family: "Comic Sans MS", sans-serif;
-    /*justify-content: center;*/
+    justify-content: center;
     /*align-items: center;*/
     /*vertical-align: center;*/
+    background: #eee url("https://res.cloudinary.com/teepublic/image/private/s--U9hrNyng--/t_Resized%20Artwork/c_fit,g_north_west,h_1054,w_1054/co_ffffff,e_outline:53/co_ffffff,e_outline:inner_fill:53/co_bbbbbb,e_outline:3:1000/c_mpad,g_center,h_1260,w_1260/b_rgb:eeeeee/c_limit,f_jpg,h_630,q_90,w_630/v1537322064/production/designs/3177096_0.jpg") repeat center;
+}
+
+.container {
+    min-width: 600px;
+    width: 800px;
+    height: auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .page-header {
     position: relative;
-    overflow: hidden
+    overflow: hidden;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
 .page-header  .page-header-cover {
@@ -102,9 +115,19 @@ body {
     color: #242a30
 }
 
+.page-content {
+    margin-top: 20px;
+    background: #fff;
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
 form {
     text-align: center;
-    min-width: 400px;
+    width: 400px;
     padding: 10px;
     background: aliceblue;
 }

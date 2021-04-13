@@ -25,7 +25,7 @@ public class UsersController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/ban/{user-id}")
     public String banUser(@PathVariable("user-id") Long userId) {
-        usersService.ban(userId);
+        usersService.banUser(userId);
         return "redirect:/users";
     }
 }

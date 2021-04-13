@@ -3,7 +3,9 @@ package ru.itis.bongodev.bongonet.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.dto.UserDto;
+import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
+import ru.itis.bongodev.bongonet.repositories.ProfileRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 
 import java.util.List;
@@ -17,13 +19,26 @@ public class UsersServiceImpl implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
+
     @Override
     public List<UserDto> getAllUsers() {
         return from(usersRepository.findAll());
     }
 
     @Override
-    public void ban(Long id) {
+    public User getUser(String username) {
+        return usersRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public Profile getProfile(Long id) {
+        return profileRepository.findByUser(id).orElse(null);
+    }
+
+    @Override
+    public void banUser(Long id) {
         Optional<User> user = usersRepository.findById(id);
         if (user.isPresent()) {
             User bannedUser = user.get();
