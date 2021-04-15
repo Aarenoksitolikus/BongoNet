@@ -68,6 +68,7 @@ public class UsersServiceImpl implements UsersService {
             profile.setFirstName(form.getFirstName());
             profile.setLastName(form.getLastName());
             profile.setBirthday(form.getBirthday());
+            profile.setSex(form.getSex());
             profileRepository.save(profile);
         }
     }

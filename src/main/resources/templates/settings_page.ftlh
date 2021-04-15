@@ -20,9 +20,9 @@
             <p><input type="text" id="secondName" name="lastName" placeholder="Second Name"></p>
             <p><label for="birthday"></label>When is your birthday?</p>
             <p><input type="date" id="birthday" name="birthday"></p>
-            <#--<p><label for="sex">What is your gender</label></p>
-            <p><input type="radio" id="sex" name="sex" value="male">Male</p>
-            <p><input type="radio" id="sex" name="sex" value="female">Female</p>-->
+            <p><label for="sex">What is your gender</label></p>
+            <p><input type="radio" id="sex" name="sex" value="MALE">Male</p>
+            <p><input type="radio" id="sex" name="sex" value="FEMALE">Female</p>
             <p><input type="submit" value="Create profile!" class="ui-button"></p>
         </form>
     </div>

@@ -11,5 +11,5 @@ public class ProfileForm {
     private String firstName;
     private String lastName;
     private Date birthday;
-//    private Profile.Sex sex;
+    private Profile.Sex sex;
 }

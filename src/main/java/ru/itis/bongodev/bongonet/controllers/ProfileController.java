@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.itis.bongodev.bongonet.dto.ProfileForm;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
@@ -47,6 +46,7 @@ public class ProfileController {
     @PostMapping("/profile/settings")
     public String changeProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, ProfileForm form) {
         form.setId(userDetails.getId());
+        System.out.println(form);
         usersService.updateProfile(form);
         return "redirect:/profile";
     }
