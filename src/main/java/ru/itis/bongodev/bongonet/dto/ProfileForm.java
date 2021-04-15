@@ -7,8 +7,9 @@ import java.sql.Date;
 
 @Data
 public class ProfileForm {
+    private Long id;
     private String firstName;
     private String lastName;
     private Date birthday;
-    private Profile.Sex sex;
+//    private Profile.Sex sex;
 }

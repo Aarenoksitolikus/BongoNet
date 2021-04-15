@@ -6,5 +6,5 @@ import ru.itis.bongodev.bongonet.models.Profile;
 import java.util.Optional;
 
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
-    Optional<Profile> findByUser(Long id);
+    Optional<Profile> findById(Long id);
 }

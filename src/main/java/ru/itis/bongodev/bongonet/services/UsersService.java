@@ -1,5 +1,6 @@
 package ru.itis.bongodev.bongonet.services;
 
+import ru.itis.bongodev.bongonet.dto.ProfileForm;
 import ru.itis.bongodev.bongonet.dto.UserDto;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
@@ -13,5 +14,5 @@ public interface UsersService {
     Profile getProfile(Long id);
     void banUser(Long id);
     void updateUser(User user);
-    void updateProfile(Profile profile);
+    void updateProfile(ProfileForm form);
 }

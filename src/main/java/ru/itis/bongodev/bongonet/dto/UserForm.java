@@ -8,7 +8,7 @@ import javax.validation.constraints.Email;
 
 @Data
 public class UserForm {
-    @Username(message = "This username already taken")
+    @Username(message = "This username already taken ")
     private String username;
 //    @Password
     private String password;

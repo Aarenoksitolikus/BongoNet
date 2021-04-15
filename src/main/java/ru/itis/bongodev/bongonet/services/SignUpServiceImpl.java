@@ -12,7 +12,6 @@ import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 import ru.itis.bongodev.bongonet.utils.EmailUtil;
 import ru.itis.bongodev.bongonet.utils.MailsGenerator;
 
-import java.io.File;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -76,13 +75,20 @@ public class SignUpServiceImpl implements SignUpService {
                     .status("Hello! I'm new at BongoNet. Nice to meet you!")
                     .build();
 
-            profileRepository.save(newProfile);
+            System.out.println(newProfile);
+            System.out.println(confirmedUser);
 
             confirmedUser.setState(User.State.ACTIVE);
             confirmedUser.setRole(User.Role.USER);
             confirmedUser.setProfile(newProfile);
 
+            System.out.println(newProfile);
+            System.out.println(confirmedUser);
+
             usersRepository.save(confirmedUser);
+
+            System.out.println(newProfile);
+            System.out.println(confirmedUser);
 
             return true;
         }

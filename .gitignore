@@ -37,3 +37,4 @@ build/
 !**/node_modules/**
 npm-*.log
 generated/
+/src/main/java/ru/itis/bongodev/bongonet/test/A.java

@@ -19,7 +19,7 @@ public class Post {
 
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    private User author;
 }

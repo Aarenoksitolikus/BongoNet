@@ -2,6 +2,7 @@ package ru.itis.bongodev.bongonet.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.itis.bongodev.bongonet.dto.ProfileForm;
 import ru.itis.bongodev.bongonet.dto.UserDto;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
@@ -34,7 +35,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public Profile getProfile(Long id) {
-        return profileRepository.findByUser(id).orElse(null);
+        return profileRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -60,9 +61,13 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void updateProfile(Profile profile) {
-        Optional<Profile> current = profileRepository.findByUser(profile.getUser().getId());
+    public void updateProfile(ProfileForm form) {
+        Optional<Profile> current = profileRepository.findById(form.getId());
         if (current.isPresent()) {
+            Profile profile = current.get();
+            profile.setFirstName(form.getFirstName());
+            profile.setLastName(form.getLastName());
+            profile.setBirthday(form.getBirthday());
             profileRepository.save(profile);
         }
     }

@@ -1,9 +1,6 @@
 package ru.itis.bongodev.bongonet.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -26,8 +23,9 @@ public class User {
     private String confirmCode;
     private Date creationDate;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.MERGE)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
+    @Setter(AccessLevel.NONE)
     private Profile profile;
 
     @Enumerated(value = EnumType.STRING)
@@ -36,8 +34,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "author")
-    private List<Post> posts;
+//    @OneToMany(mappedBy = "author")
+//    private List<Post> posts;
 
     public boolean isActive() {
         return this.state == State.ACTIVE;
@@ -57,5 +55,18 @@ public class User {
 
     public enum Role {
         GUEST, USER, ADMIN
+    }
+
+    public void setProfile(Profile profile) {
+        updateProfile(profile, true);
+    }
+
+    void updateProfile(Profile profile, boolean set) {
+        if (profile != null) {
+            this.profile = profile;
+            if (set) {
+                profile.updateUser(this, false);
+            }
+        }
     }
 }

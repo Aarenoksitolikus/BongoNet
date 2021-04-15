@@ -1,9 +1,6 @@
 package ru.itis.bongodev.bongonet.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.File;
@@ -22,6 +19,7 @@ public class Profile {
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
+    @Setter(AccessLevel.NONE)
     private User user;
     private String avatar;
     private String firstName;
@@ -35,5 +33,16 @@ public class Profile {
 
     public enum Sex {
         MALE, FEMALE, UNDEFINED
+    }
+
+    public void setUser(User user) {
+        updateUser(user, true);
+    }
+
+    void updateUser(User user, boolean set) {
+        this.user = user;
+        if (user != null && set) {
+            user.updateProfile(this, false);
+        }
     }
 }
