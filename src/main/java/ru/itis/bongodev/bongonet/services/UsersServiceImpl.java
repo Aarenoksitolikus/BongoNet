@@ -1,8 +1,8 @@
 package ru.itis.bongodev.bongonet.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import ru.itis.bongodev.bongonet.dto.ProfileForm;
 import ru.itis.bongodev.bongonet.dto.UserDto;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
@@ -25,12 +25,17 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return from(usersRepository.findAll());
+        return from(usersRepository.findAllByOrderByUsernameAsc());
     }
 
     @Override
     public User getUser(String username) {
         return usersRepository.findByUsername(username).orElse(null);
+    }
+
+    @Override
+    public User getUser(Long id) {
+        return usersRepository.getOne(id);
     }
 
     @Override
@@ -61,14 +66,9 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void updateProfile(ProfileForm form) {
-        Optional<Profile> current = profileRepository.findById(form.getId());
+    public void updateProfile(Profile profile) {
+        Optional<Profile> current = profileRepository.findById(profile.getId());
         if (current.isPresent()) {
-            Profile profile = current.get();
-            profile.setFirstName(form.getFirstName());
-            profile.setLastName(form.getLastName());
-            profile.setBirthday(form.getBirthday());
-            profile.setSex(form.getSex());
             profileRepository.save(profile);
         }
     }

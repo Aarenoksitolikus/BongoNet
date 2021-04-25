@@ -16,6 +16,10 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().toString());
@@ -50,13 +54,5 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public boolean isEnabled() {
         return user.isActive();
-    }
-
-    public User.Role getRole() {
-        return user.getRole();
-    }
-
-    public Long getId() {
-        return  user.getId();
     }
 }

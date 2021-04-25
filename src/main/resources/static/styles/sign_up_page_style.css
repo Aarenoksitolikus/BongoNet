@@ -1,0 +1,63 @@
+body {
+    margin-top: 20px;
+    background-color: #f2f3f8;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 15px 1px rgba(52, 40, 104, .08);
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e5e9f2;
+    border-radius: .2rem;
+}
+
+.input-group-addon {
+    display: flex;
+    justify-content: center;
+    width: 41px;
+}
+
+.error, .invalid {
+    color: red;
+}
+
+.message {
+    display: none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.message p {
+    padding: 1px 35px;
+    font-size: inherit;
+}
+
+.valid {
+    color: green;
+}
+
+.valid:before {
+    position: relative;
+    left: -35px;
+    content: '\2714';
+}
+
+.invalid:before {
+    position: relative;
+    left: -35px;
+    content: '\2716';
+}

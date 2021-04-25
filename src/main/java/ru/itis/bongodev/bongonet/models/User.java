@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
+//@Getter
+//@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,8 +36,8 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-//    @OneToMany(mappedBy = "author")
-//    private List<Post> posts;
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts;
 
     public boolean isActive() {
         return this.state == State.ACTIVE;
@@ -47,6 +49,10 @@ public class User {
 
     public boolean isAdmin() {
         return this.role == Role.ADMIN;
+    }
+
+    public boolean isDeleted() {
+        return this.state == State.DELETED;
     }
 
     public enum State {

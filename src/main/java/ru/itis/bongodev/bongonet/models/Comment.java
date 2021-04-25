@@ -7,14 +7,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-public class Post {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,12 +24,9 @@ public class Post {
     @JoinColumn(name = "author_id")
     private User author;
 
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post post;
+
     private Timestamp publicationTime;
-
-    @OneToMany(mappedBy = "post")
-    private List<Comment> comments;
-
-    public int numberOfComments() {
-        return comments.size();
-    }
 }

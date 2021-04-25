@@ -50,7 +50,6 @@ public class SignUpServiceImpl implements SignUpService {
                 .confirmCode(UUID.randomUUID().toString())
                 .role(User.Role.GUEST)
                 .state(User.State.NOT_CONFIRMED)
-                .creationDate(Date.valueOf(LocalDate.now()))
                 .build();
 
         usersRepository.save(newUser);
@@ -75,20 +74,21 @@ public class SignUpServiceImpl implements SignUpService {
                     .status("Hello! I'm new at BongoNet. Nice to meet you!")
                     .build();
 
-            System.out.println(newProfile);
-            System.out.println(confirmedUser);
+//            System.out.println(newProfile);
+//            System.out.println(confirmedUser);
 
             confirmedUser.setState(User.State.ACTIVE);
             confirmedUser.setRole(User.Role.USER);
             confirmedUser.setProfile(newProfile);
+            confirmedUser.setCreationDate(Date.valueOf(LocalDate.now()));
 
-            System.out.println(newProfile);
-            System.out.println(confirmedUser);
+//            System.out.println(newProfile);
+//            System.out.println(confirmedUser);
 
             usersRepository.save(confirmedUser);
 
-            System.out.println(newProfile);
-            System.out.println(confirmedUser);
+//            System.out.println(newProfile);
+//            System.out.println(confirmedUser);
 
             return true;
         }

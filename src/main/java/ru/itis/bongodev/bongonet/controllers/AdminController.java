@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.services.UsersService;
 
 @Controller
-public class UsersController {
+public class AdminController {
 
     @Autowired
     private UsersService usersService;

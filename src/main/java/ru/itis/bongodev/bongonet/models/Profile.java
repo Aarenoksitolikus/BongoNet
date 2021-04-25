@@ -3,9 +3,10 @@ package ru.itis.bongodev.bongonet.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.File;
 import java.sql.Date;
 
+//@Getter
+//@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,13 +29,6 @@ public class Profile {
     private String about;
     private Date birthday;
 
-    @Enumerated(value = EnumType.STRING)
-    private Sex sex;
-
-    public enum Sex {
-        MALE, FEMALE, UNDEFINED
-    }
-
     public void setUser(User user) {
         updateUser(user, true);
     }
@@ -44,5 +38,9 @@ public class Profile {
         if (user != null && set) {
             user.updateProfile(this, false);
         }
+    }
+
+    public Profile(User user) {
+        this.user = user;
     }
 }
