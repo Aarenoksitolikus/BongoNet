@@ -11,6 +11,7 @@
 <body>
 <div class="container">
     Something went wrong!
+    <a href="/profile/me">Go to profile page</a>
 </div>
 </body>
 </html>

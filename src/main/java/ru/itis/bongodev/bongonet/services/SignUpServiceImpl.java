@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.dto.UserForm;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
-import ru.itis.bongodev.bongonet.repositories.ProfileRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 import ru.itis.bongodev.bongonet.utils.EmailUtil;
 import ru.itis.bongodev.bongonet.utils.MailsGenerator;
@@ -22,9 +21,6 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Autowired
     private UsersRepository usersRepository;
-
-    @Autowired
-    private ProfileRepository profileRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,7 +39,7 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public void signUp(UserForm userForm) {
-        User newUser = User.builder()
+        var newUser = User.builder()
                 .username(userForm.getUsername())
                 .email(userForm.getEmail())
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
@@ -74,25 +70,14 @@ public class SignUpServiceImpl implements SignUpService {
                     .status("Hello! I'm new at BongoNet. Nice to meet you!")
                     .build();
 
-//            System.out.println(newProfile);
-//            System.out.println(confirmedUser);
-
             confirmedUser.setState(User.State.ACTIVE);
             confirmedUser.setRole(User.Role.USER);
             confirmedUser.setProfile(newProfile);
             confirmedUser.setCreationDate(Date.valueOf(LocalDate.now()));
 
-//            System.out.println(newProfile);
-//            System.out.println(confirmedUser);
-
             usersRepository.save(confirmedUser);
-
-//            System.out.println(newProfile);
-//            System.out.println(confirmedUser);
-
             return true;
         }
-
         return false;
     }
 }

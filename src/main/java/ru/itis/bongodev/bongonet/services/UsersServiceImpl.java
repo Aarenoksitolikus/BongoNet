@@ -1,12 +1,12 @@
 package ru.itis.bongodev.bongonet.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import ru.itis.bongodev.bongonet.dto.ProfileInfo;
 import ru.itis.bongodev.bongonet.dto.UserDto;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
-import ru.itis.bongodev.bongonet.repositories.ProfileRepository;
+import ru.itis.bongodev.bongonet.repositories.ProfilesRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
 
     @Autowired
-    private ProfileRepository profileRepository;
+    private ProfilesRepository profilesRepository;
 
     @Override
     public List<UserDto> getAllUsers() {
@@ -35,12 +35,12 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public User getUser(Long id) {
-        return usersRepository.getOne(id);
+        return usersRepository.findById(id).orElse(null);
     }
 
     @Override
     public Profile getProfile(Long id) {
-        return profileRepository.findById(id).orElse(null);
+        return profilesRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -66,10 +66,16 @@ public class UsersServiceImpl implements UsersService {
     }
 
     @Override
-    public void updateProfile(Profile profile) {
-        Optional<Profile> current = profileRepository.findById(profile.getId());
+    public void updateProfile(ProfileInfo info) {
+        Optional<Profile> current = profilesRepository.findById(info.getId());
         if (current.isPresent()) {
-            profileRepository.save(profile);
+            Profile currentProfile = current.get();
+            currentProfile.setFirstName(info.getFirstName());
+            currentProfile.setLastName(info.getLastName());
+            currentProfile.setAbout(info.getAbout());
+            currentProfile.setBirthday(info.getBirthday());
+            currentProfile.setStatus(info.getStatus());
+            profilesRepository.save(currentProfile);
         }
     }
 }

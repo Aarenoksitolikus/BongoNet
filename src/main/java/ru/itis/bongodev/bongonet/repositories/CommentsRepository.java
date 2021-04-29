@@ -7,6 +7,6 @@ import ru.itis.bongodev.bongonet.models.Comment;
 import java.util.List;
 
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
+public interface CommentsRepository extends JpaRepository<Comment, Long> {
     List<Comment> findAllByPost_IdOrderByPublicationTimeDesc(Long id);
 }

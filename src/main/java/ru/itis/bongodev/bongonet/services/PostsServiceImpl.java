@@ -4,12 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.models.Comment;
 import ru.itis.bongodev.bongonet.models.Post;
-import ru.itis.bongodev.bongonet.repositories.CommentRepository;
+import ru.itis.bongodev.bongonet.repositories.CommentsRepository;
 import ru.itis.bongodev.bongonet.repositories.PostsRepository;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +18,7 @@ public class PostsServiceImpl implements PostsService {
     private PostsRepository postsRepository;
 
     @Autowired
-    private CommentRepository commentRepository;
+    private CommentsRepository commentsRepository;
 
     @Override
     public List<Post> getAllPostsByUserId(Long id) {
@@ -36,11 +34,11 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public void addComment(Comment comment) {
         comment.setPublicationTime(Timestamp.valueOf(LocalDateTime.now()));
-        commentRepository.save(comment);
+        commentsRepository.save(comment);
     }
 
     @Override
     public Post getPostById(Long id) {
-        return postsRepository.getOne(id);
+        return postsRepository.findById(id).orElse(null);
     }
 }

@@ -9,5 +9,4 @@ import java.util.List;
 @Repository
 public interface PostsRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByAuthor_IdOrderByPublicationTimeDesc(Long id);
-//    List<Post> findAllByAuthor_IdOrderByPublicationDateDescPublicationTimeDesc(Long id);
 }

@@ -8,11 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.itis.bongodev.bongonet.models.Comment;
-import ru.itis.bongodev.bongonet.models.Post;
-import ru.itis.bongodev.bongonet.models.Profile;
-import ru.itis.bongodev.bongonet.models.User;
+import ru.itis.bongodev.bongonet.dto.ProfileInfo;
+import ru.itis.bongodev.bongonet.models.*;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
+import ru.itis.bongodev.bongonet.services.FriendsService;
 import ru.itis.bongodev.bongonet.services.PostsService;
 import ru.itis.bongodev.bongonet.services.UsersService;
 
@@ -27,6 +26,9 @@ public class ProfileController {
     @Autowired
     private PostsService postsService;
 
+    @Autowired
+    private FriendsService friendsService;
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/profile/me")
     public String getMyProfilePage(@AuthenticationPrincipal UserDetailsImpl userDetails) {
@@ -39,10 +41,13 @@ public class ProfileController {
                                  @PathVariable("user-username") String userUsername,
                                  Model model) {
         var user = usersService.getUser(userUsername);
+        if (user == null) {
+            return "redirect:/error";
+        }
         var me = user.getUsername().equals(userDetails.getUsername());
         if (me) {
             model.addAttribute("me", true);
-            if (user.getRole() == User.Role.ADMIN) {
+            if (user.isAdmin()) {
                 model.addAttribute("admin", true);
             }
         }
@@ -55,6 +60,9 @@ public class ProfileController {
                 usersService.updateUser(user);
             }
         }
+        var sentRequests = friendsService.getAllFriendRequestsBySenderId(userDetails.getUser().getId());
+        model.addAttribute("sentRequests", sentRequests);
+        model.addAttribute("receivedRequests", friendsService.getAllFriendRequestsByRecipientId(userDetails.getUser().getId()));
         model.addAttribute("profile", profile);
         model.addAttribute("posts", postsService.getAllPostsByUserId(user.getId()));
         return "profile_page";
@@ -73,9 +81,9 @@ public class ProfileController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile/settings")
-    public String changeProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, Profile profile) {
-        profile.setId(userDetails.getUser().getId());
-        usersService.updateProfile(profile);
+    public String changeProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, ProfileInfo info) {
+        info.setId(userDetails.getUser().getId());
+        usersService.updateProfile(info);
         return "redirect:/profile/" + userDetails.getUsername();
     }
 
