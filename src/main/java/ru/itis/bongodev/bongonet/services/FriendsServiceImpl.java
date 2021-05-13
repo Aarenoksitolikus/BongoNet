@@ -55,6 +55,13 @@ public class FriendsServiceImpl implements FriendsService {
     }
 
     @Override
+    public boolean areFriends(Long firstId, Long secondId) {
+        boolean result = friendsRepository.findBySender_IdAndRecipient_Id(firstId, secondId).isPresent();
+        if (!result) result = friendsRepository.findBySender_IdAndRecipient_Id(secondId, firstId).isPresent();
+        return result;
+    }
+
+    @Override
     public Friendship getFriendshipByMembersIds(Long firstId, Long secondId) {
         Optional<Friendship> result = friendsRepository.findBySender_IdAndRecipient_Id(firstId, secondId);
         if (result.isEmpty()) {

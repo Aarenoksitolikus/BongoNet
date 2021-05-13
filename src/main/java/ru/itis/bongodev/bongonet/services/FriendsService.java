@@ -10,6 +10,8 @@ public interface FriendsService {
     void rejectFriendRequest(Long id);
     void cancelFriendRequest(Long id);
 
+    boolean areFriends(Long firstId, Long secondId);
+
     Friendship getFriendshipByMembersIds(Long firstId, Long secondId);
     Friendship getFriendshipById(Long id);
 

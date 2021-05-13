@@ -33,8 +33,11 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/get/profile/{user-id}")
-    public Profile getUserProfile(@PathVariable("user-id") Long userId) {
-        return usersService.getUser(userId).getProfile();
+    public String getUserProfile(@PathVariable("user-id") Long userId, Model model) {
+        User current = usersService.getUser(userId);
+        model.addAttribute("user", current);
+        model.addAttribute("profile", current.getProfile());
+        return "admin_space/user_partial";
     }
 }
 

@@ -35,12 +35,17 @@
                                         Profile</a>
                                 <#else>
                                     <div class="d-flex">
-                                        <form method="post" action="/add/friend/${user.id}">
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                            <input type="hidden" name="recipient" id="recipient" value="${user.id}">
-                                            <input type="submit" class="btn btn-sm btn-outline-warning mb-2"
-                                                   value="Add as Friend" style="width: 105px">
-                                        </form>
+                                        <#if areFriends>
+                                            <form method="post" action="/add/friend/${user.id}">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}">
+                                                <input type="hidden" name="recipient" id="recipient" value="${user.id}">
+                                                <input type="submit" class="btn btn-sm btn-outline-warning mb-2"
+                                                       value="Add as Friend" style="width: 115px">
+                                            </form>
+                                        <#else>
+                                            <span class="btn btn-sm btn-outline-warning mb-2 disabled" style="width: 115px">Already Friends</span>
+                                        </#if>
                                         <a href="/profile/me" class="btn btn-sm btn-outline-info mb-2"
                                            style="margin-left: 4px">Go to my profile</a>
                                     </div>
@@ -71,6 +76,7 @@
                         <div class="tab-pane fade" id="profile-about">
                             <div class="row justify-content-center">
                                 <div class="col-8 bg-white m-md-2 h-50 p-3">
+                                    <h5>Birthday date: <#if profile.birthday??>${profile.birthday}</#if></h5>
                                     ${profile.about}
                                 </div>
                             </div>
@@ -115,7 +121,8 @@
                                             </div>
                                             <div class="timeline-body">
                                                 <div class="timeline-header">
-                                                    <span class="userimage illuminated"><a href="/profile/${username}"><img
+                                                    <span class="userimage illuminated"><a
+                                                                href="/profile/${username}"><img
                                                                     src="${avatar}"
                                                                     alt=""></a></span>
                                                     <span class="username"><a
@@ -140,11 +147,11 @@
                                                 </div>
                                                 <div class="timeline-comment-box">
                                                     <div>
-<#--                                                            <#if (post.comments?size > 0)>-->
-                                                                <div id="${post.id}-comments" class="comments">
-<#--                                                                    ${post.comments}-->
-                                                                </div>
-<#--                                                            </#if>-->
+                                                        <#--                                                            <#if (post.comments?size > 0)>-->
+                                                        <div id="${post.id}-comments" class="comments">
+                                                            <#--                                                                    ${post.comments}-->
+                                                        </div>
+                                                        <#--                                                            </#if>-->
                                                     </div>
                                                     <div class="new-comment">
                                                         <div class="user"><img src="${avatar}" alt="">
@@ -158,7 +165,8 @@
                                                                     <input type="text"
                                                                            class="form-control rounded-corner"
                                                                            id="content" name="content"
-                                                                           placeholder="Write a comment..." autocomplete="off">
+                                                                           placeholder="Write a comment..."
+                                                                           autocomplete="off">
                                                                     <span class="input-group-append p-l-10">
                                           <input class="btn btn-outline-primary f-s-12 rounded-corner" type="submit"
                                                  value="Send">
@@ -287,11 +295,13 @@
                                     </div>
                                 </div>
                             </#if>
-                            <h4 class="m-t-1 m-b-20">Friend List (<#if friends?size != 0>${friends?size}</#if>)</h4>
+                            <h4 class="mt-md-2 m-b-5">Friend List<#if friends?size != 0> (${friends?size})</#if></h4>
                             <div class="row row-space-2">
                                 <#if friends??>
                                     <#if friends?size < 1>
-                                        No friends
+                                        <div class="col-md-6 m-b-2">
+                                            No friends
+                                        </div>
                                     <#else>
                                         <#list friends as friend>
                                             <#assign friendName = friend.sender.username>
@@ -300,28 +310,30 @@
                                             </#if>
                                             <div class="col-md-6 m-b-2">
                                                 <div class="p-10 bg-white">
-                                                    <div class="media media-xs overflow-visible">
-                                                        <a class="media-left" href="/profile/${friendName}">
-                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
-                                                                 alt="avatar"
-                                                                 class="media-object rounded-circle illuminated">
-                                                        </a>
-                                                        <div class="media-body valign-middle">
-                                                            <a style="color: black" href="/profile/${friendName}"><b
-                                                                        class="text-inverse">${friendName}</b></a>
-                                                        </div>
-                                                        <div class="media-body valign-middle text-right overflow-visible">
-                                                            <#if me??>
-                                                                <form action="/delete/request/${friend.id}"
-                                                                      method="post">
-                                                                    <input type="hidden"
-                                                                           name="${_csrf.parameterName}"
-                                                                           value="${_csrf.token}">
-                                                                    <input type="submit"
-                                                                           class="btn btn-sm btn-outline-danger"
-                                                                           value="Delete">
-                                                                </form>
-                                                            </#if>
+                                                    <div class="col">
+                                                        <div class="media media-xs overflow-visible">
+                                                            <a class="media-left" href="/profile/${friendName}">
+                                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                     alt="avatar"
+                                                                     class="media-object rounded-circle illuminated">
+                                                            </a>
+                                                            <div class="media-body valign-middle">
+                                                                <a style="color: black" href="/profile/${friendName}"><b
+                                                                            class="text-inverse">${friendName}</b></a>
+                                                            </div>
+                                                            <div class="media-body valign-middle text-right overflow-visible">
+                                                                <#if me??>
+                                                                    <form action="/delete/request/${friend.id}"
+                                                                          method="post">
+                                                                        <input type="hidden"
+                                                                               name="${_csrf.parameterName}"
+                                                                               value="${_csrf.token}">
+                                                                        <input type="submit"
+                                                                               class="btn btn-sm btn-outline-danger"
+                                                                               value="Delete">
+                                                                    </form>
+                                                                </#if>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

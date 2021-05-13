@@ -52,6 +52,8 @@ public class ProfileController {
             if (user.isAdmin()) {
                 model.addAttribute("admin", true);
             }
+        } else {
+            model.addAttribute("areFriends", friendsService.areFriends(currentUserId, user.getId()));
         }
         model.addAttribute("user", user);
         var profile = user.getProfile();
