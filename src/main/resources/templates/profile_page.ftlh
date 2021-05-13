@@ -8,7 +8,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/profile_page_style.css">
     <link rel="icon" type="image/png" href="/favicon.ico"/>
-    <#assign avatar = (profile.avatar?? && profile.avatar != "")?then(profile.avatar, "https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg")>
+    <#assign avatar = (user.avatar?? && user.avatar != "")?then(user.avatar, "https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg")>
     <#assign username = (user.username??)?then(user.username, "")>
     <#assign firstName = (profile.firstName??)?then(profile.firstName, "")>
     <#assign lastName = (profile.lastName??)?then(profile.lastName, "")>
@@ -31,25 +31,35 @@
                                 <h4 class="m-t-10 m-b-5">${username + " (" + firstName + " " + lastName + ")"}</h4>
                                 <p class="m-b-10"><#if status?? && status != "">${status}<#else>Status</#if></p>
                                 <#if me??>
-                                    <a href="/profile/settings" class="btn btn-sm btn-info mb-2">Edit Profile</a>
+                                    <a href="/profile/settings" class="btn btn-sm btn-outline-info mb-2">Edit
+                                        Profile</a>
                                 <#else>
-                                    <form method="post" action="/add/friend/${user.id}">
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                        <input type="hidden" name="recipient" id="recipient" value="${user.id}">
-                                        <input type="submit" class="btn btn-sm btn-warning mb-2"
-                                               value="Add as Friend" style="width: 105px">
-                                    </form>
+                                    <div class="d-flex">
+                                        <form method="post" action="/add/friend/${user.id}">
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                                            <input type="hidden" name="recipient" id="recipient" value="${user.id}">
+                                            <input type="submit" class="btn btn-sm btn-outline-warning mb-2"
+                                                   value="Add as Friend" style="width: 105px">
+                                        </form>
+                                        <a href="/profile/me" class="btn btn-sm btn-outline-info mb-2"
+                                           style="margin-left: 4px">Go to my profile</a>
+                                    </div>
                                 </#if>
                             </div>
                         </div>
                         <ul class="profile-header-tab nav nav-tabs">
-                            <li class="nav-item"><a href="/chats" class="nav-link">CHATS</a></li>
+                            <#if me??>
+                                <li class="nav-item"><a href="/chats" class="nav-link">CHATS</a></li>
+                            <#else>
+                                <li class="naw-item"><a href="#profile-about" class="nav-link"
+                                                        data-toggle="tab">ABOUT</a></li>
+                            </#if>
                             <li class="nav-item"><a href="#profile-post" class="nav-link active show"
                                                     data-toggle="tab">POSTS</a>
                             </li>
-                            <li class="nav-item"><a href="/media" class="nav-link">MEDIA</a></li>
-                            <li class="nav-item"><a href="#profile-friends" class="nav-link"
-                                                    data-toggle="tab">FRIENDS</a></li>
+                            <li class="nav-item">
+                                <a href="#profile-friends" class="nav-link" data-toggle="tab">FRIENDS</a>
+                            </li>
                             <#if admin??>
                                 <li class="nav-item"><a href="/users" class="nav-link">USERS</a></li>
                             </#if>
@@ -58,32 +68,44 @@
                 </div>
                 <div class="profile-content">
                     <div class="tab-content p-0">
+                        <div class="tab-pane fade" id="profile-about">
+                            <div class="row justify-content-center">
+                            <div class="col-8 bg-white m-md-2 h-50 p-3">
+                                ${profile.about}
+                            </div>
+                            </div>
+                        </div>
                         <div class="tab-pane fade active show" id="profile-post">
                             <ul class="timeline">
-                                <li class="new-post">
-                                    <div class="timeline-icon">
-                                        <a href="javascript:">&nbsp;</a>
-                                    </div>
-                                    <div class="timeline-body" id="new-post">
-                                        <form method="post" action="/profile/add/post" id="post-form">
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-                                            <textarea class="form-control" id="content" name="content"
-                                                      placeholder="What's new?"></textarea>
-                                            <div class="col d-flex justify-content-end" id="submit-new-post-row"
-                                                 style="margin-top: 5px; display: none">
-                                                <input class="btn btn-primary btn-sm" type="submit" value="Post"
-                                                       style="margin-right: 8px">
-                                                <input class="btn btn-danger btn-sm" type="reset" value="Cancel">
-                                            </div>
-                                        </form>
-                                    </div>
-                                </li>
+                                <#if me??>
+                                    <li class="new-post">
+                                        <div class="timeline-icon">
+                                            <a href="javascript:">&nbsp;</a>
+                                        </div>
+                                        <div class="timeline-body illuminated" id="new-post">
+                                            <form method="post" action="/profile/add/post" id="post-form">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}">
+                                                <textarea class="form-control" id="new-post-content" name="content"
+                                                          placeholder="What's new?" rows="1"></textarea>
+                                                <div class="col justify-content-end d-none" id="submit-new-post-row"
+                                                     style="margin-top: 5px;">
+                                                    <input class="btn btn-outline-primary btn-sm" type="submit"
+                                                           value="Post"
+                                                           style="margin-right: 8px">
+                                                    <input class="btn btn-outline-danger btn-sm" type="reset"
+                                                           value="Cancel">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </li>
+                                </#if>
                                 <#list posts as post>
                                     <#if post??>
                                         <li>
                                             <div class="timeline-time">
                                                 <#assign isToday = .now?date?string.short>
-                                                <#assign isYesterday = .now?date?string.short>
+                                                <#assign isYesterday = (.now?long - 86400000)?number_to_date?string.short>
                                                 <#assign postTime = post.publicationTime?date?string.short>
                                                 <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#else>${post.publicationTime?date}</#if></span>
                                                 <span class="time">${post.publicationTime?time?string.short}</span>
@@ -91,69 +113,59 @@
                                             <div class="timeline-icon">
                                                 <a href="javascript:">&nbsp;</a>
                                             </div>
-                                            <div class="timeline-body">
+                                            <div class="timeline-body illuminated">
                                                 <div class="timeline-header">
-                                                    <span class="userimage"><img
-                                                                src="${avatar}"
-                                                                alt=""></span>
+                                                    <span class="userimage"><a href="/profile/${username}"><img
+                                                                    src="${avatar}"
+                                                                    alt=""></a></span>
                                                     <span class="username"><a
                                                                 href="javascript:">${user.username}</a> <small></small></span>
-                                                    <span class="pull-right text-muted">18 Views</span>
+                                                    <#if me??>
+                                                        <div class="pull-right">
+                                                            <form method="post"
+                                                                  action="/profile/delete/post/${post.id}">
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                       value="${_csrf.token}">
+                                                                <input type="submit"
+                                                                       class="btn btn-outline-danger btn-sm"
+                                                                       value="Delete">
+                                                            </form>
+                                                        </div>
+                                                    </#if>
                                                 </div>
                                                 <div class="timeline-content">
                                                     <p>
                                                         ${post.content}
                                                     </p>
                                                 </div>
-                                                <div class="timeline-likes">
-                                                    <div class="stats-right">
-                                                        <span class="stats-text">259 Shares</span>
-                                                        <span class="stats-text">18 Comments</span>
-                                                    </div>
-                                                    <div class="stats">
-                                    <span class="fa-stack fa-fw stats-icon">
-                                    <i class="fa fa-circle fa-stack-2x text-danger"></i>
-                                    <i class="fa fa-heart fa-stack-1x fa-inverse t-plus-1"></i>
-                                    </span>
-                                                        <span class="fa-stack fa-fw stats-icon">
-                                    <i class="fa fa-circle fa-stack-2x text-primary"></i>
-                                    <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                                        <span class="stats-total">4.3k</span>
-                                                    </div>
-                                                </div>
-                                                <div class="timeline-footer">
-                                                    <a href="javascript:" class="m-r-15 text-inverse-lighter"><i
-                                                                class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i> Like</a>
-                                                    <a href="javascript:" class="m-r-15 text-inverse-lighter"><i
-                                                                class="fa fa-comments fa-fw fa-lg m-r-3"></i>
-                                                        Comment</a>
-                                                    <#--                                                    <a href="javascript:" class="m-r-15 text-inverse-lighter"><i-->
-                                                    <#--                                                                class="fa fa-share fa-fw fa-lg m-r-3"></i> Share</a>-->
-                                                </div>
-                                                <#--                                                <#if post.comments??>-->
-                                                <#--                                                    <div>-->
-                                                <#--                                                        ${post.comments}-->
-                                                <#--                                                    </div>-->
-                                                <#--                                                </#if>-->
                                                 <div class="timeline-comment-box">
-                                                    <div class="user"><img src="${avatar}" alt="">
+                                                    <div>
+                                                        <#--                                                        <#if post.comments??>-->
+                                                        <#--                                                            <div id="${post.id}-comments" class="comments">-->
+                                                        <#--                                                                ${post.comments}-->
+                                                        <#--                                                            </div>-->
+                                                        <#--                                                        </#if>-->
                                                     </div>
-                                                    <div class="input">
-                                                        <form method="post"
-                                                              action="/profile/${username}/add/comment/${post.id}">
-                                                            <input type="hidden" name="${_csrf.parameterName}"
-                                                                   value="${_csrf.token}">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control rounded-corner"
-                                                                       id="content" name="content"
-                                                                       placeholder="Write a comment...">
-                                                                <span class="input-group-btn p-l-10">
-                                          <input class="btn btn-primary f-s-12 rounded-corner" type="submit"
+                                                    <div class="new-comment">
+                                                        <div class="user"><img src="${avatar}" alt="">
+                                                        </div>
+                                                        <div class="input">
+                                                            <form method="post"
+                                                                  action="/profile/${username}/add/comment/${post.id}">
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                       value="${_csrf.token}">
+                                                                <div class="input-group">
+                                                                    <input type="text"
+                                                                           class="form-control rounded-corner"
+                                                                           id="content" name="content"
+                                                                           placeholder="Write a comment...">
+                                                                    <span class="input-group-btn p-l-10">
+                                          <input class="btn btn-outline-primary f-s-12 rounded-corner" type="submit"
                                                  value="Comment">
                                           </span>
-                                                            </div>
-                                                        </form>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,398 +185,142 @@
                             </ul>
                         </div>
                         <div class="tab-pane fade" id="profile-friends">
-                            <#list sentRequests as request>
-                                <p>${request}</p>
-                            </#list>
-                            <br>
-                            <#list receivedRequests as request>
-                                <p>${request}</p>
-                            </#list>
-                            <h4 class="m-t-0 m-b-20">Friend List (14)</h4>
+                            <#if me??>
+                                <div class="row row-space-2">
+                                    <div class="col">
+                                        <h4 class="m-t-0 m-b-20">Sent Requests</h4>
+                                        <#if sentRequests??>
+                                            <#if sentRequests?size < 1>
+                                                No requests
+                                            <#else>
+                                                <div class="illuminated">
+                                                    <#list sentRequests as request>
+                                                        <div class="m-b-2">
+                                                            <div class="p-10 bg-white">
+                                                                <div class="col">
+                                                                    <div class="media media-xs overflow-visible">
+                                                                        <a class="media-left"
+                                                                           href="/profile/${request.recipient.username}">
+                                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                                 alt=""
+                                                                                 class="media-object rounded-circle illuminated">
+                                                                        </a>
+                                                                        <div class="media-body valign-middle">
+                                                                            <b class="text-inverse">${request.recipient.username}</b>
+                                                                        </div>
+                                                                        <div class="media-body valign-middle text-right overflow-visible">
+                                                                            <form action="/cancel/request/${request.id}"
+                                                                                  method="post">
+                                                                                <input type="hidden"
+                                                                                       name="${_csrf.parameterName}"
+                                                                                       value="${_csrf.token}">
+                                                                                <input type="submit"
+                                                                                       class="btn btn-sm btn-outline-danger"
+                                                                                       value="Cancel">
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </#list>
+                                                </div>
+                                            </#if>
+                                        </#if>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-t-0 m-b-20">Received Requests</h4>
+                                        <#if receivedRequests??>
+                                            <#if receivedRequests?size < 1>
+                                                No requests
+                                            <#else>
+                                                <div class="illuminated">
+                                                    <#list receivedRequests as request>
+                                                        <div class="m-b-2">
+                                                            <div class="p-10 bg-white">
+                                                                <div class="col">
+                                                                    <div class="media media-xs overflow-visible">
+                                                                        <a class="media-left"
+                                                                           href="/profile/${request.sender.username}">
+                                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                                 alt=""
+                                                                                 class="media-object rounded-circle illuminated">
+                                                                        </a>
+                                                                        <div class="media-body valign-middle">
+                                                                            <b class="text-inverse">${request.sender.username}</b>
+                                                                        </div>
+                                                                        <div class="media-body valign-middle text-right overflow-visible d-flex justify-content-end">
+                                                                            <form action="/confirm/request/${request.id}"
+                                                                                  method="post">
+                                                                                <input type="hidden"
+                                                                                       name="${_csrf.parameterName}"
+                                                                                       value="${_csrf.token}">
+                                                                                <input type="submit"
+                                                                                       class="btn btn-sm btn-outline-success"
+                                                                                       value="Accept">
+                                                                            </form>
+                                                                            <form action="/reject/request/${request.id}"
+                                                                                  method="post"
+                                                                                  style="margin-left: 4px">
+                                                                                <input type="hidden"
+                                                                                       name="${_csrf.parameterName}"
+                                                                                       value="${_csrf.token}">
+                                                                                <input type="submit"
+                                                                                       class="btn btn-sm btn-outline-danger"
+                                                                                       value="Reject">
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </#list>
+                                                </div>
+                                            </#if>
+                                        </#if>
+                                    </div>
+                                </div>
+                            </#if>
+                            <h4 class="m-t-1 m-b-20">Friend List (<#if friends?size != 0>${friends?size}</#if>)</h4>
                             <div class="row row-space-2">
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">James Pittman</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"
-                                                       aria-expanded="false"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right"
-                                                        x-placement="bottom-end"
-                                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(101px, 34px, 0px);">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
+                                <#if friends??>
+                                    <#if friends?size < 1>
+                                        No friends
+                                    <#else>
+                                        <#list friends as friend>
+                                            <#assign friendName = friend.sender.username>
+                                            <#if friendName == username>
+                                                <#assign friendName = friend.recipient.username>
+                                            </#if>
+                                            <div class="col-md-6 m-b-2">
+                                                <div class="p-10 bg-white illuminated">
+                                                    <div class="media media-xs overflow-visible">
+                                                        <a class="media-left" href="/profile/${friendName}">
+                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                 alt="avatar"
+                                                                 class="media-object rounded-circle illuminated">
+                                                        </a>
+                                                        <div class="media-body valign-middle">
+                                                            <b class="text-inverse">${friendName}</b>
+                                                        </div>
+                                                        <div class="media-body valign-middle text-right overflow-visible">
+                                                            <#if me??>
+                                                                <form action="" method="post">
+                                                                    <input type="hidden"
+                                                                           name="${_csrf.parameterName}"
+                                                                           value="${_csrf.token}">
+                                                                    <input type="submit"
+                                                                           class="btn btn-sm btn-outline-danger"
+                                                                           value="Delete">
+                                                                </form>
+                                                            </#if>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Mitchell Ashcroft</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Ella Cabena</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"
-                                                       aria-expanded="false"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right" x-placement="top-end"
-                                                        style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(101px, -2px, 0px);">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Declan Dyson</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">George Seyler</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Patrick Musgrove</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Taj Connal</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Laura Pollock</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar2.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Dakota Mannix</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Timothy Woolley</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Benjamin Congreve</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Mariam Maddock</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Blake Gerrald</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 m-b-2">
-                                    <div class="p-10 bg-white">
-                                        <div class="media media-xs overflow-visible">
-                                            <a class="media-left" href="javascript:;">
-                                                <img src="https://bootdey.com/img/Content/avatar/avatar4.png" alt=""
-                                                     class="media-object img-circle">
-                                            </a>
-                                            <div class="media-body valign-middle">
-                                                <b class="text-inverse">Gabrielle Bunton</b>
-                                            </div>
-                                            <div class="media-body valign-middle text-right overflow-visible">
-                                                <div class="btn-group dropdown">
-                                                    <a href="javascript:;" class="btn btn-default">Friends</a>
-                                                    <a href="javascript:;" data-toggle="dropdown"
-                                                       class="btn btn-default dropdown-toggle"></a>
-                                                    <ul class="dropdown-menu dropdown-menu-right">
-                                                        <li><a href="javascript:;">Action 1</a></li>
-                                                        <li><a href="javascript:;">Action 2</a></li>
-                                                        <li><a href="javascript:;">Action 3</a></li>
-                                                        <li class="divider"></li>
-                                                        <li><a href="javascript:;">Action 4</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                        </#list>
+                                    </#if>
+                                </#if>
                             </div>
                         </div>
                     </div>
@@ -577,5 +333,6 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
 <script src="/js/new_post.js"></script>
+<script src="/js/comments.js"></script>
 </body>
 </html>

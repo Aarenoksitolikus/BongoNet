@@ -5,7 +5,7 @@ body {
 
 .profile-header {
     position: relative;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .profile-header .profile-header-cover {
@@ -496,7 +496,7 @@ select.form-control:not([size]):not([multiple]) {
     background: #fff;
     position: relative;
     padding: 20px 25px;
-    border-radius: 6px
+    border-radius: 6px;
 }
 
 .timeline .timeline-body:before {
@@ -647,4 +647,14 @@ select.form-control:not([size]):not([multiple]) {
 
 .text-danger, .text-red {
     color: #ff5b57 !important;
+}
+
+.illuminated:hover {
+    box-shadow: 0 0 7px rgba(0,0,0,0.5);
+}
+
+#new-post-content {
+    overflow: hidden;
+    resize:none;
+    border: none;
 }

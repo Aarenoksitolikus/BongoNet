@@ -40,13 +40,15 @@ public class ProfileController {
     public String getProfilePage(@AuthenticationPrincipal UserDetailsImpl userDetails,
                                  @PathVariable("user-username") String userUsername,
                                  Model model) {
+        model.addAttribute("myUsername", userDetails.getUsername());
+        var currentUserId = userDetails.getUser().getId();
         var user = usersService.getUser(userUsername);
         if (user == null) {
             return "redirect:/error";
         }
         var me = user.getUsername().equals(userDetails.getUsername());
         if (me) {
-            model.addAttribute("me", true);
+            model.addAttribute("me", userDetails.getUsername());
             if (user.isAdmin()) {
                 model.addAttribute("admin", true);
             }
@@ -60,9 +62,10 @@ public class ProfileController {
                 usersService.updateUser(user);
             }
         }
-        var sentRequests = friendsService.getAllFriendRequestsBySenderId(userDetails.getUser().getId());
+        var sentRequests = friendsService.getAllFriendRequestsBySenderId(currentUserId);
         model.addAttribute("sentRequests", sentRequests);
-        model.addAttribute("receivedRequests", friendsService.getAllFriendRequestsByRecipientId(userDetails.getUser().getId()));
+        model.addAttribute("receivedRequests", friendsService.getAllFriendRequestsByRecipientId(currentUserId));
+        model.addAttribute("friends", friendsService.getAllFriendsByUserId(user.getId()));
         model.addAttribute("profile", profile);
         model.addAttribute("posts", postsService.getAllPostsByUserId(user.getId()));
         return "profile_page";
@@ -93,6 +96,24 @@ public class ProfileController {
         if (!post.getContent().equals("")) {
             post.setAuthor(userDetails.getUser());
             postsService.addPost(post);
+        }
+        return "redirect:/profile/me";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile/delete/post/{post-id}")
+    public String deletePost(@PathVariable("post-id") Long postId) {
+        if (postsService.getPostById(postId) != null) {
+            postsService.deletePost(postId);
+        }
+        return "redirect:/profile/me";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile/delete/comment/{comment-id}")
+    public String deleteComment(@PathVariable("comment-id") Long commentId) {
+        if (postsService.getCommentById(commentId) != null) {
+            postsService.deleteComment(commentId);
         }
         return "redirect:/profile/me";
     }

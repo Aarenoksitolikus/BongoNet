@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Builder
 @Entity
-public class FriendRequest {
+public class Friendship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +26,7 @@ public class FriendRequest {
     @Enumerated(value = EnumType.STRING)
     private State state;
     private Timestamp sendTime;
+    private Timestamp confirmTime;
 
     public enum State {
         NOT_CONFIRMED, CONFIRMED, REJECTED

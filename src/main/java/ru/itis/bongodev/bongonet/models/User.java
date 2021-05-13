@@ -22,8 +22,9 @@ public class User {
     private String hashPassword;
     private String confirmCode;
     private Date creationDate;
+    private String avatar;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
     @PrimaryKeyJoinColumn
     @Setter(AccessLevel.NONE)
     private Profile profile;
@@ -36,6 +37,10 @@ public class User {
 
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
+
+//    @ManyToMany
+//    @JoinTable
+//    private List<Friendship> friends;
 
     public boolean isActive() {
         return this.state == State.ACTIVE;

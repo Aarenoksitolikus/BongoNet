@@ -1,13 +1,19 @@
 package ru.itis.bongodev.bongonet.services;
 
-import ru.itis.bongodev.bongonet.models.FriendRequest;
+import ru.itis.bongodev.bongonet.models.Friendship;
 
 import java.util.List;
 
 public interface FriendsService {
-    void sendFriendRequest(FriendRequest request);
+    void sendFriendRequest(Friendship request);
     void confirmFriendRequest(Long id);
     void rejectFriendRequest(Long id);
-    List<FriendRequest> getAllFriendRequestsBySenderId(Long senderId);
-    List<FriendRequest> getAllFriendRequestsByRecipientId(Long recipientId);
+    void cancelFriendRequest(Long id);
+
+    Friendship getFriendshipByMembersIds(Long firstId, Long secondId);
+    Friendship getFriendshipById(Long id);
+
+    List<Friendship> getAllFriendRequestsBySenderId(Long senderId);
+    List<Friendship> getAllFriendRequestsByRecipientId(Long recipientId);
+    List<Friendship> getAllFriendsByUserId(Long userId);
 }

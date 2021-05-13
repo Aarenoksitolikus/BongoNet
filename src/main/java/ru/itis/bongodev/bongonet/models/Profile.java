@@ -21,7 +21,6 @@ public class Profile {
     @JoinColumn(name = "user_id")
     @Setter(AccessLevel.NONE)
     private User user;
-    private String avatar;
     private String firstName;
     private String lastName;
     private String status;

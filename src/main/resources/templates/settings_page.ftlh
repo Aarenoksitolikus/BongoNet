@@ -66,7 +66,7 @@
                                             <p class="mb-0">${username}</p>
                                             <div class="text-muted"><small>Last seen 2 hours ago</small></div>
                                             <div class="mt-2">
-                                                <button class="btn btn-primary" type="button">
+                                                <button class="btn btn-outline-primary" type="button">
                                                     <i class="fa fa-fw fa-camera"></i>
                                                     <span>Change Photo</span>
                                                 </button>
@@ -131,8 +131,8 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col d-flex justify-content-end">
-                                                    <input class="btn btn-primary" type="submit" value="Save Changes" style="margin-right: 10px">
-                                                    <a class="btn btn-danger" href="/profile/me">Cancel</a>
+                                                    <input class="btn btn-outline-primary" type="submit" value="Save Changes" style="margin-right: 10px">
+                                                    <a class="btn btn-outline-danger" href="/profile/me">Cancel</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -147,7 +147,7 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="px-xl-3">
-                                <a href="/logout" class="btn btn-block btn-secondary">
+                                <a href="/logout" class="btn btn-outline-block btn-outline-secondary">
                                     <i class="fa fa-sign-out"></i>
                                     <span>Logout</span>
                                 </a>

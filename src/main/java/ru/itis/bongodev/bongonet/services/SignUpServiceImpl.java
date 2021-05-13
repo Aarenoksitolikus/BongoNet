@@ -43,9 +43,11 @@ public class SignUpServiceImpl implements SignUpService {
                 .username(userForm.getUsername())
                 .email(userForm.getEmail())
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
+                .avatar("images/default-avatar.jpg")
                 .confirmCode(UUID.randomUUID().toString())
                 .role(User.Role.GUEST)
                 .state(User.State.NOT_CONFIRMED)
+                .creationDate(Date.valueOf(LocalDate.now()))
                 .build();
 
         usersRepository.save(newUser);
@@ -66,14 +68,12 @@ public class SignUpServiceImpl implements SignUpService {
 
             Profile newProfile = Profile.builder()
                     .user(confirmedUser)
-                    .avatar("images/default-avatar.jpg")
                     .status("Hello! I'm new at BongoNet. Nice to meet you!")
                     .build();
 
             confirmedUser.setState(User.State.ACTIVE);
             confirmedUser.setRole(User.Role.USER);
             confirmedUser.setProfile(newProfile);
-            confirmedUser.setCreationDate(Date.valueOf(LocalDate.now()));
 
             usersRepository.save(confirmedUser);
             return true;

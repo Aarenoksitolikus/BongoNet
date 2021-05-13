@@ -2,14 +2,14 @@ package ru.itis.bongodev.bongonet.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.itis.bongodev.bongonet.models.FriendRequest;
+import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.repositories.FriendsRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class FriendsServiceImpl implements FriendsService {
@@ -21,43 +21,69 @@ public class FriendsServiceImpl implements FriendsService {
     private UsersRepository usersRepository;
 
     @Override
-    public void sendFriendRequest(FriendRequest request) {
+    public void sendFriendRequest(Friendship request) {
         var senderId = request.getSender().getId();
         var recipientId = request.getRecipient().getId();
         if (friendsRepository.findBySender_IdAndRecipient_Id(senderId, recipientId).isEmpty()
                 && friendsRepository.findBySender_IdAndRecipient_Id(recipientId, senderId).isEmpty()) {
             request.setSendTime(Timestamp.valueOf(LocalDateTime.now()));
-            request.setState(FriendRequest.State.NOT_CONFIRMED);
+            request.setState(Friendship.State.NOT_CONFIRMED);
             friendsRepository.save(request);
         }
     }
 
     @Override
     public void confirmFriendRequest(Long id) {
-        getRequest(id).setState(FriendRequest.State.CONFIRMED);
+        friendsRepository.findById(id).ifPresent(value -> {
+            value.setState(Friendship.State.CONFIRMED);
+            value.setConfirmTime(Timestamp.valueOf(LocalDateTime.now()));
+            friendsRepository.save(value);
+        });
     }
 
     @Override
     public void rejectFriendRequest(Long id) {
-        getRequest(id).setState(FriendRequest.State.REJECTED);
+        friendsRepository.findById(id).ifPresent(value -> {
+            value.setState(Friendship.State.REJECTED);
+            friendsRepository.save(value);
+        });
     }
 
     @Override
-    public List<FriendRequest> getAllFriendRequestsBySenderId(Long senderId) {
-        return friendsRepository.findAllBySender_IdOrderBySendTimeDesc(senderId);
+    public void cancelFriendRequest(Long id) {
+        friendsRepository.findById(id).ifPresent(value -> friendsRepository.delete(value));
     }
 
     @Override
-    public List<FriendRequest> getAllFriendRequestsByRecipientId(Long recipientId) {
-        return friendsRepository.findAllByRecipient_IdOrderBySendTimeDesc(recipientId);
+    public Friendship getFriendshipByMembersIds(Long firstId, Long secondId) {
+        Optional<Friendship> result = friendsRepository.findBySender_IdAndRecipient_Id(firstId, secondId);
+        if (result.isEmpty()) {
+            result = friendsRepository.findBySender_IdAndRecipient_Id(secondId, firstId);
+            if (result.isEmpty()) {
+                return null;
+            }
+            return result.get();
+        }
+        return result.get();
     }
 
+    @Override
+    public Friendship getFriendshipById(Long id) {
+        return friendsRepository.findById(id).orElse(null);
+    }
 
-    private FriendRequest getRequest(Long id) {
-        var currentRequest = friendsRepository.findById(id).orElse(null);
-//        var sender = usersRepository.findById(Objects.requireNonNull(currentRequest).getSender().getId()).orElse(null);
-//        var recipient = usersRepository.findById(currentRequest.getRecipient().getId()).orElse(null);
-        friendsRepository.delete(Objects.requireNonNull(currentRequest));
-        return currentRequest;
+    @Override
+    public List<Friendship> getAllFriendRequestsBySenderId(Long senderId) {
+        return friendsRepository.findAllBySender_IdAndStateEqualsOrderBySendTimeDesc(senderId, Friendship.State.NOT_CONFIRMED);
+    }
+
+    @Override
+    public List<Friendship> getAllFriendRequestsByRecipientId(Long recipientId) {
+        return friendsRepository.findAllByRecipient_IdAndStateEqualsOrderBySendTimeDesc(recipientId, Friendship.State.NOT_CONFIRMED);
+    }
+
+    @Override
+    public List<Friendship> getAllFriendsByUserId(Long userId) {
+        return friendsRepository.findAllBySender_IdAndStateEqualsOrRecipient_IdAndStateEqualsOrderByConfirmTimeDesc(userId, Friendship.State.CONFIRMED, userId, Friendship.State.CONFIRMED);
     }
 }

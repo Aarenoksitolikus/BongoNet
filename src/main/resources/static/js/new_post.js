@@ -1,11 +1,24 @@
-const post = document.getElementById("content");
+const post = document.getElementById("new-post-content");
 const form = document.getElementById("submit-new-post-row");
 
-post.onfocus = function () {
-    form.style.display = "block";
+post.onclick = function () {
+    console.log(post);
+    post.style.height = ""
+    form.classList.remove("d-none");
+    form.classList.add("d-flex");
 }
 post.onblur = function () {
-    form.style.display = "none";
+    if (post.value === "") {
+        form.classList.remove("d-flex");
+        form.classList.add("d-none");
+    }
+}
+
+const textarea = document.querySelector('textarea');
+textarea.addEventListener('input', autoResize, false);
+function autoResize() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
 }
 
 const url = 'http:/localhost/profile/'

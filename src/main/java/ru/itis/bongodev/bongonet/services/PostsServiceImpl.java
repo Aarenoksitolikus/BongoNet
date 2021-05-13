@@ -32,13 +32,28 @@ public class PostsServiceImpl implements PostsService {
     }
 
     @Override
+    public void deletePost(Long id) {
+        postsRepository.findById(id).ifPresent(post -> postsRepository.delete(post));
+    }
+
+    @Override
     public void addComment(Comment comment) {
         comment.setPublicationTime(Timestamp.valueOf(LocalDateTime.now()));
         commentsRepository.save(comment);
     }
 
     @Override
+    public void deleteComment(Long id) {
+        commentsRepository.findById(id).ifPresent(comment -> commentsRepository.delete(comment));
+    }
+
+    @Override
     public Post getPostById(Long id) {
         return postsRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Comment getCommentById(Long id) {
+        return commentsRepository.findById(id).orElse(null);
     }
 }
