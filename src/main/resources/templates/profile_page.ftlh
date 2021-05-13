@@ -70,9 +70,9 @@
                     <div class="tab-content p-0">
                         <div class="tab-pane fade" id="profile-about">
                             <div class="row justify-content-center">
-                            <div class="col-8 bg-white m-md-2 h-50 p-3">
-                                ${profile.about}
-                            </div>
+                                <div class="col-8 bg-white m-md-2 h-50 p-3">
+                                    ${profile.about}
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane fade active show" id="profile-post">
@@ -87,7 +87,7 @@
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}">
                                                 <textarea class="form-control" id="new-post-content" name="content"
-                                                                                                placeholder="What's new?" rows="1"></textarea>
+                                                          placeholder="What's new?" rows="1"></textarea>
                                                 <div class="col justify-content-end d-none" id="submit-new-post-row"
                                                      style="margin-top: 8px;">
                                                     <input class="btn btn-outline-primary btn-sm" type="submit"
@@ -115,11 +115,11 @@
                                             </div>
                                             <div class="timeline-body">
                                                 <div class="timeline-header">
-                                                    <span class="userimage"><a href="/profile/${username}"><img
+                                                    <span class="userimage illuminated"><a href="/profile/${username}"><img
                                                                     src="${avatar}"
                                                                     alt=""></a></span>
                                                     <span class="username"><a
-                                                                href="javascript:">${user.username}</a> <small></small></span>
+                                                                href="/profile/${username}">${user.username}</a></span>
                                                     <#if me??>
                                                         <div class="pull-right">
                                                             <form method="post"
@@ -140,11 +140,11 @@
                                                 </div>
                                                 <div class="timeline-comment-box">
                                                     <div>
-                                                        <#--                                                        <#if post.comments??>-->
-                                                        <#--                                                            <div id="${post.id}-comments" class="comments">-->
-                                                        <#--                                                                ${post.comments}-->
-                                                        <#--                                                            </div>-->
-                                                        <#--                                                        </#if>-->
+<#--                                                            <#if (post.comments?size > 0)>-->
+                                                                <div id="${post.id}-comments" class="comments">
+<#--                                                                    ${post.comments}-->
+                                                                </div>
+<#--                                                            </#if>-->
                                                     </div>
                                                     <div class="new-comment">
                                                         <div class="user"><img src="${avatar}" alt="">
@@ -158,10 +158,10 @@
                                                                     <input type="text"
                                                                            class="form-control rounded-corner"
                                                                            id="content" name="content"
-                                                                           placeholder="Write a comment...">
-                                                                    <span class="input-group-btn p-l-10">
+                                                                           placeholder="Write a comment..." autocomplete="off">
+                                                                    <span class="input-group-append p-l-10">
                                           <input class="btn btn-outline-primary f-s-12 rounded-corner" type="submit"
-                                                 value="Comment">
+                                                 value="Send">
                                           </span>
                                                                 </div>
                                                             </form>
@@ -206,7 +206,8 @@
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
                                                                         <div class="media-body valign-middle">
-                                                                            <a style="color: black" href="/profile/${request.recipient.username}">
+                                                                            <a style="color: black"
+                                                                               href="/profile/${request.recipient.username}">
                                                                                 <b class="text-inverse">${request.recipient.username}</b>
                                                                             </a>
                                                                         </div>
@@ -249,7 +250,8 @@
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
                                                                         <div class="media-body valign-middle">
-                                                                            <a style="color: black" href="/profile/${request.sender.username}">
+                                                                            <a style="color: black"
+                                                                               href="/profile/${request.sender.username}">
                                                                                 <b class="text-inverse">${request.sender.username}</b>
                                                                             </a>
                                                                         </div>
@@ -305,11 +307,13 @@
                                                                  class="media-object rounded-circle illuminated">
                                                         </a>
                                                         <div class="media-body valign-middle">
-                                                            <a style="color: black" href="/profile/${friendName}"><b class="text-inverse">${friendName}</b></a>
+                                                            <a style="color: black" href="/profile/${friendName}"><b
+                                                                        class="text-inverse">${friendName}</b></a>
                                                         </div>
                                                         <div class="media-body valign-middle text-right overflow-visible">
                                                             <#if me??>
-                                                                <form action="" method="post">
+                                                                <form action="/delete/request/${friend.id}"
+                                                                      method="post">
                                                                     <input type="hidden"
                                                                            name="${_csrf.parameterName}"
                                                                            value="${_csrf.token}">

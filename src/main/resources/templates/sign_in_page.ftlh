@@ -32,6 +32,7 @@
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password"
                                        placeholder="Password">
+                                <span class="input-group-append"><button id="password-control" class="btn btn-light fa fa-eye" style="border: 1px solid #ced4da; border-left: none"></button></span>
                             </div>
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me"/>
@@ -52,8 +53,8 @@
                     <div class="card-body text-center">
                         <div>
                             <h2>Sign up</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua.</p>
+                            <p>BongoNet is a small, cozy social network for those who like to be aware of all the new
+                                interesting thoughts of their friends. Join us!</p>
                             <a href="/signup" type="button" class="btn btn-primary active mt-3">Register Now!</a>
                         </div>
                     </div>
@@ -64,5 +65,6 @@
 </div>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="/js/show_password.js"></script>
 </body>
 </html>

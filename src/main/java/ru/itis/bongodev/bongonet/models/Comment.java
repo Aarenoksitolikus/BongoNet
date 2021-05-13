@@ -29,4 +29,13 @@ public class Comment {
     private Post post;
 
     private Timestamp publicationTime;
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "content='" + content + '\'' +
+                ", author=" + author +
+                ", publicationTime=" + publicationTime +
+                '}';
+    }
 }

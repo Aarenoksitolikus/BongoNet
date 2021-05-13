@@ -34,7 +34,7 @@
                             </thead>
                             <#list usersList as user>
                                 <tbody>
-                                <tr class="illuminated">
+                                <tr class="illuminated" onclick="getUserProfile('/get/profile/${user.id}')">
                                     <td><a href="/profile/${user.username}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32"
                                              height="32" class="rounded-circle my-n1 illuminated" alt="Avatar"></a></td>
                                     <td>${user.profile.firstName + " " + user.profile.lastName}</td>
@@ -168,8 +168,6 @@
 </div>
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-
-</script>
+<script src="/js/users.js"></script>
 </body>
 </html>

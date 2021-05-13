@@ -42,7 +42,7 @@ public class FriendshipController {
             case "reject":
                 friendsService.rejectFriendRequest(friendship.getId());
                 break;
-            case "cancel":
+            case "cancel", "delete":
                 friendsService.cancelFriendRequest(friendship.getId());
                 break;
             default:
