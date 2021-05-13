@@ -17,23 +17,7 @@
                 <div class="card">
                     <div class="card-header pb-0">
                         <div class="card-actions float-right">
-                            <div class="dropdown show">
-                                <a href="#" data-toggle="dropdown" data-display="static">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
-                                        <circle cx="12" cy="12" r="1"></circle>
-                                        <circle cx="19" cy="12" r="1"></circle>
-                                        <circle cx="5" cy="12" r="1"></circle>
-                                    </svg>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
+                            <a href="/profile/me" class="btn btn-sm btn-outline-info mb-2">Go to my profile</a>
                         </div>
                         <h5 class="card-title mb-0">Users</h5>
                     </div>
@@ -41,7 +25,7 @@
                         <table class="table table-striped" style="width:100%">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th>Avatar</th>
                                 <th>Name</th>
                                 <th>Username</th>
                                 <th>Email</th>
@@ -50,10 +34,10 @@
                             </thead>
                             <#list usersList as user>
                                 <tbody>
-                                <tr>
-                                    <td><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32"
-                                             height="32" class="rounded-circle my-n1" alt="Avatar"></td>
-                                    <td>Name</td>
+                                <tr class="illuminated">
+                                    <td><a href="/profile/${user.username}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32"
+                                             height="32" class="rounded-circle my-n1 illuminated" alt="Avatar"></a></td>
+                                    <td>${user.profile.firstName + " " + user.profile.lastName}</td>
                                     <td><#if user.username??>${user.username}<#else>username</#if></td>
                                     <td><#if user.email??>${user.email}<#else>email</#if></td>
                                     <td>
@@ -65,10 +49,10 @@
                                                     <input type="hidden" name="${_csrf.parameterName}"
                                                            value="${_csrf.token}">
                                                     <#if user.state == 'ACTIVE'>
-                                                        <input class="btn btn-success btn-sm" type="submit"
+                                                        <input class="btn btn-outline-success btn-sm" type="submit"
                                                                value="${user.state}">
                                                     <#else>
-                                                        <input class="btn btn-danger btn-sm" type="submit"
+                                                        <input class="btn btn-outline-danger btn-sm" type="submit"
                                                                value="${user.state}">
                                                     </#if>
                                                 </form>

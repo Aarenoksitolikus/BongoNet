@@ -24,8 +24,13 @@ public class UsersServiceImpl implements UsersService {
     private ProfilesRepository profilesRepository;
 
     @Override
-    public List<UserDto> getAllUsers() {
+    public List<UserDto> getAllUsersDto() {
         return from(usersRepository.findAllByOrderByUsernameAsc());
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return usersRepository.findAllByOrderByUsernameAsc();
     }
 
     @Override

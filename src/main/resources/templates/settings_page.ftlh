@@ -73,14 +73,14 @@
                                             </div>
                                         </div>
                                         <div class="text-center text-sm-right">
-                                            <span class="badge badge-secondary">${user.role}</span>
+                                            <span class="badge badge-primary">${user.role}</span>
                                             <div class="text-muted"><small>Joined ${user.creationDate}</small></div>
                                         </div>
                                     </div>
                                 </div>
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item"><a href="" class="active nav-link">Profile</a></li>
-                                    <li class="nav-item"><a href="" class="nav-link">Settings</a></li>
+                                    <li class="nav-item"><a href="" class="nav-link">Settings (in developing)</a></li>
                                 </ul>
                                 <div class="tab-content pt-3">
                                     <div class="tab-pane active">

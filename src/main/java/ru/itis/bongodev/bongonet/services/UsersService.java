@@ -8,7 +8,8 @@ import ru.itis.bongodev.bongonet.models.User;
 import java.util.List;
 
 public interface UsersService {
-    List<UserDto> getAllUsers();
+    List<UserDto> getAllUsersDto();
+    List<User> getAllUsers();
     User getUser(String username);
     User getUser(Long id);
 

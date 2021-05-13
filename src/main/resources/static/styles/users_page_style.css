@@ -72,3 +72,7 @@ body {
     background-color: #fff;
     border-bottom: 0 solid transparent;
 }
+
+.illuminated:hover {
+    box-shadow: 0 0 7px rgba(0,0,0,0.5);
+}

@@ -87,9 +87,9 @@
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}">
                                                 <textarea class="form-control" id="new-post-content" name="content"
-                                                          placeholder="What's new?" rows="1"></textarea>
+                                                                                                placeholder="What's new?" rows="1"></textarea>
                                                 <div class="col justify-content-end d-none" id="submit-new-post-row"
-                                                     style="margin-top: 5px;">
+                                                     style="margin-top: 8px;">
                                                     <input class="btn btn-outline-primary btn-sm" type="submit"
                                                            value="Post"
                                                            style="margin-right: 8px">
@@ -113,7 +113,7 @@
                                             <div class="timeline-icon">
                                                 <a href="javascript:">&nbsp;</a>
                                             </div>
-                                            <div class="timeline-body illuminated">
+                                            <div class="timeline-body">
                                                 <div class="timeline-header">
                                                     <span class="userimage"><a href="/profile/${username}"><img
                                                                     src="${avatar}"
@@ -193,7 +193,7 @@
                                             <#if sentRequests?size < 1>
                                                 No requests
                                             <#else>
-                                                <div class="illuminated">
+                                                <div>
                                                     <#list sentRequests as request>
                                                         <div class="m-b-2">
                                                             <div class="p-10 bg-white">
@@ -206,7 +206,9 @@
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
                                                                         <div class="media-body valign-middle">
-                                                                            <b class="text-inverse">${request.recipient.username}</b>
+                                                                            <a style="color: black" href="/profile/${request.recipient.username}">
+                                                                                <b class="text-inverse">${request.recipient.username}</b>
+                                                                            </a>
                                                                         </div>
                                                                         <div class="media-body valign-middle text-right overflow-visible">
                                                                             <form action="/cancel/request/${request.id}"
@@ -234,7 +236,7 @@
                                             <#if receivedRequests?size < 1>
                                                 No requests
                                             <#else>
-                                                <div class="illuminated">
+                                                <div>
                                                     <#list receivedRequests as request>
                                                         <div class="m-b-2">
                                                             <div class="p-10 bg-white">
@@ -247,7 +249,9 @@
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
                                                                         <div class="media-body valign-middle">
-                                                                            <b class="text-inverse">${request.sender.username}</b>
+                                                                            <a style="color: black" href="/profile/${request.sender.username}">
+                                                                                <b class="text-inverse">${request.sender.username}</b>
+                                                                            </a>
                                                                         </div>
                                                                         <div class="media-body valign-middle text-right overflow-visible d-flex justify-content-end">
                                                                             <form action="/confirm/request/${request.id}"
@@ -293,7 +297,7 @@
                                                 <#assign friendName = friend.recipient.username>
                                             </#if>
                                             <div class="col-md-6 m-b-2">
-                                                <div class="p-10 bg-white illuminated">
+                                                <div class="p-10 bg-white">
                                                     <div class="media media-xs overflow-visible">
                                                         <a class="media-left" href="/profile/${friendName}">
                                                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
@@ -301,7 +305,7 @@
                                                                  class="media-object rounded-circle illuminated">
                                                         </a>
                                                         <div class="media-body valign-middle">
-                                                            <b class="text-inverse">${friendName}</b>
+                                                            <a style="color: black" href="/profile/${friendName}"><b class="text-inverse">${friendName}</b></a>
                                                         </div>
                                                         <div class="media-body valign-middle text-right overflow-visible">
                                                             <#if me??>
