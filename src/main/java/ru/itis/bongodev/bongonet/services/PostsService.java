@@ -13,4 +13,5 @@ public interface PostsService {
     void deleteComment(Long id);
     Post getPostById(Long id);
     Comment getCommentById(Long id);
+    List<Post> getNewsForUserById(Long id);
 }

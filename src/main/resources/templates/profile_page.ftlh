@@ -44,7 +44,8 @@
                                                        value="Add as Friend" style="width: 115px">
                                             </form>
                                         <#else>
-                                            <span class="btn btn-sm btn-outline-warning mb-2 disabled" style="width: 115px">Already Friends</span>
+                                            <span class="btn btn-sm btn-outline-warning mb-2 disabled"
+                                                  style="width: 115px">Already Friends</span>
                                         </#if>
                                         <a href="/profile/me" class="btn btn-sm btn-outline-info mb-2"
                                            style="margin-left: 4px">Go to my profile</a>
@@ -59,12 +60,17 @@
                                 <li class="naw-item"><a href="#profile-about" class="nav-link"
                                                         data-toggle="tab">ABOUT</a></li>
                             </#if>
-                            <li class="nav-item"><a href="#profile-post" class="nav-link active show"
-                                                    data-toggle="tab">POSTS</a>
-                            </li>
                             <li class="nav-item">
                                 <a href="#profile-friends" class="nav-link" data-toggle="tab">FRIENDS</a>
                             </li>
+                            <li class="nav-item"><a href="#profile-post" class="nav-link active show"
+                                                    data-toggle="tab">POSTS</a>
+                            </li>
+                            <#if me??>
+                                <li class="nav-item"><a href="#profile-news" class="nav-link"
+                                                        data-toggle="tab">NEWS</a>
+                                </li>
+                            </#if>
                             <#if admin??>
                                 <li class="nav-item"><a href="/users" class="nav-link">USERS</a></li>
                             </#if>
@@ -192,9 +198,99 @@
                                 </li>
                             </ul>
                         </div>
+                        <#if me??>
+                            <div class="tab-pane fade" id="profile-news">
+                                <ul class="timeline">
+                                    <#list news as post>
+                                        <#if post??>
+                                            <li>
+                                                <div class="timeline-time">
+                                                    <#assign isToday = .now?date?string.short>
+                                                    <#assign isYesterday = (.now?long - 86400000)?number_to_date?string.short>
+                                                    <#assign postTime = post.publicationTime?date?string.short>
+                                                    <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#else>${post.publicationTime?date}</#if></span>
+                                                    <span class="time">${post.publicationTime?time?string.short}</span>
+                                                </div>
+                                                <div class="timeline-icon">
+                                                    <a href="javascript:">&nbsp;</a>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <div class="timeline-header">
+                                                    <span class="userimage illuminated"><a
+                                                                href="/profile/${post.author.username}"><img
+                                                                    src="${avatar}"
+                                                                    alt=""></a></span>
+                                                        <span class="username"><a
+                                                                    href="/profile/${post.author.username}">${post.author.username}</a></span>
+                                                        <#--                                                    <#if me??>-->
+                                                        <#--                                                        <div class="pull-right">-->
+                                                        <#--                                                            <form method="post"-->
+                                                        <#--                                                                  action="/profile/delete/post/${post.id}">-->
+                                                        <#--                                                                <input type="hidden" name="${_csrf.parameterName}"-->
+                                                        <#--                                                                       value="${_csrf.token}">-->
+                                                        <#--                                                                <input type="submit"-->
+                                                        <#--                                                                       class="btn btn-outline-danger btn-sm"-->
+                                                        <#--                                                                       value="Delete">-->
+                                                        <#--                                                            </form>-->
+                                                        <#--                                                        </div>-->
+                                                        <#--                                                    </#if>-->
+                                                    </div>
+                                                    <div class="timeline-content">
+                                                        <p>
+                                                            ${post.content}
+                                                        </p>
+                                                    </div>
+                                                    <div class="timeline-comment-box">
+                                                        <div>
+                                                            <#--                                                            <#if (post.comments?size > 0)>-->
+                                                            <div id="${post.id}-comments" class="comments">
+                                                                <#--                                                                    ${post.comments}-->
+                                                            </div>
+                                                            <#--                                                            </#if>-->
+                                                        </div>
+                                                        <div class="new-comment">
+                                                            <div class="user"><img src="${avatar}" alt="">
+                                                            </div>
+                                                            <div class="input">
+                                                                <form method="post"
+                                                                      action="/profile/${username}/add/comment/${post.id}">
+                                                                    <input type="hidden" name="${_csrf.parameterName}"
+                                                                           value="${_csrf.token}">
+                                                                    <div class="input-group">
+                                                                        <input type="text"
+                                                                               class="form-control rounded-corner"
+                                                                               id="content" name="content"
+                                                                               placeholder="Write a comment..."
+                                                                               autocomplete="off">
+                                                                        <span class="input-group-append p-l-10">
+                                          <input class="btn btn-outline-primary f-s-12 rounded-corner" type="submit"
+                                                 value="Send">
+                                          </span>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        <#else>
+                                            No posts
+                                        </#if>
+                                    </#list>
+                                    <li>
+                                        <div class="timeline-icon">
+                                            <a href="javascript:">&nbsp;</a>
+                                        </div>
+                                        <div class="timeline-body">
+                                            Loading...
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </#if>
                         <div class="tab-pane fade" id="profile-friends">
                             <#if me??>
-                                <div class="row row-space-2">
+                                <div class="row row-space-3">
                                     <div class="col">
                                         <h4 class="m-t-0 m-b-20">Sent Requests</h4>
                                         <#if sentRequests??>
@@ -292,6 +388,15 @@
                                                 </div>
                                             </#if>
                                         </#if>
+                                    </div>
+                                    <div class="col">
+                                        <h4 class="m-t-0 m-b-20">Find Users</h4>
+                                        <div class="input-group">
+                                            <input type="search" id="form1" class="form-control" placeholder="Search"/>
+                                            <span class="input-group-append">
+                                            <button type="button" class="btn btn-outline-primary fa fa-search"></button>
+                                        </span>
+                                        </div>
                                     </div>
                                 </div>
                             </#if>

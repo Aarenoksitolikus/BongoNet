@@ -49,6 +49,7 @@ public class ProfileController {
         var me = user.getUsername().equals(userDetails.getUsername());
         if (me) {
             model.addAttribute("me", userDetails.getUsername());
+            model.addAttribute("news", postsService.getNewsForUserById(currentUserId));
             if (user.isAdmin()) {
                 model.addAttribute("admin", true);
             }

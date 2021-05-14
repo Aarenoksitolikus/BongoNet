@@ -3,13 +3,16 @@ package ru.itis.bongodev.bongonet.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.models.Comment;
+import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.models.Post;
 import ru.itis.bongodev.bongonet.repositories.CommentsRepository;
 import ru.itis.bongodev.bongonet.repositories.PostsRepository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PostsServiceImpl implements PostsService {
@@ -19,6 +22,9 @@ public class PostsServiceImpl implements PostsService {
 
     @Autowired
     private CommentsRepository commentsRepository;
+
+    @Autowired
+    private FriendsService friendsService;
 
     @Override
     public List<Post> getAllPostsByUserId(Long id) {
@@ -55,5 +61,26 @@ public class PostsServiceImpl implements PostsService {
     @Override
     public Comment getCommentById(Long id) {
         return commentsRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Post> getNewsForUserById(Long id) {
+        List<Post> result = new ArrayList<>();
+        List<Friendship> friends = friendsService.getAllFriendsByUserId(id);
+        if (friends.size() > 0) {
+            for (Friendship current : friends) {
+                Long currentId;
+                if (current.getSender().getId().equals(id)) {
+                    currentId = current.getRecipient().getId();
+                } else {
+                    currentId = current.getSender().getId();
+                }
+                if (currentId != null) {
+                    result.addAll(postsRepository.findAllByAuthor_IdAndPublicationTimeAfterOrderByPublicationTimeDesc(currentId, Timestamp.valueOf(LocalDateTime.now().minusDays(2))));
+                }
+            }
+            result.sort(Comparator.comparing(Post::getPublicationTime).reversed());
+        }
+        return result;
     }
 }

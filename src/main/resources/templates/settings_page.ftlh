@@ -115,7 +115,7 @@
                                                     <div class="row">
                                                         <div class="col mb-3">
                                                             <label for="birthday">Birthday date</label>
-                                                            <input class="form-control" type="date" id="birthday" name="birthday" min="1900-01-01" value="${birthday}">
+                                                            <input class="form-control" type="date" id="birthday" name="birthday" min="1900-01-01" max="${.now?date?string["yyyy-MM-dd"]}" value="${birthday}">
                                                         </div>
                                                     </div>
                                                     <div class="row">

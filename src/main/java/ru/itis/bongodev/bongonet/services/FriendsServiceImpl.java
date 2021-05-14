@@ -17,9 +17,6 @@ public class FriendsServiceImpl implements FriendsService {
     @Autowired
     private FriendsRepository friendsRepository;
 
-    @Autowired
-    private UsersRepository usersRepository;
-
     @Override
     public void sendFriendRequest(Friendship request) {
         var senderId = request.getSender().getId();
