@@ -5,6 +5,7 @@ import ru.itis.bongodev.bongonet.dto.UserDto;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface UsersService {
@@ -13,6 +14,7 @@ public interface UsersService {
     User getUser(String username);
     User getUser(Long id);
 
+    Timestamp getLastSeenByUsername(String username);
     Profile getProfile(Long id);
     void banUser(Long id);
     void updateUser(User user);

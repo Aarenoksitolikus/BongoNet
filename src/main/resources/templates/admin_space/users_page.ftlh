@@ -44,7 +44,7 @@
                                     <td>
                                         <#if user.state??>
                                             <#if user.role == 'ADMIN'>
-                                                <span class="badge bg-warning">ADMIN</span>
+                                                <span class="badge bg-warning">Admin</span>
                                             <#elseIf user.state == 'ACTIVE'>
                                                 <span class="badge bg-success">Active</span>
                                             <#elseIf user.state == 'BANNED'>

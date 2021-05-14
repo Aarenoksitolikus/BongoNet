@@ -7,12 +7,16 @@
             <form method="post" action="/ban/${user.id}">
                 <input type="hidden" name="${_csrf.parameterName}"
                        value="${_csrf.token}">
-                <#if user.state == 'ACTIVE'>
-                    <input class="btn btn-outline-success btn-sm" type="submit"
-                           value="${user.state}">
-                <#else>
-                    <input class="btn btn-outline-danger btn-sm" type="submit"
-                           value="${user.state}">
+                <#if user.role != 'ADMIN'>
+                    <#if user.state == 'ACTIVE'>
+                        <input class="btn btn-outline-success btn-sm" type="submit"
+                               value="${user.state}">
+                    <#else>
+                        <input class="btn btn-outline-danger btn-sm" type="submit"
+                               value="${user.state}">
+                    </#if>
+                    <#else>
+                    <span class="btn btn-sm btn-outline-warning disabled">UNBLOCABLE</span>
                 </#if>
             </form>
         </div>

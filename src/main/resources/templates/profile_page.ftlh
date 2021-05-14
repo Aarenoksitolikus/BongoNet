@@ -36,6 +36,10 @@
                                 <#else>
                                     <div class="d-flex">
                                         <#if areFriends>
+                                            <span class="btn btn-sm btn-outline-warning mb-2 disabled"
+                                                  style="width: 115px">Already Friends</span>
+
+                                        <#else>
                                             <form method="post" action="/add/friend/${user.id}">
                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                        value="${_csrf.token}">
@@ -43,9 +47,6 @@
                                                 <input type="submit" class="btn btn-sm btn-outline-warning mb-2"
                                                        value="Add as Friend" style="width: 115px">
                                             </form>
-                                        <#else>
-                                            <span class="btn btn-sm btn-outline-warning mb-2 disabled"
-                                                  style="width: 115px">Already Friends</span>
                                         </#if>
                                         <a href="/profile/me" class="btn btn-sm btn-outline-info mb-2"
                                            style="margin-left: 4px">Go to my profile</a>
@@ -91,6 +92,10 @@
                             <ul class="timeline">
                                 <#if me??>
                                     <li class="new-post">
+                                        <div class="timeline-time">
+                                            <span class="date">today</span>
+                                            <span id="new-post-time" class="time">${.now?time?string.short}</span>
+                                        </div>
                                         <div class="timeline-icon">
                                             <a href="javascript:">&nbsp;</a>
                                         </div>
@@ -152,13 +157,15 @@
                                                     </p>
                                                 </div>
                                                 <div class="timeline-comment-box">
-                                                    <div>
-                                                        <#--                                                            <#if (post.comments?size > 0)>-->
-                                                        <div id="${post.id}-comments" class="comments">
-                                                            <#--                                                                    ${post.comments}-->
-                                                        </div>
-                                                        <#--                                                            </#if>-->
-                                                    </div>
+<#--                                                    <div>-->
+<#--                                                        <#if (post.comments?size > 0)>-->
+<#--                                                            <div id="${post.id}-comments" class="comments">-->
+<#--                                                                <#list post.comments as comment>-->
+<#--                                                                    ${comment.content}-->
+<#--                                                                </#list>-->
+<#--                                                            </div>-->
+<#--                                                        </#if>-->
+<#--                                                    </div>-->
                                                     <div class="new-comment">
                                                         <div class="user"><img src="${avatar}" alt="">
                                                         </div>
@@ -170,7 +177,7 @@
                                                                 <div class="input-group">
                                                                     <input type="text"
                                                                            class="form-control rounded-corner"
-                                                                           id="content" name="content"
+                                                                           <#--id="content"--> name="content"
                                                                            placeholder="Write a comment..."
                                                                            autocomplete="off">
                                                                     <span class="input-group-append p-l-10">
@@ -222,18 +229,18 @@
                                                                     alt=""></a></span>
                                                         <span class="username"><a
                                                                     href="/profile/${post.author.username}">${post.author.username}</a></span>
-                                                        <#--                                                    <#if me??>-->
-                                                        <#--                                                        <div class="pull-right">-->
-                                                        <#--                                                            <form method="post"-->
-                                                        <#--                                                                  action="/profile/delete/post/${post.id}">-->
-                                                        <#--                                                                <input type="hidden" name="${_csrf.parameterName}"-->
-                                                        <#--                                                                       value="${_csrf.token}">-->
-                                                        <#--                                                                <input type="submit"-->
-                                                        <#--                                                                       class="btn btn-outline-danger btn-sm"-->
-                                                        <#--                                                                       value="Delete">-->
-                                                        <#--                                                            </form>-->
-                                                        <#--                                                        </div>-->
-                                                        <#--                                                    </#if>-->
+                                                        <#--                                                                                                            <#if me??>-->
+                                                        <#--                                                                                                                <div class="pull-right">-->
+                                                        <#--                                                                                                                    <form method="post"-->
+                                                        <#--                                                                                                                          action="/profile/delete/post/${post.id}">-->
+                                                        <#--                                                                                                                        <input type="hidden" name="${_csrf.parameterName}"-->
+                                                        <#--                                                                                                                               value="${_csrf.token}">-->
+                                                        <#--                                                                                                                        <input type="submit"-->
+                                                        <#--                                                                                                                               class="btn btn-outline-danger btn-sm"-->
+                                                        <#--                                                                                                                               value="Delete">-->
+                                                        <#--                                                                                                                    </form>-->
+                                                        <#--                                                                                                                </div>-->
+                                                        <#--                                                                                                            </#if>-->
                                                     </div>
                                                     <div class="timeline-content">
                                                         <p>
@@ -259,7 +266,7 @@
                                                                     <div class="input-group">
                                                                         <input type="text"
                                                                                class="form-control rounded-corner"
-                                                                               id="content" name="content"
+                                                                               <#--id="content"--> name="content"
                                                                                placeholder="Write a comment..."
                                                                                autocomplete="off">
                                                                         <span class="input-group-append p-l-10">
@@ -459,5 +466,6 @@
 <script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
 <script src="/js/new_post.js"></script>
 <script src="/js/comments.js"></script>
+<script src="/js/clock.js"></script>
 </body>
 </html>

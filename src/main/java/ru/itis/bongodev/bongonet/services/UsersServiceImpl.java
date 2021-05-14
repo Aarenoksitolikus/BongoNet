@@ -9,6 +9,7 @@ import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.repositories.ProfilesRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,6 +42,11 @@ public class UsersServiceImpl implements UsersService {
     @Override
     public User getUser(Long id) {
         return usersRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Timestamp getLastSeenByUsername(String username) {
+        return usersRepository.lastSeen(username);
     }
 
     @Override
