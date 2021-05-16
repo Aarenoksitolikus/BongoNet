@@ -157,15 +157,18 @@
                                                     </p>
                                                 </div>
                                                 <div class="timeline-comment-box">
-<#--                                                    <div>-->
-<#--                                                        <#if (post.comments?size > 0)>-->
-<#--                                                            <div id="${post.id}-comments" class="comments">-->
-<#--                                                                <#list post.comments as comment>-->
-<#--                                                                    ${comment.content}-->
-<#--                                                                </#list>-->
-<#--                                                            </div>-->
-<#--                                                        </#if>-->
-<#--                                                    </div>-->
+                                                    <div>
+                                                        <#if (post.comments?size > 0)>
+                                                            <div id="${post.id}-comments" class="comments">
+                                                                <#list post.comments as comment>
+                                                                    <#assign author = comment.author.username>
+                                                                    <p>
+                                                                        <a href="/profile/${author}">${comment.author.username}</a>: ${comment.content}
+                                                                    </p>
+                                                                </#list>
+                                                            </div>
+                                                        </#if>
+                                                    </div>
                                                     <div class="new-comment">
                                                         <div class="user"><img src="${avatar}" alt="">
                                                         </div>
@@ -177,7 +180,7 @@
                                                                 <div class="input-group">
                                                                     <input type="text"
                                                                            class="form-control rounded-corner"
-                                                                           <#--id="content"--> name="content"
+                                                                            <#--id="content"--> name="content"
                                                                            placeholder="Write a comment..."
                                                                            autocomplete="off">
                                                                     <span class="input-group-append p-l-10">
@@ -266,7 +269,7 @@
                                                                     <div class="input-group">
                                                                         <input type="text"
                                                                                class="form-control rounded-corner"
-                                                                               <#--id="content"--> name="content"
+                                                                                <#--id="content"--> name="content"
                                                                                placeholder="Write a comment..."
                                                                                autocomplete="off">
                                                                         <span class="input-group-append p-l-10">

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Post {
 
     private Timestamp publicationTime;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     public int numberOfComments() {

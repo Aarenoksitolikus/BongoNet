@@ -80,6 +80,9 @@ public class PostsServiceImpl implements PostsService {
                 }
             }
             result.sort(Comparator.comparing(Post::getPublicationTime).reversed());
+            for (Post post: result) {
+                post.getComments().sort(Comparator.comparing(Comment::getPublicationTime));
+            }
         }
         return result;
     }

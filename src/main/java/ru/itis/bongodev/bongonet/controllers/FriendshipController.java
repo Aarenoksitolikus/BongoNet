@@ -46,7 +46,7 @@ public class FriendshipController {
                 friendsService.cancelFriendRequest(friendship.getId());
                 break;
             default:
-                break;
+                break;  
         }
         return "redirect:/profile/me";
     }

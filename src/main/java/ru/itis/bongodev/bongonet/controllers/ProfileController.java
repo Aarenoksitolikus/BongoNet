@@ -16,6 +16,8 @@ import ru.itis.bongodev.bongonet.services.PostsService;
 import ru.itis.bongodev.bongonet.services.UsersService;
 
 import java.io.File;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -71,7 +73,11 @@ public class ProfileController {
         model.addAttribute("receivedRequests", friendsService.getAllFriendRequestsByRecipientId(currentUserId));
         model.addAttribute("friends", friendsService.getAllFriendsByUserId(user.getId()));
         model.addAttribute("profile", profile);
-        model.addAttribute("posts", postsService.getAllPostsByUserId(user.getId()));
+        List<Post> posts = postsService.getAllPostsByUserId(user.getId());
+        for (Post post: posts             ) {
+            post.getComments().sort(Comparator.comparing(Comment::getPublicationTime));
+        }
+        model.addAttribute("posts", posts);
         return "profile_page";
     }
 
