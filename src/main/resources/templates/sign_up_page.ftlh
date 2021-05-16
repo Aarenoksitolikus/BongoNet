@@ -60,7 +60,7 @@
                                     <@spring.formPasswordInput "userForm.passwordCheck" "class='form-control' placeholder='Password again' required"/>
                                 </div>
                                 <div class="text-center mt-3">
-                                    <input type="submit" class="btn btn-lg btn-primary" value="Sign up">
+                                    <input type="submit" class="btn btn-lg btn-outline-primary" value="Sign up">
                                     <p><a href="/auth">Already have account?</a></p>
                                 </div>
                             </form>

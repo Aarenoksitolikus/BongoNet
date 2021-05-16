@@ -69,6 +69,7 @@ public class SignUpServiceImpl implements SignUpService {
             Profile newProfile = Profile.builder()
                     .user(confirmedUser)
                     .status("Hello! I'm new at BongoNet. Nice to meet you!")
+                    .sex(Profile.Sex.UNDEFINED)
                     .build();
 
             confirmedUser.setState(User.State.ACTIVE);

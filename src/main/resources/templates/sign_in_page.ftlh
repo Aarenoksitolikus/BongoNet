@@ -38,7 +38,7 @@
                                 <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me"/>
                                 <label class="custom-control-label" for="remember_me">Remember me</label>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-6">
                                     <input type="submit" class="btn btn-primary px-4" value="Login">
                                 </div>

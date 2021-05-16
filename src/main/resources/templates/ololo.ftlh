@@ -8,6 +8,6 @@
     <title>Document</title>
 </head>
 <body>
-OLOLO
+There will be chats
 </body>
 </html>

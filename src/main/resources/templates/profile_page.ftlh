@@ -124,7 +124,7 @@
                                                 <#assign isToday = .now?date?string.short>
                                                 <#assign isYesterday = (.now?long - 86400000)?number_to_date?string.short>
                                                 <#assign postTime = post.publicationTime?date?string.short>
-                                                <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#else>${post.publicationTime?date}</#if></span>
+                                                <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#elseif post.publicationTime?date?string["yyyy"] == .now?date?string["yyyy"]>${post.publicationTime?date?string["dd MMM"]}<#else>${post.publicationTime?date}</#if></span>
                                                 <span class="time">${post.publicationTime?time?string.short}</span>
                                             </div>
                                             <div class="timeline-icon">
@@ -158,18 +158,23 @@
                                                 </div>
                                                 <div class="timeline-comment-box">
                                                     <div>
-                                                        <#if (post.comments?size > 0)>
+                                                        <#assign listSize = post.comments?size>
+                                                        <#if (listSize > 0)>
+<#--                                                            <#assign lastComment = post.comments[listSize - 1]>-->
                                                             <div id="${post.id}-comments" class="comments">
                                                                 <#list post.comments as comment>
                                                                     <#assign author = comment.author.username>
-                                                                    <p>
+                                                                    <#assign commentTime = comment.publicationTime?date?string.short>
+<#--                                                                    <p<#if comment != lastComment> class="comment"</#if>">-->
+                                                                    <div class="comment">
                                                                         <a href="/profile/${author}">${comment.author.username}</a>: ${comment.content}
-                                                                    </p>
+                                                                        <div class="text-secondary text-sm-right"><#if commentTime == isToday>today<#elseif commentTime == isYesterday>yesterday<#else>${comment.publicationTime?date?string["dd MMM"]}</#if>, ${comment.publicationTime?time?string.short}</div>
+                                                                    </div>
                                                                 </#list>
                                                             </div>
                                                         </#if>
                                                     </div>
-                                                    <div class="new-comment">
+                                                    <div class="new-comment mt-2">
                                                         <div class="user"><img src="${avatar}" alt="">
                                                         </div>
                                                         <div class="input">
@@ -301,7 +306,7 @@
                         <div class="tab-pane fade" id="profile-friends">
                             <#if me??>
                                 <div class="row row-space-3">
-                                    <div class="col">
+                                    <div class="col-lg-4">
                                         <h4 class="m-t-0 m-b-20">Sent Requests</h4>
                                         <#if sentRequests??>
                                             <#if sentRequests?size < 1>
@@ -345,7 +350,7 @@
                                             </#if>
                                         </#if>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-4">
                                         <h4 class="m-t-0 m-b-20">Received Requests</h4>
                                         <#if receivedRequests??>
                                             <#if receivedRequests?size < 1>
@@ -399,7 +404,7 @@
                                             </#if>
                                         </#if>
                                     </div>
-                                    <div class="col">
+                                    <div class="col-lg-4">
                                         <h4 class="m-t-0 m-b-20">Find Users</h4>
                                         <div class="input-group">
                                             <input type="search" id="form1" class="form-control" placeholder="Search"/>
@@ -411,10 +416,10 @@
                                 </div>
                             </#if>
                             <h4 class="mt-md-2 m-b-5">Friend List<#if friends?size != 0> (${friends?size})</#if></h4>
-                            <div class="row row-space-2">
+                            <div class="row row-space-3">
                                 <#if friends??>
                                     <#if friends?size < 1>
-                                        <div class="col-md-6 m-b-2">
+                                        <div class="col m-b-2">
                                             No friends
                                         </div>
                                     <#else>
@@ -423,7 +428,7 @@
                                             <#if friendName == username>
                                                 <#assign friendName = friend.recipient.username>
                                             </#if>
-                                            <div class="col-md-6 m-b-2">
+                                            <div class="col-md-4 m-b-2">
                                                 <div class="p-10 bg-white">
                                                     <div class="col">
                                                         <div class="media media-xs overflow-visible">
@@ -467,8 +472,11 @@
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
-<script src="/js/new_post.js"></script>
 <script src="/js/comments.js"></script>
-<script src="/js/clock.js"></script>
+<#if me??>
+    <script src="/js/new_post.js"></script>
+    <script src="/js/clock.js"></script>
+    <script src="/js/textarea.js"></script>
+</#if>
 </body>
 </html>

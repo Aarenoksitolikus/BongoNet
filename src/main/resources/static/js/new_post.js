@@ -14,13 +14,6 @@ post.onblur = function () {
     }
 }
 
-const textarea = document.querySelector('textarea');
-textarea.addEventListener('input', autoResize, false);
-function autoResize() {
-    this.style.height = 'auto';
-    this.style.height = this.scrollHeight + 'px';
-}
-
 const url = 'http:/localhost/profile/'
 const data = { jopa: 'jopa'};
 const data2 = new FormData(document.querySelector('form'));

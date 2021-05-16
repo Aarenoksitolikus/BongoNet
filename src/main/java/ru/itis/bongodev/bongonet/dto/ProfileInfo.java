@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.itis.bongodev.bongonet.models.Profile;
 
 import java.sql.Date;
 
@@ -16,4 +17,5 @@ public class ProfileInfo {
     private String status;
     private String about;
     private Date birthday;
+    private Profile.Sex sex;
 }

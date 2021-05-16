@@ -29,6 +29,8 @@
             </div>
             <div class="col-sm-9 col-xl-12 col-xxl-9">
                 <strong>About me</strong>
+                <p>Birthday date: ${profile.birthday + " (" + ((.now?long - profile.birthday?long) / (60 * 60 * 24 * 365 * 1000))?int + ")"}</p>
+                <p>Sex: ${profile.sex?string?lowerCase}</p>
                 <p>${profile.about}</p>
             </div>
         </div>

@@ -86,6 +86,7 @@ public class UsersServiceImpl implements UsersService {
             currentProfile.setAbout(info.getAbout());
             currentProfile.setBirthday(info.getBirthday());
             currentProfile.setStatus(info.getStatus());
+            currentProfile.setSex(info.getSex());
             profilesRepository.save(currentProfile);
         }
     }

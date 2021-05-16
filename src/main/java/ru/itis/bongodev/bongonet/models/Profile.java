@@ -27,6 +27,9 @@ public class Profile {
     private String about;
     private Date birthday;
 
+    @Enumerated(value = EnumType.STRING)
+    private Sex sex;
+
     public void setUser(User user) {
         updateUser(user, true);
     }
@@ -40,5 +43,9 @@ public class Profile {
 
     public Profile(User user) {
         this.user = user;
+    }
+
+    public enum Sex {
+        MALE, FEMALE, UNDEFINED, DIFFERENT
     }
 }
