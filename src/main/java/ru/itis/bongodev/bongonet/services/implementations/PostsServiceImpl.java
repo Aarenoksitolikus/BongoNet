@@ -1,4 +1,4 @@
-package ru.itis.bongodev.bongonet.services;
+package ru.itis.bongodev.bongonet.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,10 +7,10 @@ import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.models.Post;
 import ru.itis.bongodev.bongonet.repositories.CommentsRepository;
 import ru.itis.bongodev.bongonet.repositories.PostsRepository;
+import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
+import ru.itis.bongodev.bongonet.services.interfaces.PostsService;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 

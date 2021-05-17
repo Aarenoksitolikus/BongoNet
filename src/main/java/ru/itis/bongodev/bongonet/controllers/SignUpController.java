@@ -4,19 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.dto.UserForm;
-import ru.itis.bongodev.bongonet.services.SignUpService;
+import ru.itis.bongodev.bongonet.services.interfaces.SignUpService;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Controller
 public class SignUpController {

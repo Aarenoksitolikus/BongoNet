@@ -1,7 +1,7 @@
 package ru.itis.bongodev.bongonet.validation.validators;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.itis.bongodev.bongonet.services.UsersService;
+import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
 import ru.itis.bongodev.bongonet.validation.constraints.Username;
 
 import javax.validation.ConstraintValidator;

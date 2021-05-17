@@ -7,9 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
-import ru.itis.bongodev.bongonet.services.UsersService;
+import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
 
 @Controller
 public class AdminController {

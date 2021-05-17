@@ -1,4 +1,4 @@
-package ru.itis.bongodev.bongonet.services;
+package ru.itis.bongodev.bongonet.services.interfaces;
 
 import ru.itis.bongodev.bongonet.models.Friendship;
 

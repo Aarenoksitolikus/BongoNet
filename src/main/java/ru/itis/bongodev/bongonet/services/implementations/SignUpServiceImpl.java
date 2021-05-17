@@ -1,4 +1,4 @@
-package ru.itis.bongodev.bongonet.services;
+package ru.itis.bongodev.bongonet.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +8,7 @@ import ru.itis.bongodev.bongonet.dto.UserForm;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
+import ru.itis.bongodev.bongonet.services.interfaces.SignUpService;
 import ru.itis.bongodev.bongonet.utils.EmailUtil;
 import ru.itis.bongodev.bongonet.utils.MailsGenerator;
 

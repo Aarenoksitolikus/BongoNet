@@ -1,10 +1,10 @@
-package ru.itis.bongodev.bongonet.services;
+package ru.itis.bongodev.bongonet.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.repositories.FriendsRepository;
-import ru.itis.bongodev.bongonet.repositories.UsersRepository;
+import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

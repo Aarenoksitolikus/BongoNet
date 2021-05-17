@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
-import ru.itis.bongodev.bongonet.services.FriendsService;
-import ru.itis.bongodev.bongonet.services.UsersService;
+import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
+import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
 
 @Controller
 public class FriendshipController {

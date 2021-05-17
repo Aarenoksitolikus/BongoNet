@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.dto.ProfileInfo;
 import ru.itis.bongodev.bongonet.models.*;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
-import ru.itis.bongodev.bongonet.services.FriendsService;
-import ru.itis.bongodev.bongonet.services.PostsService;
-import ru.itis.bongodev.bongonet.services.UsersService;
+import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
+import ru.itis.bongodev.bongonet.services.interfaces.PostsService;
+import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
 
 import java.io.File;
 import java.util.Comparator;
