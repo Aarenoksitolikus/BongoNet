@@ -8,6 +8,17 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/profile_page_style.css">
     <link rel="icon" type="image/png" href="/favicon.ico"/>
+
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
+    <script src="/js/comments.js"></script>
+    <#if me??>
+        <script src="/js/new_post.js"></script>
+        <script src="/js/clock.js"></script>
+        <script src="/js/textarea.js"></script>
+    </#if>
+
     <#assign avatar = (user.avatar?? && user.avatar != "")?then(user.avatar, "https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg")>
     <#assign username = (user.username??)?then(user.username, "")>
     <#assign firstName = (profile.firstName??)?then(profile.firstName, "")>
@@ -83,7 +94,8 @@
                         <div class="tab-pane fade" id="profile-about">
                             <div class="row justify-content-center">
                                 <div class="col-8 bg-white m-md-2 h-50 p-3">
-                                    <h5>Birthday date: <#if profile.birthday??>${profile.birthday}</#if></h5>
+                                    <h6>Birthday date: <#if profile.birthday??>${profile.birthday}</#if></h6>
+                                    <h6>Sex: ${profile.sex?lower_case}</h6>
                                     ${profile.about}
                                 </div>
                             </div>
@@ -223,7 +235,7 @@
                                                     <#assign isToday = .now?date?string.short>
                                                     <#assign isYesterday = (.now?long - 86400000)?number_to_date?string.short>
                                                     <#assign postTime = post.publicationTime?date?string.short>
-                                                    <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#else>${post.publicationTime?date}</#if></span>
+                                                    <span class="date"><#if postTime == isToday>today<#elseif postTime == isYesterday>yesterday<#else>${post.publicationTime?date?string["dd MMM"]}</#if></span>
                                                     <span class="time">${post.publicationTime?time?string.short}</span>
                                                 </div>
                                                 <div class="timeline-icon">
@@ -469,14 +481,5 @@
         </div>
     </div>
 </div>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
-<script src="/js/comments.js"></script>
-<#if me??>
-    <script src="/js/new_post.js"></script>
-    <script src="/js/clock.js"></script>
-    <script src="/js/textarea.js"></script>
-</#if>
 </body>
 </html>

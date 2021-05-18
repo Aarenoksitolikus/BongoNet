@@ -9,6 +9,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.itis.bongodev.bongonet.models.Chat;
 import ru.itis.bongodev.bongonet.models.Message;
 import ru.itis.bongodev.bongonet.models.Profile;
 import ru.itis.bongodev.bongonet.models.User;
@@ -24,8 +25,10 @@ public class ChatsController {
 
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
+
     @Autowired
     private MessageService messageService;
+
     @Autowired
     private ChatService chatService;
 
@@ -36,11 +39,15 @@ public class ChatsController {
         model.addAttribute("user", user);
         var profile = user.getProfile();
         model.addAttribute("profile", profile != null ? profile : new Profile());
-        return "ololo";
+        return "chats_page";
     }
 
     @MessageMapping("/chat")
     public void processMessage(@Payload Message message) {
-        var chatId = 1;
+        Chat chat = chatService.getOrCreateChatByUsersIds(message.getSenderId(), message.getRecipientId(), true);
+        message.setChat(chat);
+        message = messageService.save(message);
+
+        messagingTemplate.convertAndSendToUser(message.getRecipientId(), "/queue/messages", message);
     }
 }

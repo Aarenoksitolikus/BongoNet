@@ -1,16 +1,22 @@
 package ru.itis.bongodev.bongonet.services.implementations;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.models.Message;
+import ru.itis.bongodev.bongonet.repositories.MessageRepository;
 import ru.itis.bongodev.bongonet.services.interfaces.MessageService;
 
 import java.util.List;
 
 @Service
-public class MessageServiceImpl implements MessageService {
+public class MessageServiceJpaImpl implements MessageService {
+
+    @Autowired
+    private MessageRepository messageRepository;
+
     @Override
     public Message save(Message message) {
-        return null;
+        return messageRepository.save(message);
     }
 
     @Override

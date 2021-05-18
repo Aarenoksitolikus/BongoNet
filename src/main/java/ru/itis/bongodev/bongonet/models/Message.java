@@ -18,7 +18,6 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long chatId;
     private String senderId;
     private String recipientId;
     private String senderUsername;
@@ -28,6 +27,10 @@ public class Message {
 
     @Enumerated(value = EnumType.STRING)
     private State state;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     public enum State {
         RECEIVED, DELIVERED

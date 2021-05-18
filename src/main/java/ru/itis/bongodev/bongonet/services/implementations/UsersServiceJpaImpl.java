@@ -17,7 +17,7 @@ import java.util.Optional;
 import static ru.itis.bongodev.bongonet.dto.UserDto.*;
 
 @Service
-public class UsersServiceImpl implements UsersService {
+public class UsersServiceJpaImpl implements UsersService {
 
     @Autowired
     private UsersRepository usersRepository;

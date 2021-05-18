@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FriendsServiceImpl implements FriendsService {
+public class FriendsServiceJpaImpl implements FriendsService {
 
     @Autowired
     private FriendsRepository friendsRepository;

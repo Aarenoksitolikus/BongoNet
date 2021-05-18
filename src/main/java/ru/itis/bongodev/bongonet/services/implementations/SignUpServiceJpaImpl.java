@@ -18,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class SignUpServiceImpl implements SignUpService {
+public class SignUpServiceJpaImpl implements SignUpService {
 
     @Autowired
     private UsersRepository usersRepository;

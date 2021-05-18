@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class PostsServiceImpl implements PostsService {
+public class PostsServiceJpaImpl implements PostsService {
 
     @Autowired
     private PostsRepository postsRepository;

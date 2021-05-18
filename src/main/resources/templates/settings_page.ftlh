@@ -9,18 +9,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.ico"/>
     <link rel="stylesheet" href="/styles/settings_page_style.css">
-    <style type="text/css">
-        body {
-            margin-top: 20px;
-            background: #f8f8f8
-        }
 
-        .img-profile {
-            width: 120px;
-            height: 120px;
-            margin-bottom: 15px
-        }
-    </style>
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="/js/textarea.js"></script>
+
     <#assign username = (user.username??)?then(user.username, "")>
     <#assign firstName = (profile.firstName??)?then(profile.firstName, "")>
     <#assign lastName = (profile.lastName??)?then(profile.lastName, "")>
@@ -199,12 +192,8 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
-<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="/js/textarea.js"></script>
 </body>
 </html>
