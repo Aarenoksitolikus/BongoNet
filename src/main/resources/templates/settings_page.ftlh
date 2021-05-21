@@ -9,11 +9,19 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" href="/favicon.ico"/>
     <link rel="stylesheet" href="/styles/settings_page_style.css">
+    <link rel="icon" href="/images/favicon.ico"/>
+    <style type="text/css">
+        body {
+            margin-top: 20px;
+            background: #f8f8f8
+        }
 
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="/js/textarea.js"></script>
-
+        .img-profile {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px
+        }
+    </style>
     <#assign username = (user.username??)?then(user.username, "")>
     <#assign firstName = (profile.firstName??)?then(profile.firstName, "")>
     <#assign lastName = (profile.lastName??)?then(profile.lastName, "")>
@@ -49,7 +57,7 @@
                                     <div class="col-12 col-sm-auto mb-3">
                                         <div class="mx-auto" style="width: 140px;">
                                             <img class="img-profile img-responsive center-block"
-                                                 src="https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg"
+                                                 src="${user.avatar}"
                                                  alt="">
                                         </div>
                                     </div>
@@ -118,7 +126,7 @@
                                                                    value="${birthday}">
                                                         </div>
                                                         <div class="form-group col">
-                                                            <label for="sex">Sex</label>
+                                                            <label for="sex">Gender</label>
                                                             <select id="sex" name="sex" class="form-control">
                                                                 <option value="UNDEFINED" <#if profile.sex == 'UNDEFINED'>selected</#if>>Undefined</option>
                                                                 <option value="MALE" <#if profile.sex == 'MALE'>selected</#if>>Male</option>
@@ -192,8 +200,12 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="/js/textarea.js"></script>
 </body>
 </html>

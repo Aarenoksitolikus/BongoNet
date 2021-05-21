@@ -44,7 +44,7 @@ public class SignUpServiceJpaImpl implements SignUpService {
                 .username(userForm.getUsername())
                 .email(userForm.getEmail())
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
-                .avatar("images/default-avatar.jpg")
+                .avatar("/images/default-avatar.jpg")
                 .confirmCode(UUID.randomUUID().toString())
                 .role(User.Role.GUEST)
                 .state(User.State.NOT_CONFIRMED)

@@ -38,10 +38,6 @@ public class User {
     @OneToMany(mappedBy = "author")
     private List<Post> posts;
 
-//    @ManyToMany
-//    @JoinTable
-//    private List<Friendship> friends;
-
     public boolean isActive() {
         return this.state == State.ACTIVE;
     }

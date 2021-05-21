@@ -16,7 +16,7 @@
                                value="${user.state}">
                     </#if>
                     <#else>
-                    <span class="btn btn-sm btn-outline-warning disabled">UNBLOCABLE</span>
+                    <span class="btn btn-sm btn-outline-warning disabled">UNBLOCKABLE</span>
                 </#if>
             </form>
         </div>
@@ -24,13 +24,13 @@
     <div class="card-body">
         <div class="row g-0">
             <div class="col-sm-3 col-xl-12 col-xxl-3 text-center">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="64" height="64"
+                <img src="${user.avatar}" width="64" height="64"
                      class="rounded-circle mt-2" alt="Avatar">
             </div>
             <div class="col-sm-9 col-xl-12 col-xxl-9">
                 <strong>About me</strong>
                 <p>Birthday date: ${profile.birthday + " (" + ((.now?long - profile.birthday?long) / (60 * 60 * 24 * 365 * 1000))?int + ")"}</p>
-                <p>Sex: ${profile.sex?string?lowerCase}</p>
+                <p>Gender: ${profile.sex?string?lowerCase}</p>
                 <p>${profile.about}</p>
             </div>
         </div>

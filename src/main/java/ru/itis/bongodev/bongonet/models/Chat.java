@@ -18,7 +18,8 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String senderId, recipientId;
+    private Long senderId;
+    private Long recipientId;
 
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     private List<Message> messages;

@@ -8,6 +8,7 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="/styles/users_page_style.css" rel="stylesheet">
+    <link rel="icon" href="/images/favicon.ico"/>
 
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
@@ -40,7 +41,7 @@
                             <#list usersList as user>
                                 <tbody class="user-row" id="user-${user.id}">
                                 <tr class="illuminated" <#--onclick="getUserProfile('/get/profile/${user.id}')"-->>
-                                    <td><a href="/profile/${user.username}"><img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="32"
+                                    <td><a href="/profile/${user.username}"><img src="${user.avatar}" width="32"
                                              height="32" class="rounded-circle my-n1 illuminated" alt="Avatar"></a></td>
                                     <td>${user.profile.firstName + " " + user.profile.lastName}</td>
                                     <td><#if user.username??>${user.username}<#else>username</#if></td>

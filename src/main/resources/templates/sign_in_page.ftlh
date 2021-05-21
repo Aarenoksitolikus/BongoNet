@@ -9,10 +9,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" >
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/sign_in_page_style.css">
-
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
-    <script src="/js/show_password.js"></script>
+    <link rel="icon" href="/images/favicon.ico"/>
 </head>
 <body>
 <br>
@@ -44,7 +41,7 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-6">
-                                    <input type="submit" class="btn btn-primary px-4" value="Login">
+                                    <input type="submit" class="btn btn-outline-primary px-4" value="Login">
                                 </div>
                                 <div class="col-6 text-right">
                                     <a type="button" class="btn btn-link px-0">Forgot password?</a>
@@ -67,5 +64,8 @@
         </div>
     </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+<script src="/js/show_password.js"></script>
 </body>
 </html>

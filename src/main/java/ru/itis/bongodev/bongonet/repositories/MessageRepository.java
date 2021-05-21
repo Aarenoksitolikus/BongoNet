@@ -6,8 +6,7 @@ import ru.itis.bongodev.bongonet.models.Message;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-
-    Long countBySenderIdAndRecipientIdAndState(String senderId, String recipientId, Message.State state);
+    Long countBySenderIdAndRecipientIdAndState(Long senderId, Long recipientId, Message.State state);
 
     List<Message> findByChatId(Long chatId);
 }

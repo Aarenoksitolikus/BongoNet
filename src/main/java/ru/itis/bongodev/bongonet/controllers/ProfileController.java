@@ -88,7 +88,7 @@ public class ProfileController {
         if (user != null) {
             var profile = user.getProfile();
             model.addAttribute("profile", profile);
-            model.addAttribute("lastSeen", usersService.getLastSeenByUsername(user.getUsername()));
+//            model.addAttribute("lastSeen", usersService.getLastSeenByUsername(user.getUsername()));
         }
         return "settings_page";
     }

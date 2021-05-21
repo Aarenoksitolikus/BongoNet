@@ -1,6 +1,5 @@
 body {
     background: #f9f9fb;
-    margin-top: 20px;
 }
 
 .view-account {
@@ -438,6 +437,11 @@ body {
 .drive-list-view td.date,
 .drive-list-view td.size {
     color: #a2a6af
+}
+
+#about {
+    overflow: hidden;
+    resize:none;
 }
 
 @media (max-width: 767px) {

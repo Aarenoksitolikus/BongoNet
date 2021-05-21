@@ -42,4 +42,10 @@ public class SignUpController {
     public String getConfirmPage(@PathVariable("user-confirm-code") String code) {
         return signUpService.confirm(code) ? "success_confirm_page" : "error_page";
     }
+
+    @PermitAll
+    @GetMapping("/confirm")
+    public String ololo() {
+        return "success_confirm_page";
+    }
 }

@@ -6,6 +6,8 @@ import ru.itis.bongodev.bongonet.models.Chat;
 import ru.itis.bongodev.bongonet.repositories.ChatRepository;
 import ru.itis.bongodev.bongonet.services.interfaces.ChatService;
 
+import java.util.List;
+
 @Service
 public class ChatServiceJpaImpl implements ChatService {
 
@@ -13,7 +15,7 @@ public class ChatServiceJpaImpl implements ChatService {
     private ChatRepository chatRepository;
 
     @Override
-    public Chat getOrCreateChatByUsersIds(String senderId, String recipientId, boolean createIfNotExist) {
+    public Chat getOrCreateChatByUsersIds(Long senderId, Long recipientId, boolean createIfNotExist) {
         Chat chat = chatRepository.findBySenderIdAndRecipientId(senderId, recipientId).orElse(null);
         if (chat == null) {
             if (createIfNotExist) {
@@ -25,5 +27,10 @@ public class ChatServiceJpaImpl implements ChatService {
             }
         }
         return chat;
+    }
+
+    @Override
+    public List<Chat> getAllChatsByUserId(Long userId) {
+        return chatRepository.findAllByUserId(userId);
     }
 }

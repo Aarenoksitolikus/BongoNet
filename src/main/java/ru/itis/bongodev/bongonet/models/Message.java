@@ -18,8 +18,8 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String senderId;
-    private String recipientId;
+    private Long senderId;
+    private Long recipientId;
     private String senderUsername;
     private String recipientUsername;
     private String content;

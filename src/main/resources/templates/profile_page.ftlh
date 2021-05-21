@@ -7,17 +7,7 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/profile_page_style.css">
-    <link rel="icon" type="image/png" href="/favicon.ico"/>
-
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
-    <script src="/js/comments.js"></script>
-    <#if me??>
-        <script src="/js/new_post.js"></script>
-        <script src="/js/clock.js"></script>
-        <script src="/js/textarea.js"></script>
-    </#if>
+    <link rel="icon" href="/images/favicon.ico"/>
 
     <#assign avatar = (user.avatar?? && user.avatar != "")?then(user.avatar, "https://shapka-youtube.ru/wp-content/uploads/2021/02/prikolnaya-avatarka-dlya-patsanov.jpg")>
     <#assign username = (user.username??)?then(user.username, "")>
@@ -332,7 +322,7 @@
                                                                     <div class="media media-xs overflow-visible">
                                                                         <a class="media-left"
                                                                            href="/profile/${request.recipient.username}">
-                                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                            <img src="${request.recipient.avatar}"
                                                                                  alt=""
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
@@ -376,7 +366,7 @@
                                                                     <div class="media media-xs overflow-visible">
                                                                         <a class="media-left"
                                                                            href="/profile/${request.sender.username}">
-                                                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                            <img src="${request.sender.avatar}"
                                                                                  alt=""
                                                                                  class="media-object rounded-circle illuminated">
                                                                         </a>
@@ -437,15 +427,17 @@
                                     <#else>
                                         <#list friends as friend>
                                             <#assign friendName = friend.sender.username>
+                                            <#assign avatar = friend.sender.avatar>
                                             <#if friendName == username>
                                                 <#assign friendName = friend.recipient.username>
+                                                <#assign avatar = friend.recipient.avatar>
                                             </#if>
                                             <div class="col-md-4 m-b-2">
                                                 <div class="p-10 bg-white">
                                                     <div class="col">
                                                         <div class="media media-xs overflow-visible">
                                                             <a class="media-left" href="/profile/${friendName}">
-                                                                <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                                                <img src="${avatar}"
                                                                      alt="avatar"
                                                                      class="media-object rounded-circle illuminated">
                                                             </a>
@@ -481,5 +473,14 @@
         </div>
     </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://bootstrap-ru.com/203/assets/js/bootstrap-tab.js"></script>
+<script src="/js/comments.js"></script>
+<#if me??>
+    <script src="/js/new_post.js"></script>
+    <script src="/js/clock.js"></script>
+    <script src="/js/textarea.js"></script>
+</#if>
 </body>
 </html>

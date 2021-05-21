@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface MessageService {
     Message save(Message message);
-    Long countNewMessages(String senderId, String recipientId);
-    List<Message> findMessages(String senderId, String recipientId);
+    Long countNewMessages(Long senderId, Long recipientId);
+    List<Message> findMessages(Long senderId, Long recipientId);
     Message findById(Long id);
-    void updateStates(String senderId, String recipientId, Message.State state);
+    void updateStates(Long senderId, Long recipientId, Message.State state);
 }

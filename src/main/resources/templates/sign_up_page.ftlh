@@ -10,10 +10,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/sign_up_page_style.css">
-
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="/js/password_is_valid.js"></script>
+    <link rel="icon" href="/images/favicon.ico"/>
 </head>
 <body>
 <div class="container h-100">
@@ -75,5 +72,8 @@
         </div>
     </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="/js/password_is_valid.js"></script>
 </body>
 </html>
