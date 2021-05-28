@@ -65,12 +65,40 @@
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${firstName + " " + lastName}</h4>
                                             <p class="mb-0">${username}</p>
-                                            <div class="text-muted"><small>Last seen 2 hours ago<#--${lastSeen?date}--></small></div>
+                                            <div class="text-muted"><small>Last seen 2 hours
+                                                    ago<#--${lastSeen?date}--></small></div>
                                             <div class="mt-2">
-                                                <button class="btn btn-outline-primary" type="button">
+                                                <button class="btn btn-outline-primary" type="button"
+                                                        data-toggle="modal" data-target="#modal-change-avatar">
                                                     <i class="fa fa-fw fa-camera"></i>
                                                     <span>Change Photo</span>
                                                 </button>
+                                            </div>
+                                            <div id="modal-change-avatar" class="modal fade" tabindex="-1" role="dialog"
+                                                 aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Change Photo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="/profile/settings/avatar" method="post"
+                                                              enctype="multipart/form-data">
+                                                            <div class="modal-body">
+                                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                                       value="${_csrf.token}">
+                                                                <input type="file" accept="image/*" name="file">
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                            <input type="submit" class="btn btn-outline-primary"
+                                                                   value="Submit">
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="text-center text-sm-right">
@@ -128,37 +156,48 @@
                                                         <div class="form-group col">
                                                             <label for="sex">Gender</label>
                                                             <select id="sex" name="sex" class="form-control">
-                                                                <option value="UNDEFINED" <#if profile.sex == 'UNDEFINED'>selected</#if>>Undefined</option>
-                                                                <option value="MALE" <#if profile.sex == 'MALE'>selected</#if>>Male</option>
-                                                                <option value="FEMALE" <#if profile.sex == 'FEMALE'>selected</#if>>Female</option>
-                                                                <option value="DIFFERENT" <#if profile.sex == 'DIFFERENT'>selected</#if>>Different</option>
+                                                                <option value="UNDEFINED"
+                                                                        <#if profile.sex == 'UNDEFINED'>selected</#if>>
+                                                                    Undefined
+                                                                </option>
+                                                                <option value="MALE"
+                                                                        <#if profile.sex == 'MALE'>selected</#if>>Male
+                                                                </option>
+                                                                <option value="FEMALE"
+                                                                        <#if profile.sex == 'FEMALE'>selected</#if>>
+                                                                    Female
+                                                                </option>
+                                                                <option value="DIFFERENT"
+                                                                        <#if profile.sex == 'DIFFERENT'>selected</#if>>
+                                                                    Different
+                                                                </option>
                                                             </select>
                                                         </div>
-<#--                                                        <div class="col">-->
-<#--                                                            <label for="sex">Sex</label>-->
-<#--                                                            <div class="form-check">-->
-<#--                                                                <div class="form-check-inline">-->
-<#--                                                                    <input class="form-check-input" type="radio"-->
-<#--                                                                           id="sex"-->
-<#--                                                                           name="sex" value="UNDEFINED">Undefined-->
-<#--                                                                </div>-->
-<#--                                                                <div class="form-check-inline">-->
-<#--                                                                    <input class="form-check-input" type="radio"-->
-<#--                                                                           id="sex"-->
-<#--                                                                           name="sex" value="MALE">Male-->
-<#--                                                                </div>-->
-<#--                                                                <div class="form-check-inline">-->
-<#--                                                                    <input class="form-check-input" type="radio"-->
-<#--                                                                           id="sex"-->
-<#--                                                                           name="sex" value="FEMALE">Female-->
-<#--                                                                </div>-->
-<#--                                                                <div class="form-check-inline">-->
-<#--                                                                    <input class="form-check-input" type="radio"-->
-<#--                                                                           id="sex"-->
-<#--                                                                           name="sex" value="DIFFERENT">Different-->
-<#--                                                                </div>-->
-<#--                                                            </div>-->
-<#--                                                        </div>-->
+                                                        <#--                                                        <div class="col">-->
+                                                        <#--                                                            <label for="sex">Sex</label>-->
+                                                        <#--                                                            <div class="form-check">-->
+                                                        <#--                                                                <div class="form-check-inline">-->
+                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
+                                                        <#--                                                                           id="sex"-->
+                                                        <#--                                                                           name="sex" value="UNDEFINED">Undefined-->
+                                                        <#--                                                                </div>-->
+                                                        <#--                                                                <div class="form-check-inline">-->
+                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
+                                                        <#--                                                                           id="sex"-->
+                                                        <#--                                                                           name="sex" value="MALE">Male-->
+                                                        <#--                                                                </div>-->
+                                                        <#--                                                                <div class="form-check-inline">-->
+                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
+                                                        <#--                                                                           id="sex"-->
+                                                        <#--                                                                           name="sex" value="FEMALE">Female-->
+                                                        <#--                                                                </div>-->
+                                                        <#--                                                                <div class="form-check-inline">-->
+                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
+                                                        <#--                                                                           id="sex"-->
+                                                        <#--                                                                           name="sex" value="DIFFERENT">Different-->
+                                                        <#--                                                                </div>-->
+                                                        <#--                                                            </div>-->
+                                                        <#--                                                        </div>-->
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">

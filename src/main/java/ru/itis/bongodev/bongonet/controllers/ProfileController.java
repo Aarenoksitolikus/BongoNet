@@ -1,6 +1,7 @@
 package ru.itis.bongodev.bongonet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -8,16 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import ru.itis.bongodev.bongonet.dto.ProfileInfo;
 import ru.itis.bongodev.bongonet.models.*;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
 import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
 import ru.itis.bongodev.bongonet.services.interfaces.PostsService;
 import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
+import ru.itis.bongodev.bongonet.utils.FileDownloader;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class ProfileController {
@@ -98,7 +104,7 @@ public class ProfileController {
     public String changeProfile(@AuthenticationPrincipal UserDetailsImpl userDetails, ProfileInfo info) {
         info.setId(userDetails.getUser().getId());
         usersService.updateProfile(info);
-        return "redirect:/profile/" + userDetails.getUsername();
+        return "redirect:/profile/me";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -144,7 +150,10 @@ public class ProfileController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile/settings/avatar")
-    public void changeAvatar(@AuthenticationPrincipal UserDetailsImpl userDetails, File avatar) {
+    public String changeAvatar(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam("file") MultipartFile file) {
+        System.out.println(userDetails.getUser().getId());
+        usersService.changeAvatar(userDetails.getUser().getId(), file);
+        return "redirect:/profile/settings";
     }
 
     private User getUser(UserDetailsImpl userDetails, Model model) {

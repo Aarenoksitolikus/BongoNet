@@ -83,9 +83,10 @@ public class ChatsController {
                                  @PathVariable("recipient-id") Long recipientId,
                                  Model model) {
         var chat = messageService.findMessages(senderId, recipientId);
-        Long otherUserId = senderId.equals(userDetails.getUser().getId()) ? recipientId : senderId;
-        model.addAttribute("currentUserId", userDetails.getUser().getId());
+        var otherUserId = senderId.equals(userDetails.getUser().getId()) ? recipientId : senderId;
+        model.addAttribute("currentUser", userDetails.getUser());
         model.addAttribute("otherUserId", otherUserId);
+        model.addAttribute("otherUser", usersService.getUser(otherUserId));
         model.addAttribute("messages", chat);
         return "chat_partial";
     }

@@ -2,6 +2,7 @@ package ru.itis.bongodev.bongonet.dto;
 
 import lombok.Data;
 import ru.itis.bongodev.bongonet.validation.constraints.Password;
+import ru.itis.bongodev.bongonet.validation.constraints.UniqueEmail;
 import ru.itis.bongodev.bongonet.validation.constraints.Username;
 
 import javax.validation.constraints.Email;
@@ -18,6 +19,7 @@ public class UserForm {
 
 //    @Email(message = "{errors.incorrect.email}")
     @Email(message = "Incorrect email address")
+    @UniqueEmail(message = "This email address is already in use")
     private String email;
 
     private String passwordCheck;

@@ -21,6 +21,12 @@ public class Chat {
     private Long senderId;
     private Long recipientId;
 
+    private String senderUsername;
+    private String recipientUsername;
+
+    private String senderAvatar;
+    private String recipientAvatar;
+
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     private List<Message> messages;
 }

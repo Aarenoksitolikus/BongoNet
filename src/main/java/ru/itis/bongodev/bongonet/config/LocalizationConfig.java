@@ -7,10 +7,12 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class LocalizationConfig implements WebMvcConfigurer {
+
     @Override
     public MessageCodesResolver getMessageCodesResolver() {
         DefaultMessageCodesResolver codesResolver = new DefaultMessageCodesResolver();
