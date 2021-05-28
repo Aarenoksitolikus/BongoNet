@@ -34,12 +34,48 @@ function send(recipientId, recipientUsername) {
 }
 
 function onMessageReceived(msg) {
+
+    console.log(msg);
+
     let list = document.getElementById("chat-messages");
-    console.log(list);
-    let newMessage = document.createElement("div");
-    newMessage.classList.add("pb-4");
-    newMessage.appendChild(document.createTextNode(JSON.parse(msg.body).message));
-    list.appendChild(newMessage);
+    const receivedMessage = document.createElement("div");
+    receivedMessage.classList.add("chat-message-left", "pb-4");
+
+    const avatarDiv = document.createElement("div");
+    const avatar = document.createElement("img");
+    avatar.classList.add("rounded-circle", "mr-1");
+    const name = "contact-" + msg.senderId;
+    avatar.src = "/images/default-avatar.jpg";
+    avatar.alt = "avatar";
+    avatar.height = 40;
+    avatar.width = 40;
+    avatarDiv.appendChild(avatar);
+
+    // const time = document.createElement("div");
+    // time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
+    // let timeBlock = msg.sendDate.getHours() + ":";
+    // if (msg.sendDate.getMinutes() < 10) {
+    //     timeBlock += "0";
+    // }
+    // timeBlock += msg.sendDate.getMinutes();
+    // time.innerText = timeBlock;
+    // avatarDiv.appendChild(time);
+
+    receivedMessage.appendChild(avatarDiv);
+
+    const receivedMessageValue = document.createElement("div");
+    receivedMessageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3", "ml-3");
+    const username = document.createElement("div");
+    username.classList.add("font-weight-bold", "mb-1");
+    username.innerText = msg.recipientUsername;
+    receivedMessageValue.appendChild(username);
+    const content = document.createElement("div");
+    content.innerText = JSON.parse(msg.body.message);
+    receivedMessageValue.appendChild(content);
+
+    receivedMessage.appendChild(receivedMessageValue);
+    list.appendChild(receivedMessage);
+    // newMessage.appendChild(document.createTextNode(JSON.parse(msg.body).message));
 }
 
 const sendMessage = (msg, recipientId, recipientUsername) => {
@@ -74,6 +110,7 @@ const sendMessage = (msg, recipientId, recipientUsername) => {
         const avatar = document.createElement("img");
         avatar.src = document.getElementById("current-user-avatar").innerText;
         avatar.classList.add("rounded-circle", "mr-1");
+        avatar.alt = "avatar";
         avatar.height = 40;
         avatar.width = 40;
         avatarDiv.appendChild(avatar);

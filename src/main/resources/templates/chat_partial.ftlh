@@ -7,9 +7,7 @@
                     <div class="text-muted small text-nowrap mt-2">${message.sendDate?time?string.short}</div>
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-                    <div class="font-weight-bold mb-1">You</div>
-                    ${message.content}
-                </div>
+                    <div class="font-weight-bold mb-1">You</div>${message.content}</div>
             </div>
         <#else>
             <div class="chat-message-left pb-4">
@@ -19,9 +17,7 @@
                     <div class="text-muted small text-nowrap mt-2">${message.sendDate?time?string.short}</div>
                 </div>
                 <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-                    <div class="font-weight-bold mb-1">${message.senderUsername}</div>
-                    ${message.content}
-                </div>
+                    <div class="font-weight-bold mb-1">${message.senderUsername}</div>${message.content}</div>
             </div>
         </#if>
     </#list>
