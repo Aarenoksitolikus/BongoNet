@@ -40,7 +40,6 @@ function onMessageReceived(msg) {
     newMessage.classList.add("pb-4");
     newMessage.appendChild(document.createTextNode(JSON.parse(msg.body).message));
     list.appendChild(newMessage);
-    // scrollMessages();
 }
 
 const sendMessage = (msg, recipientId, recipientUsername) => {
@@ -73,35 +72,36 @@ const sendMessage = (msg, recipientId, recipientUsername) => {
 
         const avatarDiv = document.createElement("div");
         const avatar = document.createElement("img");
-        avatar.classList.add("rounded-circle", "mr-1");
         avatar.src = document.getElementById("current-user-avatar").innerText;
+        avatar.classList.add("rounded-circle", "mr-1");
         avatar.height = 40;
         avatar.width = 40;
+        avatarDiv.appendChild(avatar);
 
         const time = document.createElement("div");
         time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
-        time.innerText = message.sendDate.getHours() + ":" + message.sendDate.getMinutes();
-        avatarDiv.appendChild(avatar)
+        let timeBlock = message.sendDate.getHours() + ":";
+        if (message.sendDate.getMinutes() < 10) {
+            timeBlock += "0";
+        }
+        timeBlock += message.sendDate.getMinutes();
+        time.innerText = timeBlock;
         avatarDiv.appendChild(time);
+
+        sentMessage.appendChild(avatarDiv);
 
         const sentMessageValue = document.createElement("div");
         sentMessageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3", "ml-3");
         const username = document.createElement("div");
         username.classList.add("font-weight-bold", "mb-1");
-        username.innerText = currentUserUsername;
-
+        username.innerText = "You";
         sentMessageValue.appendChild(username);
-        sentMessageValue.innerText = msg.trim();
-        sentMessage.appendChild(avatarDiv);
-        sentMessage.appendChild(sentMessageValue);
+        const content = document.createElement("div");
+        content.innerText = msg.trim();
+        sentMessageValue.appendChild(content);
 
+        sentMessage.appendChild(sentMessageValue);
         list.appendChild(sentMessage);
     }
 };
-
-// function scrollMessages() {
-//     $('message-list').stop().animate({
-//         scrollTop: $('message-list')[0].scrollHeight
-//     }, 800);
-// }
 
