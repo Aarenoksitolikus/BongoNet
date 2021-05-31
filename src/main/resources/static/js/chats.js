@@ -8,6 +8,14 @@ window.onload = async function connect() {
     stompClient.connect({}, onConnected, onError);
 
     const contactRows = document.getElementsByClassName("contact-row");
+    const userSearch = document.getElementById("user-search");
+    const userSearchName = document.getElementById("user-search-name");
+    userSearch.addEventListener("click", async function () {
+        const url = "/get/chat/" + userSearchName.value;
+        console.log(userSearchName.value);
+        let response = await fetch(url);
+        document.getElementById("chat-partial").innerHTML = await response.text();
+    })
     for (let i = 0; i < contactRows.length; i++) {
         contactRows[i].addEventListener("click", async function () {
             const url = "/get/chat/" + contactRows.item(i).id.replace("contact-", "") + "/" + currentUserId;

@@ -92,12 +92,32 @@ public class ChatsController {
                                  @PathVariable("sender-id") Long senderId,
                                  @PathVariable("recipient-id") Long recipientId,
                                  Model model) {
-        var chat = messageService.findMessages(senderId, recipientId);
+        var messages = messageService.findMessages(senderId, recipientId);
         var otherUserId = senderId.equals(userDetails.getUser().getId()) ? recipientId : senderId;
         model.addAttribute("currentUser", userDetails.getUser());
         model.addAttribute("otherUserId", otherUserId);
         model.addAttribute("otherUser", usersService.getUser(otherUserId));
-        model.addAttribute("messages", chat);
+        model.addAttribute("messages", messages);
+        return "chat_partial";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/get/chat/{username}")
+    public String getChat(@AuthenticationPrincipal UserDetailsImpl userDetails,
+                          @PathVariable("username") String username, Model model) {
+        var user = usersService.getUser(username);
+        Long userId;
+        if (user != null) {
+            userId = user.getId();
+            chatService.getOrCreateChatByUsersIds(userDetails.getUser().getId(), userId, true);
+            var messages = messageService.findMessages(userDetails.getUser().getId(), userId);
+            model.addAttribute("currentUser", userDetails.getUser());
+            model.addAttribute("otherUserId", userId);
+            model.addAttribute("otherUser", user);
+            model.addAttribute("messages", messages);
+        } else {
+            model.addAttribute("nullable", null);
+        }
         return "chat_partial";
     }
 }

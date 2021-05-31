@@ -27,10 +27,22 @@
                 <div class="col-12 col-lg-5 col-xl-3 border-right">
 
                     <div class="px-4 d-none d-md-block border-bottom" style="width: 100%">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-grow-1">
-                                <input type="text" class="form-control my-3" placeholder="Search...">
-                            </div>
+                        <#--                        <div class="input-group">-->
+                        <#--                            <div>-->
+                        <#--                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
+                        <#--                                <input type="text" class="form-control my-3" placeholder="Search...">-->
+                        <#--                                <span class="input-group-append" id="user-search">-->
+                        <#--                                            <button type="submit" class="btn btn-outline-primary fa fa-search"></button>-->
+                        <#--                                                </span>-->
+                        <#--                            </div>-->
+                        <#--                        </div>-->
+                        <div class="input-group">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+                            <input type="search" id="user-search-name" name="username" class="form-control"
+                                   placeholder="Search"/>
+                            <span class="input-group-append" id="user-search">
+                                <button type="submit" class="btn btn-outline-primary fa fa-search"></button>
+                            </span>
                         </div>
                     </div>
 
@@ -59,9 +71,9 @@
                                     <#--                                <div class="badge bg-primary float-right text-white">5</div>-->
                                     <div class="d-flex align-items-start">
                                         <a href="/profile/${userUsername}">
-                                        <img src="${userAvatar}"
-                                             class="rounded-circle mr-1 illuminated"
-                                             alt="avatar" width="40" height="40">
+                                            <img src="${userAvatar}"
+                                                 class="rounded-circle mr-1 illuminated"
+                                                 alt="avatar" width="40" height="40">
                                         </a>
                                         <div class="flex-grow-1 ml-3">
                                             <#if contact.senderId = id>${contact.recipientUsername}<#else>${contact.senderUsername}</#if>
