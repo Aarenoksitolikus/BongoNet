@@ -56,8 +56,6 @@
                         <span class="badge bg-warning">Admin</span>
                     <#elseIf user.state == 'BANNED'>
                         <span class="badge bg-danger">Banned</span>
-                    <#--                        <#elseIf user.state == 'DELETED'()>-->
-                    <#--                            <span class="badge bg-secondary">Deleted</span>-->
                     <#elseIf user.state == 'ACTIVE'>
                         <span class="badge bg-success">Active</span>
                     </#if>

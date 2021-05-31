@@ -1,7 +1,6 @@
 package ru.itis.bongodev.bongonet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -12,9 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import ru.itis.bongodev.bongonet.models.Message;
-import ru.itis.bongodev.bongonet.models.Notification;
 import ru.itis.bongodev.bongonet.models.Profile;
-import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
 import ru.itis.bongodev.bongonet.services.interfaces.ChatService;
 import ru.itis.bongodev.bongonet.services.interfaces.MessageService;
@@ -45,20 +42,6 @@ public class ChatsController {
         return "chats_page";
     }
 
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/messages/{sender-id}/{recipient-id}/count")
-    public ResponseEntity<Long> countNewMessages(@PathVariable("sender-id") Long senderId,
-                                                 @PathVariable("recipient-id") Long recipientId) {
-        return ResponseEntity.ok(messageService.countNewMessages(senderId, recipientId));
-    }
-
-    @PreAuthorize("isAuthenticated()")
-    @GetMapping("/messages/{sender-id}/{recipient-id}")
-    public ResponseEntity<?> findMessages(@PathVariable("sender-id") Long senderId,
-                                          @PathVariable("recipient-id") Long recipientId) {
-        return ResponseEntity.ok(messageService.findMessages(senderId, recipientId));
-    }
-
     @MessageMapping("/chat")
     public void processMessage(@Payload Message message) {
         var chat = chatService.getOrCreateChatByUsersIds(message.getSenderId(),
@@ -78,11 +61,6 @@ public class ChatsController {
                 .sendDate(message.getSendDate())
                 .state(message.getState())
                 .build()
-                /*Notification.builder()
-                        .id(message.getId())
-                        .senderId(message.getSenderId())
-                        .senderUsername(message.getSenderUsername())
-                        .build()*/
         );
     }
 

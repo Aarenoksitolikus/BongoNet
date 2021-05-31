@@ -65,11 +65,6 @@ public class UsersServiceJpaImpl implements UsersService {
     }
 
     @Override
-    public Timestamp getLastSeenByUsername(String username) {
-        return usersRepository.lastSeen(username);
-    }
-
-    @Override
     public Profile getProfile(Long id) {
         return profilesRepository.findById(id).orElse(null);
     }

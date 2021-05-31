@@ -1,5 +1,4 @@
 window.onload = async function() {
-    // let userId = document.getElementById("user-1");
     const userRows = document.getElementsByClassName("user-row");
     for (let i = 0; i < userRows.length; i++) {
         userRows[i].addEventListener("click", async function() {

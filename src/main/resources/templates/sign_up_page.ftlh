@@ -52,7 +52,6 @@
                                     <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                     <@spring.formPasswordInput "userForm.password" "class='form-control' placeholder='Password' reqiured"/>
                                 </div>
-<#--                                <@spring.showErrors "<br>" "error"/>-->
                                 <div id="passwordCheckMessage" class="message">
                                     <p id="check" class="invalid">Passwords must match</p>
                                 </div>

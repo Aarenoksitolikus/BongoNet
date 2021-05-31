@@ -40,7 +40,7 @@
                             </thead>
                             <#list usersList as user>
                                 <tbody class="user-row" id="user-${user.id}">
-                                <tr class="illuminated" <#--onclick="getUserProfile('/get/profile/${user.id}')"-->>
+                                <tr class="illuminated">
                                     <td><a href="/profile/${user.username}"><img src="${user.avatar}" width="32"
                                              height="32" class="rounded-circle my-n1 illuminated" alt="Avatar"></a></td>
                                     <td>${user.profile.firstName + " " + user.profile.lastName}</td>

@@ -17,7 +17,6 @@ public interface UsersService {
     User getUserByEmail(String email);
     User getUser(Long id);
 
-    Timestamp getLastSeenByUsername(String username);
     Profile getProfile(Long id);
     void banUser(Long id);
     void updateUser(User user);

@@ -43,9 +43,6 @@
                                 <div class="col-6">
                                     <input type="submit" class="btn btn-outline-primary px-4" value="Login">
                                 </div>
-<#--                                <div class="col-6 text-right">-->
-<#--                                    <a type="button" class="btn btn-link px-0">Forgot password?</a>-->
-<#--                                </div>-->
                             </div>
                         </form>
                     </div>

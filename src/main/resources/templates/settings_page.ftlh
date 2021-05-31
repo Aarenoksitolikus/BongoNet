@@ -157,31 +157,6 @@
                                                                 </option>
                                                             </select>
                                                         </div>
-                                                        <#--                                                        <div class="col">-->
-                                                        <#--                                                            <label for="sex">Sex</label>-->
-                                                        <#--                                                            <div class="form-check">-->
-                                                        <#--                                                                <div class="form-check-inline">-->
-                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
-                                                        <#--                                                                           id="sex"-->
-                                                        <#--                                                                           name="sex" value="UNDEFINED">Undefined-->
-                                                        <#--                                                                </div>-->
-                                                        <#--                                                                <div class="form-check-inline">-->
-                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
-                                                        <#--                                                                           id="sex"-->
-                                                        <#--                                                                           name="sex" value="MALE">Male-->
-                                                        <#--                                                                </div>-->
-                                                        <#--                                                                <div class="form-check-inline">-->
-                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
-                                                        <#--                                                                           id="sex"-->
-                                                        <#--                                                                           name="sex" value="FEMALE">Female-->
-                                                        <#--                                                                </div>-->
-                                                        <#--                                                                <div class="form-check-inline">-->
-                                                        <#--                                                                    <input class="form-check-input" type="radio"-->
-                                                        <#--                                                                           id="sex"-->
-                                                        <#--                                                                           name="sex" value="DIFFERENT">Different-->
-                                                        <#--                                                                </div>-->
-                                                        <#--                                                            </div>-->
-                                                        <#--                                                        </div>-->
                                                     </div>
                                                     <div class="row">
                                                         <div class="col mb-3">

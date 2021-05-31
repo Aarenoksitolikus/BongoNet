@@ -17,7 +17,4 @@ public interface UsersRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
     Optional<User> findByConfirmCode(String code);
     List<User> findAllByOrderByUsernameAsc();
-
-    @Query(nativeQuery = true, value = "select last_used from persistent_logins where username = :username")
-    Timestamp lastSeen(String username);
 }

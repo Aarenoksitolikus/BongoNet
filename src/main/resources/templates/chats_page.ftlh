@@ -59,7 +59,6 @@
                                 </#if>
                                 <div href="#" id="contact-${userId}"
                                      class="list-group-item list-group-item-action border-0 contact-row">
-                                    <#--                                <div class="badge bg-primary float-right text-white">5</div>-->
                                     <div class="d-flex align-items-start">
                                         <a href="/profile/${userUsername}">
                                             <img src="${userAvatar}"
@@ -68,9 +67,6 @@
                                         </a>
                                         <div class="flex-grow-1 ml-3">
                                             <#if contact.senderId = id>${contact.recipientUsername}<#else>${contact.senderUsername}</#if>
-                                            <#--                                            <div class="small">-->
-                                            <#--                                                <span class="fas fa-circle chat-online"></span> Online-->
-                                            <#--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +77,6 @@
                     <hr class="d-block d-lg-none mt-1 mb-0">
                 </div>
                 <div class="col-12 col-lg-7 col-xl-9">
-                    <#--                    header-->
                     <div class="py-2 px-4 border-bottom d-none d-lg-block">
                         <div class="d-flex align-items-center justify-content-end py-1">
                             <div>

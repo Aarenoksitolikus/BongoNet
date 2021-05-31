@@ -65,7 +65,6 @@ public class ProfileController {
             model.addAttribute("areFriends", friendsService.areFriends(currentUserId, user.getId()));
         }
         model.addAttribute("user", user);
-//        model.addAttribute("lastSeen", usersService.getLastSeenByUsername(user.getUsername()));
         var profile = user.getProfile();
         if (profile == null) {
             profile = new Profile(user);
@@ -94,7 +93,6 @@ public class ProfileController {
         if (user != null) {
             var profile = user.getProfile();
             model.addAttribute("profile", profile);
-//            model.addAttribute("lastSeen", usersService.getLastSeenByUsername(user.getUsername()));
         }
         return "settings_page";
     }
