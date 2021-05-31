@@ -73,7 +73,8 @@
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                                        value="${_csrf.token}">
-                                                                <input type="file" accept="image/*" name="file">
+                                                                <input type="file"
+                                                                       accept="image/*" name="file" id="newAw">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <input type="submit" class="btn btn-outline-primary"

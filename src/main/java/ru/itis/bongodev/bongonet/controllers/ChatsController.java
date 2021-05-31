@@ -94,7 +94,7 @@ public class ChatsController {
                                  Model model) {
         var messages = messageService.findMessages(senderId, recipientId);
         var otherUserId = senderId.equals(userDetails.getUser().getId()) ? recipientId : senderId;
-        model.addAttribute("currentUser", userDetails.getUser());
+        model.addAttribute("currentUser", usersService.getUser(userDetails.getUsername()));
         model.addAttribute("otherUserId", otherUserId);
         model.addAttribute("otherUser", usersService.getUser(otherUserId));
         model.addAttribute("messages", messages);

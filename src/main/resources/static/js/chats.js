@@ -5,17 +5,22 @@ const currentUserUsername = document.getElementById("current-user-username").inn
 window.onload = async function connect() {
     SockJS = new SockJS("http://localhost/ws");
     stompClient = Stomp.over(SockJS);
-    stompClient.connect({}, onConnected, onError);
+    stompClient.connect({}, onConnected, function () {
+        alert("error during connection");
+    });
 
     const contactRows = document.getElementsByClassName("contact-row");
     const userSearch = document.getElementById("user-search");
     const userSearchName = document.getElementById("user-search-name");
+
     userSearch.addEventListener("click", async function () {
-        const url = "/get/chat/" + userSearchName.value;
-        console.log(userSearchName.value);
-        let response = await fetch(url);
-        document.getElementById("chat-partial").innerHTML = await response.text();
-    })
+        if (userSearchName.value !== "") {
+            const url = "/get/chat/" + userSearchName.value;
+            let response = await fetch(url);
+            document.getElementById("chat-partial").innerHTML = await response.text();
+        }
+    });
+
     for (let i = 0; i < contactRows.length; i++) {
         contactRows[i].addEventListener("click", async function () {
             const url = "/get/chat/" + contactRows.item(i).id.replace("contact-", "") + "/" + currentUserId;
@@ -25,65 +30,26 @@ window.onload = async function connect() {
     }
 }
 
-function onError() {
-    console.log("error during connection")
-}
-
 function onConnected() {
     const destination = "/user/" + currentUserId + "/queue/messages";
-    stompClient.subscribe(destination, onMessageReceived)
+    stompClient.subscribe(destination, onMessageReceived);
 }
 
 function send(recipientId, recipientUsername) {
-    let msg = document.getElementById("send-message").value;
-    sendMessage(msg, recipientId, recipientUsername);
+    let message = document.getElementById("send-message").value;
+    sendMessage(message, recipientId, recipientUsername);
     document.getElementById("send-message").value = "";
 }
 
-const onMessageReceived = (msg) => {
-        let list = document.getElementById("chat-messages");
-    const receivedMessage = document.createElement("div");
-    receivedMessage.classList.add("chat-message-left", "pb-4");
-
-    const avatarDiv = document.createElement("div");
-    const avatar = document.createElement("img");
-    avatar.classList.add("rounded-circle", "mr-1");
-    avatar.src = document.getElementById("other-user-avatar").innerText;
-    avatar.alt = "avatar";
-    avatar.height = 40;
-    avatar.width = 40;
-    avatarDiv.appendChild(avatar);
-
-    const messageTime = JSON.parse(msg.body).sendDate;
-    console.log(messageTime);
-    const time = document.createElement("div");
-    time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
-    let timeBlock = messageTime.getHours() + ":";
-    if (messageTime.getMinutes() < 10) {
-        timeBlock += "0";
+function onMessageReceived(message) {
+    const msg = JSON.parse(message.body);
+    if (msg.senderId.toString() === document.getElementById("other-user-id").innerText) {
+        drawMessage(msg.content, new Date(msg.sendDate), msg.senderUsername, false);
+        scrollMessages();
     }
-    timeBlock += messageTime.getMinutes();
-    time.innerText = timeBlock;
-    avatarDiv.appendChild(time);
-
-    receivedMessage.appendChild(avatarDiv);
-
-    const receivedMessageValue = document.createElement("div");
-    receivedMessageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3", "ml-3");
-    const username = document.createElement("div");
-    username.classList.add("font-weight-bold", "mb-1");
-    username.innerText = JSON.parse(msg.body).senderUsername;
-    receivedMessageValue.appendChild(username);
-    const content = document.createElement("div");
-    content.innerText = JSON.parse(msg.body).content;
-    receivedMessageValue.appendChild(content);
-
-    receivedMessage.appendChild(receivedMessageValue);
-    list.appendChild(receivedMessage);
-    // newMessage.appendChild(document.createTextNode(JSON.parse(msg.body).message));
 }
 
-const sendMessage = (msg, recipientId, recipientUsername) => {
+function sendMessage(msg, recipientId, recipientUsername) {
     if (msg.trim() !== "") {
         const message = {
             senderId: currentUserId,
@@ -91,48 +57,62 @@ const sendMessage = (msg, recipientId, recipientUsername) => {
             senderUsername: currentUserUsername,
             recipientUsername: recipientUsername,
             content: msg.trim(),
-            sendDate: new Date(),
+            sendDate: new Date()
         };
-
         stompClient.send("/app/chat", {}, JSON.stringify(message));
-
-        let list = document.getElementById("chat-messages");
-        const sentMessage = document.createElement("div");
-        sentMessage.classList.add("chat-message-right", "pb-4");
-
-        const avatarDiv = document.createElement("div");
-        const avatar = document.createElement("img");
-        avatar.src = document.getElementById("current-user-avatar").innerText;
-        avatar.classList.add("rounded-circle", "mr-1");
-        avatar.alt = "avatar";
-        avatar.height = 40;
-        avatar.width = 40;
-        avatarDiv.appendChild(avatar);
-
-        const time = document.createElement("div");
-        time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
-        let timeBlock = message.sendDate.getHours() + ":";
-        if (message.sendDate.getMinutes() < 10) {
-            timeBlock += "0";
-        }
-        timeBlock += message.sendDate.getMinutes();
-        time.innerText = timeBlock;
-        avatarDiv.appendChild(time);
-
-        sentMessage.appendChild(avatarDiv);
-
-        const sentMessageValue = document.createElement("div");
-        sentMessageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3", "ml-3");
-        const username = document.createElement("div");
-        username.classList.add("font-weight-bold", "mb-1");
-        username.innerText = "You";
-        sentMessageValue.appendChild(username);
-        const content = document.createElement("div");
-        content.innerText = msg.trim();
-        sentMessageValue.appendChild(content);
-
-        sentMessage.appendChild(sentMessageValue);
-        list.appendChild(sentMessage);
+        drawMessage(message.content, message.sendDate, "You",true);
+        scrollMessages();
     }
-};
+}
 
+function drawMessage(msg, date, sender, isMyMessage) {
+    let list = document.getElementById("chat-messages");
+    const newMessageBlock = document.createElement("div");
+    newMessageBlock.classList.add("pb-4");
+    const avatarBlock = document.createElement("div");
+    const avatar = document.createElement("img");
+    avatar.classList.add("rounded-circle", "mr-1");
+    avatar.alt = "avatar";
+    avatar.height = 40;
+    avatar.width = 40;
+    const timeBlock = document.createElement("div");
+    timeBlock.classList.add("text-muted", "small", "text-nowrap", "mt-2");
+    let messageTime = date;
+    const messageValue = document.createElement("div");
+    messageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3");
+    const usernameBlock = document.createElement("div");
+    usernameBlock.classList.add("font-weight-bold", "mb-1");
+    const contentBlock = document.createElement("div");
+    contentBlock.innerText = msg;
+    usernameBlock.innerText = sender;
+
+    if (isMyMessage) {
+        newMessageBlock.classList.add("chat-message-right");
+        avatar.src = document.getElementById("current-user-avatar").innerText;
+        messageValue.classList.add("mr-3");
+    } else {
+        newMessageBlock.classList.add("chat-message-left");
+        avatar.src = document.getElementById("other-user-avatar").innerText;
+        messageValue.classList.add("ml-3");
+    }
+
+    let time = messageTime.getHours() + ":";
+    if (messageTime.getMinutes() < 10) {
+        time += "0";
+    }
+    time += messageTime.getMinutes();
+    timeBlock.innerText = time;
+
+    avatarBlock.appendChild(avatar);
+    avatarBlock.appendChild(timeBlock);
+    newMessageBlock.appendChild(avatarBlock);
+    messageValue.appendChild(usernameBlock);
+    messageValue.appendChild(contentBlock);
+    newMessageBlock.appendChild(messageValue);
+    list.appendChild(newMessageBlock);
+}
+
+function scrollMessages() {
+    const messagesBlock = document.getElementById("chat-messages");
+    messagesBlock.scrollTop = messagesBlock.scrollHeight;
+}
