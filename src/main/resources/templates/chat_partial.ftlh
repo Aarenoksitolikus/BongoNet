@@ -1,3 +1,5 @@
+<div id="other-user-avatar" class="d-none">${otherUser.avatar}</div>
+
 <div class="chat-messages p-4" id="chat-messages">
     <#list messages as message>
         <#if message.senderId == currentUser.id>

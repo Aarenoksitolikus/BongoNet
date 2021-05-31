@@ -162,15 +162,16 @@
                                                     <div>
                                                         <#assign listSize = post.comments?size>
                                                         <#if (listSize > 0)>
-<#--                                                            <#assign lastComment = post.comments[listSize - 1]>-->
+                                                        <#--                                                            <#assign lastComment = post.comments[listSize - 1]>-->
                                                             <div id="${post.id}-comments" class="comments">
                                                                 <#list post.comments as comment>
                                                                     <#assign author = comment.author.username>
                                                                     <#assign commentTime = comment.publicationTime?date?string.short>
-<#--                                                                    <p<#if comment != lastComment> class="comment"</#if>">-->
+                                                                <#--                                                                    <p<#if comment != lastComment> class="comment"</#if>">-->
                                                                     <div class="comment">
                                                                         <a href="/profile/${author}">${comment.author.username}</a>: ${comment.content}
-                                                                        <div class="text-secondary text-sm-right"><#if commentTime == isToday>today<#elseif commentTime == isYesterday>yesterday<#else>${comment.publicationTime?date?string["dd MMM"]}</#if>, ${comment.publicationTime?time?string.short}</div>
+                                                                        <div class="text-secondary text-sm-right"><#if commentTime == isToday>today<#elseif commentTime == isYesterday>yesterday<#else>${comment.publicationTime?date?string["dd MMM"]}</#if>
+                                                                            , ${comment.publicationTime?time?string.short}</div>
                                                                     </div>
                                                                 </#list>
                                                             </div>
@@ -205,14 +206,6 @@
                                         No posts
                                     </#if>
                                 </#list>
-                                <li>
-                                    <div class="timeline-icon">
-                                        <a href="javascript:">&nbsp;</a>
-                                    </div>
-                                    <div class="timeline-body">
-                                        Loading...
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                         <#if me??>
@@ -294,14 +287,6 @@
                                             No posts
                                         </#if>
                                     </#list>
-                                    <li>
-                                        <div class="timeline-icon">
-                                            <a href="javascript:">&nbsp;</a>
-                                        </div>
-                                        <div class="timeline-body">
-                                            Loading...
-                                        </div>
-                                    </li>
                                 </ul>
                             </div>
                         </#if>
@@ -408,12 +393,18 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <h4 class="m-t-0 m-b-20">Find Users</h4>
-                                        <div class="input-group">
-                                            <input type="search" id="form1" class="form-control" placeholder="Search"/>
-                                            <span class="input-group-append">
-                                            <button type="button" class="btn btn-outline-primary fa fa-search"></button>
-                                        </span>
-                                        </div>
+                                        <form action="/search" method="get">
+                                            <div class="input-group">
+                                                <input type="hidden"
+                                                       name="${_csrf.parameterName}"
+                                                       value="${_csrf.token}">
+                                                <input type="search" id="form1" name="username" class="form-control"
+                                                       placeholder="Search"/>
+                                                <span class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-primary fa fa-search"></button>
+                                                </span>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </#if>

@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.models.Friendship;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
 import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
 import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
+
+import javax.annotation.security.PermitAll;
 
 @Controller
 public class FriendshipController {
@@ -49,5 +52,14 @@ public class FriendshipController {
                 break;  
         }
         return "redirect:/profile/me";
+    }
+
+    @PermitAll
+    @GetMapping("/search")
+    public String searchUser(String username) {
+        if (usersService.getUser(username) != null) {
+            return "/profile/" + username;
+        }
+        return "/profile/me";
     }
 }

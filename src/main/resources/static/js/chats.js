@@ -11,7 +11,6 @@ window.onload = async function connect() {
     for (let i = 0; i < contactRows.length; i++) {
         contactRows[i].addEventListener("click", async function () {
             const url = "/get/chat/" + contactRows.item(i).id.replace("contact-", "") + "/" + currentUserId;
-            console.log(url);
             let response = await fetch(url);
             document.getElementById("chat-partial").innerHTML = await response.text();
         });
@@ -33,33 +32,31 @@ function send(recipientId, recipientUsername) {
     document.getElementById("send-message").value = "";
 }
 
-function onMessageReceived(msg) {
-
-    console.log(msg);
-
-    let list = document.getElementById("chat-messages");
+const onMessageReceived = (msg) => {
+        let list = document.getElementById("chat-messages");
     const receivedMessage = document.createElement("div");
     receivedMessage.classList.add("chat-message-left", "pb-4");
 
     const avatarDiv = document.createElement("div");
     const avatar = document.createElement("img");
     avatar.classList.add("rounded-circle", "mr-1");
-    const name = "contact-" + msg.senderId;
-    avatar.src = "/images/default-avatar.jpg";
+    avatar.src = document.getElementById("other-user-avatar").innerText;
     avatar.alt = "avatar";
     avatar.height = 40;
     avatar.width = 40;
     avatarDiv.appendChild(avatar);
 
-    // const time = document.createElement("div");
-    // time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
-    // let timeBlock = msg.sendDate.getHours() + ":";
-    // if (msg.sendDate.getMinutes() < 10) {
-    //     timeBlock += "0";
-    // }
-    // timeBlock += msg.sendDate.getMinutes();
-    // time.innerText = timeBlock;
-    // avatarDiv.appendChild(time);
+    const messageTime = JSON.parse(msg.body).sendDate;
+    console.log(messageTime);
+    const time = document.createElement("div");
+    time.classList.add("text-muted", "small", "text-nowrap", "mt-2");
+    let timeBlock = messageTime.getHours() + ":";
+    if (messageTime.getMinutes() < 10) {
+        timeBlock += "0";
+    }
+    timeBlock += messageTime.getMinutes();
+    time.innerText = timeBlock;
+    avatarDiv.appendChild(time);
 
     receivedMessage.appendChild(avatarDiv);
 
@@ -67,10 +64,10 @@ function onMessageReceived(msg) {
     receivedMessageValue.classList.add("flex-shrink-1", "bg-light", "rounded", "py-2", "px-3", "ml-3");
     const username = document.createElement("div");
     username.classList.add("font-weight-bold", "mb-1");
-    username.innerText = msg.recipientUsername;
+    username.innerText = JSON.parse(msg.body).senderUsername;
     receivedMessageValue.appendChild(username);
     const content = document.createElement("div");
-    content.innerText = JSON.parse(msg.body.message);
+    content.innerText = JSON.parse(msg.body).content;
     receivedMessageValue.appendChild(content);
 
     receivedMessage.appendChild(receivedMessageValue);
@@ -91,17 +88,6 @@ const sendMessage = (msg, recipientId, recipientUsername) => {
 
         stompClient.send("/app/chat", {}, JSON.stringify(message));
 
-        // let a = "<div class=\"chat-message-left pb-4\">\n" +
-        //     "                <div>\n" +
-        //     "                    <img src=\"${otherUser.avatar}\"\n" +
-        //     "                         class=\"rounded-circle mr-1\" alt=\"avatar\" width=\"40\" height=\"40\">\n" +
-        //     "                    <div class=\"text-muted small text-nowrap mt-2\">${message.sendDate?time?string.short}</div>\n" +
-        //     "                </div>\n" +
-        //     "                <div class=\"flex-shrink-1 bg-light rounded py-2 px-3 ml-3\">\n" +
-        //     "                    <div class=\"font-weight-bold mb-1\">${message.senderUsername}</div>\n" +
-        //     "                    ${message.content}\n" +
-        //     "                </div>\n" +
-        //     "            </div>";
         let list = document.getElementById("chat-messages");
         const sentMessage = document.createElement("div");
         sentMessage.classList.add("chat-message-right", "pb-4");

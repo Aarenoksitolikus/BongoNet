@@ -31,23 +31,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="row flex-lg-nowrap">
-        <div class="col-12 col-lg-auto mb-3" style="width: 200px;">
-            <div class="card p-3">
-                <div class="e-navlist e-navlist--active-bg">
-                    <ul class="nav">
-                        <li class="nav-item"><a class="nav-link px-2 active" href="./overview.html"><i
-                                        class="fa fa-fw fa-bar-chart mr-1"></i><span>Overview</span></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="./users.html"><i
-                                        class="fa fa-fw fa-th mr-1"></i><span>CRUD</span></a></li>
-                        <li class="nav-item"><a class="nav-link px-2" href="./settings.html"><i
-                                        class="fa fa-fw fa-cog mr-1"></i><span>Settings</span></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="col">
+    <div class="row flex-lg-nowrap d-flex justify-content-center">
+        <div class="col col-md-9 col-lg-9" style="margin-left: 10vw">
             <div class="row">
                 <div class="col mb-3">
                     <div class="card">
@@ -65,8 +50,6 @@
                                         <div class="text-center text-sm-left mb-2 mb-sm-0">
                                             <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">${firstName + " " + lastName}</h4>
                                             <p class="mb-0">${username}</p>
-                                            <div class="text-muted"><small>Last seen 2 hours
-                                                    ago<#--${lastSeen?date}--></small></div>
                                             <div class="mt-2">
                                                 <button class="btn btn-outline-primary" type="button"
                                                         data-toggle="modal" data-target="#modal-change-avatar">
@@ -93,8 +76,8 @@
                                                                 <input type="file" accept="image/*" name="file">
                                                             </div>
                                                             <div class="modal-footer">
-                                                            <input type="submit" class="btn btn-outline-primary"
-                                                                   value="Submit">
+                                                                <input type="submit" class="btn btn-outline-primary"
+                                                                       value="Submit">
                                                             </div>
                                                         </form>
                                                     </div>
@@ -227,7 +210,7 @@
                 </div>
 
                 <div class="col-12 col-md-3 mb-3">
-                    <div class="card mb-3">
+                    <div class="card mb-2">
                         <div class="card-body">
                             <div class="px-xl-3">
                                 <a href="/logout" class="btn btn-outline-secondary btn-outline-block">

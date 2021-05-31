@@ -39,6 +39,7 @@
                             <#list chats as contact>
                                 <#if user.id == contact.senderId>
                                     <#assign userId = contact.recipientId>
+                                    <#assign userUsername = contact.recipientUsername>
                                     <#if contact.recipientAvatar??>
                                         <#assign userAvatar = contact.recipientAvatar>
                                     <#else>
@@ -46,6 +47,7 @@
                                     </#if>
                                 <#else>
                                     <#assign userId = contact.senderId>
+                                    <#assign userUsername = contact.senderUsername>
                                     <#if contact.senderAvatar??>
                                         <#assign userAvatar = contact.senderAvatar>
                                     <#else>
@@ -56,9 +58,11 @@
                                      class="list-group-item list-group-item-action border-0 contact-row">
                                     <#--                                <div class="badge bg-primary float-right text-white">5</div>-->
                                     <div class="d-flex align-items-start">
+                                        <a href="/profile/${userUsername}">
                                         <img src="${userAvatar}"
-                                             class="rounded-circle mr-1"
+                                             class="rounded-circle mr-1 illuminated"
                                              alt="avatar" width="40" height="40">
+                                        </a>
                                         <div class="flex-grow-1 ml-3">
                                             <#if contact.senderId = id>${contact.recipientUsername}<#else>${contact.senderUsername}</#if>
                                             <#--                                            <div class="small">-->
@@ -69,18 +73,6 @@
                                 </div>
                             </#list>
                         </#if>
-                        <#--                        <a href="#" class="list-group-item list-group-item-action border-0">-->
-                        <#--                            <div class="badge bg-primary float-right text-white">5</div>-->
-                        <#--                            <div class="d-flex align-items-start">-->
-                        <#--                                <img src="https://bootdey.com/img/Content/avatar/avatar5.png"-->
-                        <#--                                     class="rounded-circle mr-1"-->
-                        <#--                                     alt="Vanessa Tucker" width="40" height="40">-->
-                        <#--                                <div class="flex-grow-1 ml-3">-->
-                        <#--                                    Vanessa Tucker-->
-                        <#--                                    <div class="small"><span class="fas fa-circle chat-online"></span> Online</div>-->
-                        <#--                                </div>-->
-                        <#--                            </div>-->
-                        <#--                        </a>-->
                     </div>
 
                     <hr class="d-block d-lg-none mt-1 mb-0">

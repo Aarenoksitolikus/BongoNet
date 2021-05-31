@@ -68,11 +68,21 @@ public class ChatsController {
         message = messageService.save(message);
 
         messagingTemplate.convertAndSendToUser(message.getRecipientId().toString(), "/queue/messages",
-                Notification.builder()
+                Message.builder()
+                .id(message.getId())
+                .senderId(message.getSenderId())
+                .senderUsername(message.getSenderUsername())
+                .recipientId(message.getRecipientId())
+                .recipientUsername(message.getRecipientUsername())
+                .content(message.getContent())
+                .sendDate(message.getSendDate())
+                .state(message.getState())
+                .build()
+                /*Notification.builder()
                         .id(message.getId())
                         .senderId(message.getSenderId())
                         .senderUsername(message.getSenderUsername())
-                        .build()
+                        .build()*/
         );
     }
 
