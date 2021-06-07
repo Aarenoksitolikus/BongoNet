@@ -14,7 +14,7 @@ post.onblur = function () {
     }
 }
 
-const url = 'https:/localhost/profile/'
+const url = 'https://bongonet.herokuapp.com/profile/'
 const data = { jopa: 'jopa'};
 const data2 = new FormData(document.querySelector('form'));
 console.log(data2);

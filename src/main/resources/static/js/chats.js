@@ -3,7 +3,7 @@ const currentUserId = parseInt(document.getElementById("current-user-id").innerT
 const currentUserUsername = document.getElementById("current-user-username").innerText;
 
 window.onload = async function connect() {
-    SockJS = new SockJS("https://localhost/ws");
+    SockJS = new SockJS("https://bongonet.herokuapp.com/ws");
     stompClient = Stomp.over(SockJS);
     stompClient.connect({}, onConnected, function () {
         alert("error during connection");
