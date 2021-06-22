@@ -6,6 +6,5 @@ CREATE TABLE IF NOT EXISTS persistent_logins (
     PRIMARY KEY (series)
     );
 
-INSERT INTO profile (user_id, about, birthday, first_name, last_name, sex, status)
-VALUES (12, 'ABOUT', '1994-02-02', 'Марсель', 'Сидиков', 'MALE', 'A am a BOSS here')
-    ON CONFLICT (id) DO NOTHING;
+UPDATE profile SET about = 'ABOUT', birthday = '1994-02-02', first_name = 'Марсель', last_name = 'Сидиков', sex = 'MALE', status = 'A am a BOSS here'
+WHERE user_id = 12;
