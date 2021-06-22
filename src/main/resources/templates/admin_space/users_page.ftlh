@@ -43,7 +43,7 @@
                                 <tr class="illuminated">
                                     <td><a href="/profile/${user.username}"><img src="${user.avatar}" width="32"
                                              height="32" class="rounded-circle my-n1 illuminated" alt="Avatar"></a></td>
-                                    <td>${user.profile.firstName + " " + user.profile.lastName}</td>
+                                    <td><#if user.profile.firstName?? && user.profile.lastName??>${user.profile.firstName + " " + user.profile.lastName}<#else>Undefined</#if></td>
                                     <td><#if user.username??>${user.username}<#else>username</#if></td>
                                     <td><#if user.email??>${user.email}<#else>email</#if></td>
                                     <td>
