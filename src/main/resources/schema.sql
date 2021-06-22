@@ -6,4 +6,6 @@ CREATE TABLE IF NOT EXISTS persistent_logins (
     PRIMARY KEY (series)
     );
 
-UPDATE ACCOUNT SET creation_date = '2021-05-30' WHERE id = 12;
+INSERT INTO profile (user_id, about, birthday, first_name, last_name, sex, status)
+VALUES (12, 'ABOUT', '1994-02-02', 'Марсель', 'Сидиков', 'MALE', 'A am a BOSS here')
+    ON CONFLICT (id) DO NOTHING;
