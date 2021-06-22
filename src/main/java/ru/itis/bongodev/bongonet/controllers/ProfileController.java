@@ -1,7 +1,6 @@
 package ru.itis.bongodev.bongonet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -9,21 +8,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import ru.itis.bongodev.bongonet.dto.ProfileInfo;
-import ru.itis.bongodev.bongonet.models.*;
+import ru.itis.bongodev.bongonet.models.Comment;
+import ru.itis.bongodev.bongonet.models.Post;
+import ru.itis.bongodev.bongonet.models.Profile;
+import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.security.details.UserDetailsImpl;
 import ru.itis.bongodev.bongonet.services.interfaces.FriendsService;
 import ru.itis.bongodev.bongonet.services.interfaces.PostsService;
 import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
-import ru.itis.bongodev.bongonet.utils.FileDownloader;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 @Controller
 public class ProfileController {
@@ -79,7 +75,7 @@ public class ProfileController {
         model.addAttribute("friends", friendsService.getAllFriendsByUserId(user.getId()));
         model.addAttribute("profile", profile);
         List<Post> posts = postsService.getAllPostsByUserId(user.getId());
-        for (Post post: posts             ) {
+        for (Post post : posts) {
             post.getComments().sort(Comparator.comparing(Comment::getPublicationTime));
         }
         model.addAttribute("posts", posts);
@@ -148,9 +144,9 @@ public class ProfileController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/profile/settings/avatar")
-    public String changeAvatar(@AuthenticationPrincipal UserDetailsImpl userDetails, @RequestParam("file") MultipartFile file) {
+    public String changeAvatar(@AuthenticationPrincipal UserDetailsImpl userDetails, String avatarUrl) {
         System.out.println(userDetails.getUser().getId());
-        usersService.changeAvatar(userDetails.getUser().getId(), file);
+        usersService.changeAvatar(userDetails.getUser().getId(), avatarUrl);
         return "redirect:/profile/settings";
     }
 

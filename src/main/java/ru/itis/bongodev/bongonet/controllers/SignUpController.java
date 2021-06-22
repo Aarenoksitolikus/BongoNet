@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.bongodev.bongonet.dto.UserForm;
 import ru.itis.bongodev.bongonet.services.interfaces.SignUpService;
+import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
 
 import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
@@ -18,6 +19,9 @@ public class SignUpController {
 
     @Autowired
     private SignUpService signUpService;
+
+    @Autowired
+    private UsersService usersService;
 
     @PermitAll
     @GetMapping("/signup")
@@ -34,7 +38,8 @@ public class SignUpController {
             return "sign_up_page";
         }
         signUpService.signUp(form);
-        return "redirect:/auth";
+        var code = usersService.getUser(form.getUsername()).getConfirmCode();
+        return "redirect:/confirm/" + code;
     }
 
     @PermitAll

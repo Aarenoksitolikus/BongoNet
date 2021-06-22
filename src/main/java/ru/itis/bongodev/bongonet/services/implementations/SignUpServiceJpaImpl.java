@@ -38,13 +38,16 @@ public class SignUpServiceJpaImpl implements SignUpService {
     @Value("${spring.mail.username}")
     private String from;
 
+    @Value("${avatar.default}")
+    private String defaultAvatar;
+
     @Override
     public void signUp(UserForm userForm) {
         var newUser = User.builder()
                 .username(userForm.getUsername())
                 .email(userForm.getEmail())
                 .hashPassword(passwordEncoder.encode(userForm.getPassword()))
-                .avatar("/images/default-avatar.jpg")
+                .avatar(defaultAvatar)
                 .confirmCode(UUID.randomUUID().toString())
                 .role(User.Role.GUEST)
                 .state(User.State.NOT_CONFIRMED)

@@ -4,6 +4,7 @@ import freemarker.template.TemplateExceptionHandler;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.ClassRelativeResourceLoader;
 import org.springframework.ui.freemarker.SpringTemplateLoader;
@@ -16,6 +17,7 @@ import java.util.concurrent.Executors;
 public class ApplicationConfig {
 
     @Bean
+    @Scope()
     public freemarker.template.Configuration configuration() {
         freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_30);
         configuration.setDefaultEncoding("UTF-8");

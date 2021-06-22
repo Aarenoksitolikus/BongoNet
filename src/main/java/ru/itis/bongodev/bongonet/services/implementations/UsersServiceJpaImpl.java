@@ -11,10 +11,7 @@ import ru.itis.bongodev.bongonet.models.User;
 import ru.itis.bongodev.bongonet.repositories.ProfilesRepository;
 import ru.itis.bongodev.bongonet.repositories.UsersRepository;
 import ru.itis.bongodev.bongonet.services.interfaces.UsersService;
-import ru.itis.bongodev.bongonet.utils.FileDownloader;
 
-import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -29,15 +26,6 @@ public class UsersServiceJpaImpl implements UsersService {
 
     @Autowired
     private ProfilesRepository profilesRepository;
-
-    @Autowired
-    private FileDownloader fileDownloader;
-
-    @Value("${files.download.path}")
-    private String uploadPath;
-
-    @Value("${files.download.path.short}")
-    private String uploadPathShort;
 
     @Override
     public List<UserDto> getAllUsersDto() {
@@ -107,13 +95,9 @@ public class UsersServiceJpaImpl implements UsersService {
     }
 
     @Override
-    public void changeAvatar(Long id, MultipartFile avatar) {
-        String fileName = UUID.randomUUID().toString() + "-" + avatar.getOriginalFilename();
-        fileDownloader.download(avatar, uploadPath, fileName);
+    public void changeAvatar(Long id, String avatarUrl) {
         var current = getUser(id);
-        current.setAvatar(uploadPathShort + "/" + fileName);
+        current.setAvatar(avatarUrl);
         usersRepository.save(current);
-
-        System.out.println("from service: " + uploadPathShort);
     }
 }

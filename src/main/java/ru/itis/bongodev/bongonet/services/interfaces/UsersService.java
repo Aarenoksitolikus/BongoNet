@@ -21,5 +21,5 @@ public interface UsersService {
     void banUser(Long id);
     void updateUser(User user);
     void updateProfile(ProfileInfo profileInfo);
-    void changeAvatar(Long id, MultipartFile avatar);
+    void changeAvatar(Long id, String avatarUrl);
 }

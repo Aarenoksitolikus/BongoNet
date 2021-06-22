@@ -68,13 +68,12 @@
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                         </div>
-                                                        <form action="/profile/settings/avatar" method="post"
-                                                              enctype="multipart/form-data">
+                                                        <form action="/profile/settings/avatar" method="post">
                                                             <div class="modal-body">
                                                                 <input type="hidden" name="${_csrf.parameterName}"
                                                                        value="${_csrf.token}">
-                                                                <input type="file"
-                                                                       accept="image/*" name="file" id="newAw">
+                                                                <input type="text" class="form-control" name="avatarUrl"
+                                                                       placeholder="Вставьте сюда ссылку на картинку">
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <input type="submit" class="btn btn-outline-primary"
@@ -135,7 +134,7 @@
                                                             <input class="form-control" type="date" id="birthday"
                                                                    name="birthday" min="1900-01-01"
                                                                    max="${.now?date?string["yyyy-MM-dd"]}"
-                                                                   value="${birthday}">
+                                                                   lang="en" value="${birthday}">
                                                         </div>
                                                         <div class="form-group col">
                                                             <label for="sex">Gender</label>
