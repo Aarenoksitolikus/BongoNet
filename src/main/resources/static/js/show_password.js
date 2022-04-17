@@ -1,4 +1,4 @@
-$('body').on('click', '#password-control', function(){
+$('body').on('click', '#password-control', function () {
     const password = $('#password');
     if (password.attr('type') === 'password') {
         $(this).removeClass('fa-eye');

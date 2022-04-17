@@ -439,7 +439,7 @@ body {
 
 #about {
     overflow: hidden;
-    resize:none;
+    resize: none;
 }
 
 @media (max-width: 767px) {

@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ChatService {
     Chat getOrCreateChatByUsersIds(Long senderId, Long recipientId, boolean createIfNotExist);
+
     List<Chat> getAllChatsByUserId(Long userId);
 }

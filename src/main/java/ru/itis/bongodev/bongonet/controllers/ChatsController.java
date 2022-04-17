@@ -1,6 +1,7 @@
 package ru.itis.bongodev.bongonet.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -52,15 +53,15 @@ public class ChatsController {
 
         messagingTemplate.convertAndSendToUser(message.getRecipientId().toString(), "/queue/messages",
                 Message.builder()
-                .id(message.getId())
-                .senderId(message.getSenderId())
-                .senderUsername(message.getSenderUsername())
-                .recipientId(message.getRecipientId())
-                .recipientUsername(message.getRecipientUsername())
-                .content(message.getContent())
-                .sendDate(message.getSendDate())
-                .state(message.getState())
-                .build()
+                        .id(message.getId())
+                        .senderId(message.getSenderId())
+                        .senderUsername(message.getSenderUsername())
+                        .recipientId(message.getRecipientId())
+                        .recipientUsername(message.getRecipientUsername())
+                        .content(message.getContent())
+                        .sendDate(message.getSendDate())
+                        .state(message.getState())
+                        .build()
         );
     }
 

@@ -29,6 +29,6 @@ public class Post {
 
     private Timestamp publicationTime;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments;
 }

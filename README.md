@@ -1,4 +1,5 @@
-This is the educational repository of Maxim Ivanov, a student of the Institute of ITIS KFU. Here are the files of the project being implemented within the educational program of the ITIS Institute on the subject "Informatics".
+This is the educational repository of Maxim Ivanov, a student of the Institute of ITIS KFU. Here are the files of the
+project being implemented within the educational program of the ITIS Institute on the subject "Informatics".
 
 This project is my implementation of my term work.
 

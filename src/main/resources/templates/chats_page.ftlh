@@ -28,12 +28,12 @@
                 <div class="col-12 col-lg-5 col-xl-3 border-right">
 
                     <div class="px-4 border-bottom input-group">
-                        <#--                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">-->
                         <input type="text" id="user-search-name" name="username"
                                class="form-control rounded-corner my-3"
                                placeholder="Search"/>
                         <div class="input-group-append p-l-10" id="user-search">
-                            <button type="button" class="btn btn-outline-primary fa fa-search rounded-corner my-3"></button>
+                            <button type="button"
+                                    class="btn btn-outline-primary fa fa-search rounded-corner my-3"></button>
                         </div>
                     </div>
 

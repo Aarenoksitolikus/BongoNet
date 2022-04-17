@@ -17,11 +17,11 @@ public class EmailUtilImpl implements EmailUtil {
     private ExecutorService executorService;
 
     @Override
-    public void sendMail(String recipientAddress , String mailSubject, String senderAddress, String mailContent) {
+    public void sendMail(String recipientAddress, String mailSubject, String senderAddress, String mailContent) {
         executorService.submit(() -> javaMailSender.send(mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(senderAddress);
-            messageHelper.setTo(recipientAddress );
+            messageHelper.setTo(recipientAddress);
             messageHelper.setSubject(mailSubject);
             messageHelper.setText(mailContent, true);
         }));

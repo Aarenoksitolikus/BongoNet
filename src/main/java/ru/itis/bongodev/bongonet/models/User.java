@@ -25,7 +25,7 @@ public class User {
     private Date creationDate;
     private String avatar;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval=true)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @PrimaryKeyJoinColumn
     @Setter(AccessLevel.NONE)
     private Profile profile;

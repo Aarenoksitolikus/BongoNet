@@ -60,7 +60,7 @@ function sendMessage(msg, recipientId, recipientUsername) {
             sendDate: new Date()
         };
         stompClient.send("/app/chat", {}, JSON.stringify(message));
-        drawMessage(message.content, message.sendDate, "You",true);
+        drawMessage(message.content, message.sendDate, "You", true);
         scrollMessages();
     }
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://netdna.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles/sign_in_page_style.css">
     <link rel="icon" href="/images/favicon.ico"/>
@@ -33,10 +33,13 @@
                                 <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                 <input type="password" class="form-control" id="password" name="password"
                                        placeholder="Password">
-                                <span class="input-group-append"><button id="password-control" class="btn btn-light fa fa-eye" style="border: 1px solid #ced4da; border-left: none"></button></span>
+                                <span class="input-group-append"><button id="password-control"
+                                                                         class="btn btn-light fa fa-eye"
+                                                                         style="border: 1px solid #ced4da; border-left: none"></button></span>
                             </div>
                             <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="remember_me" name="remember_me"/>
+                                <input type="checkbox" class="custom-control-input" id="remember_me"
+                                       name="remember_me"/>
                                 <label class="custom-control-label" for="remember_me">Remember me</label>
                             </div>
                             <div class="row mt-2">

@@ -15,11 +15,11 @@ post.onblur = function () {
 }
 
 const url = 'https://bongonet.herokuapp.com/profile/'
-const data = { jopa: 'jopa'};
+const data = {jopa: 'jopa'};
 const data2 = new FormData(document.querySelector('form'));
 console.log(data2);
 
-const data3 = $('#form').serializeArray().reduce(function(obj, item) {
+const data3 = $('#form').serializeArray().reduce(function (obj, item) {
     obj[item.name] = item.value;
     return obj;
 }, {});

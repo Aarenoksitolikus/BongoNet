@@ -1,6 +1,7 @@
 package ru.itis.bongodev.bongonet.services.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.itis.bongodev.bongonet.models.Chat;
 import ru.itis.bongodev.bongonet.models.User;

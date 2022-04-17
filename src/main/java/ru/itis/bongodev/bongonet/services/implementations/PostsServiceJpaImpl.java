@@ -80,7 +80,7 @@ public class PostsServiceJpaImpl implements PostsService {
                 }
             }
             result.sort(Comparator.comparing(Post::getPublicationTime).reversed());
-            for (Post post: result) {
+            for (Post post : result) {
                 post.getComments().sort(Comparator.comparing(Comment::getPublicationTime));
             }
         }

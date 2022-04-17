@@ -12,14 +12,22 @@ import java.util.List;
 
 public interface UsersService {
     List<UserDto> getAllUsersDto();
+
     List<User> getAllUsers();
+
     User getUser(String username);
+
     User getUserByEmail(String email);
+
     User getUser(Long id);
 
     Profile getProfile(Long id);
+
     void banUser(Long id);
+
     void updateUser(User user);
+
     void updateProfile(ProfileInfo profileInfo);
+
     void changeAvatar(Long id, String avatarUrl);
 }
