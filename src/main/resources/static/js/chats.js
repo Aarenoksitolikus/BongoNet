@@ -26,6 +26,7 @@ window.onload = async function connect() {
             const url = "/get/chat/" + contactRows.item(i).id.replace("contact-", "") + "/" + currentUserId;
             let response = await fetch(url);
             document.getElementById("chat-partial").innerHTML = await response.text();
+            scrollMessages()
         });
     }
 }
